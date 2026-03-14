@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:23:12 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/07 16:43:48 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/14 13:16:43 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ static t_env	*create_env_node(char *key, char *value)
 	if (!new)
 		return (NULL);
 	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
+	if (!new->key)
+		return (free(new), NULL);
+	if (value)
+		new->value = ft_strdup(value);
+	else
+		new->value = NULL;
 	new->next = NULL;
 	return (new);
 }
@@ -36,7 +41,10 @@ void	add_or_update_env(t_shell *shell, char *key, char *value)
 		if (ft_strcmp(tmp->key, key) == 0)
 		{
 			free(tmp->value);
-			tmp->value = ft_strdup(value);
+			if (value)
+				tmp->value = ft_strdup(value);
+			else
+				tmp->value = NULL;
 			return ;
 		}
 		tmp = tmp->next;
@@ -48,27 +56,37 @@ void	add_or_update_env(t_shell *shell, char *key, char *value)
 	shell->env = new;
 }
 
-int	builtin_export(char **argv, t_shell *shell)
+static void	process_export_arg(t_shell *shell, char *arg)
 {
-	int		i;
 	char	*eq;
 	char	*key;
-	char	*value;
 
+	if (!is_valid_identifier(arg))
+	{
+		printf("export: `%s': not a valid identifier\n", arg);
+		return ;
+	}
+	eq = ft_strchr(arg, '=');
+	if (!eq)
+		add_or_update_env(shell, arg, NULL);
+	else
+	{
+		key = ft_substr(arg, 0, eq - arg);
+		add_or_update_env(shell, key, eq + 1);
+		free(key);
+	}
+}
+
+int	builtin_export(char **argv, t_shell *shell)
+{
+	int	i;
+
+	if (!argv[1])
+		return (print_export(shell));
 	i = 1;
 	while (argv[i])
 	{
-		eq = ft_strchr(argv[i], '=');
-		if (!eq)
-		{
-			i++;
-			continue ;
-		}
-		key = ft_substr(argv[i], 0, eq - argv[i]);
-		value = ft_strdup(eq + 1);
-		add_or_update_env(shell, key, value);
-		free(key);
-		free(value);
+		process_export_arg(shell, argv[i]);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/11 16:06:53 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/14 13:17:30 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char		*my_getenv(char *name, char **env);
 void		handle_signal(int sig);
 void		handle_signal2(int sig);
 void		expand_tree(t_node *node, t_shell *shell);
+int			is_valid_identifier(char *str);
+int			print_export(t_shell *shell);
 
 extern int	g_signal;
 
