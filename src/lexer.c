@@ -6,13 +6,16 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/14 18:56:28 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/14 18:59:51 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*	=====================================================	*/
+
+
+// Regrouper le cas des operateurs ensmbles et le cas des cmd dans un uatre pour qu 'il y ait que deux cas 
 
 
 void	lexer(t_token *lst_token, t_malloc *lst_malloc, char *line)
