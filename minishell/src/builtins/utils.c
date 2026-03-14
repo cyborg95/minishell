@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:15:21 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/14 13:20:00 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/14 14:52:29 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	is_valid_identifier(char *str)
 {
-	int	i;
+	int	in;
 
 	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
 		return (0);
-	i = 1;
-	while (str[i] && str[i] != '=')
+	in = 1;
+	while (str[in] && str[in] != '=')
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(str[in]) && str[in] != '_')
 			return (0);
-		i++;
+		in++;
 	}
 	return (1);
 }
