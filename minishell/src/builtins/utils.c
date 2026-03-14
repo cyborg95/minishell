@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:15:21 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/14 14:52:29 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:10:05 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_valid_identifier(char *str)
 	return (1);
 }
 
-int	print_export(t_shell *shell)
+int	printable_export(t_shell *shell)
 {
 	t_env	*tmp;
 

@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:23:12 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/14 13:16:43 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:09:37 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@ static void	process_export_arg(t_shell *shell, char *arg)
 
 int	builtin_export(char **argv, t_shell *shell)
 {
-	int	i;
+	int	in;
 
 	if (!argv[1])
-		return (print_export(shell));
-	i = 1;
-	while (argv[i])
+		return (printable_export(shell));
+	in = 1;
+	while (argv[in])
 	{
-		process_export_arg(shell, argv[i]);
-		i++;
+		process_export_arg(shell, argv[in]);
+		in++;
 	}
 	return (0);
 }
