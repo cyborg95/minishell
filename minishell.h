@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/14 18:20:10 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/15 14:39:27 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ void		*malloc_remix(size_t nb_octets, t_malloc *lst_malloc);
 
 bool		is_space(char c);
 bool		is_quote(char c);
+bool		is_operator(char c);
+int			ft_strlen(char *str);
 
 #endif

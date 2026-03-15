@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:56:13 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/14 18:19:36 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/15 14:53:10 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	is_space(char c)
 
 /*	==========================================	*/
 
-bool	is_quote(char c)
+bool	is_quote(char c, bool)
 {
 	if (c == '"' || c == '\'')
 		return (true);
@@ -31,3 +31,27 @@ bool	is_quote(char c)
 }
 
 /*	==========================================	*/
+
+bool	is_operator(char c)
+{
+	if (c == '|' || c == '>' || c == '<')
+		return (true);
+	return (false);
+}
+
+/*	==========================================	*/
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+/*	==========================================	*/
+
