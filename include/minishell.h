@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/16 00:58:47 by w                ###   ########.fr       */
+/*   Updated: 2026/03/17 12:22:17 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,41 @@ struct s_cmd
 	t_redir		*redir;
 	t_cmd		*next;
 };
+
+/*	======	Fonction Used	======	*/
+
+	/*	Lexing Functions	*/
+
+void		lexer(t_token **lst_token, t_malloc **lst_malloc, char *line);
+void		token_pipe(t_token **token_lst, t_malloc **lst_malloc);
+void		token_redir_in(t_token **token_lst, t_malloc **lst_malloc);
+void		token_redir_out(t_token **token_lst, t_malloc **lst_malloc);
+void		token_redir_heredeoc(t_token **token_lst, t_malloc **lst_malloc);
+void		token_operator(char *line, t_token **lst_token,
+				t_malloc **lst_malloc);
+void		token_append(t_token **token_lst, t_malloc **lst_malloc);
+
+	/*	Malloc Functions	*/
+
+void		clean_lst_malloc(t_malloc *lst_malloc);
+t_malloc	*create_node_malloc(void *address_malloc);
+void		add_malloc_in_lst(t_malloc **lst_malloc, t_malloc *malloc_node);
+void		*malloc_remix(size_t nb_octets, t_malloc **lst_malloc);
+
+	/*	Token Functions		*/
+
+void		clean_token(t_token **token_lst);
+t_token		*create_token(char *word, int type,
+				t_malloc **lst_malloc, t_token **token_lst);
+void		add_back_token_lst(t_token **token_lst, t_token *token);
+void		display_token(t_token *token_lst);
+
+	/*	Token Functions		*/
+
+bool		is_space(char c);
+bool		is_quote(char c);
+bool		is_operator(char c);
+int			ft_strlen(char *str);
+
 
 #endif

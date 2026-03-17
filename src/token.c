@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:51:44 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/14 17:51:07 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/17 14:04:42 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,53 +25,77 @@ struct s_token
 
 /*	================================================================	*/
 
-void	clean_token(t_token *token_lst)
+void	clean_token(t_token **token_lst)
 {
-	t_token	*next_token;
+	t_token	*tmp;
 
-	next_token = NULL;
-	if (!token_lst)
+	if (!token_lst || !(*token_lst))
 		return ;
-	while (token_lst)
+	while (*token_lst)
 	{
-		next_token = token_lst->next;
-		free (token_lst->word);
-		token_lst->word = NULL;
-		token_lst = next_token;
+		tmp = (*token_lst)->next;
+		free ((*token_lst)->word);
+		(*token_lst)->word = NULL;
+		(*token_lst)->next = NULL;
+		free ((*token_lst));
+		*token_lst = tmp;
+	}
+	(*token_lst) = NULL;
+}
+
+/*	================================================================	*/
+
+void	add_back_token_lst(t_token **token_lst, t_token *token)
+{
+	t_token	*tmp;
+
+	if (!token_lst || !token)
+		return ;
+	tmp = *token_lst;
+	if ((*token_lst) == NULL)
+		(*token_lst) = token;
+	else
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = token;
 	}
 	return ;
 }
 
 /*	================================================================	*/
 
-t_token	*create_token(t_token *token_lst, char *word, int type)
+t_token	*create_token(char *word, int type,
+	t_malloc **lst_malloc, t_token **token_lst)
 {
 	t_token	*token;
 
-	if (!token_lst)
+	if (!word || !lst_malloc)
 		return (NULL);
-	token = malloc (sizeof(t_token));
-	if (!token)
-		return (NULL);
+	token = malloc_remix (sizeof(t_token), lst_malloc);
 	token->next = NULL;
 	token->type = type;
 	token->word = word;
+	add_back_token_lst (token_lst, token);
 	return (token);
 }
 
 /*	================================================================	*/
 
-void	add_back_token_lst(t_token *token_lst, t_token *token)
+void	display_token(t_token *token_lst)
 {
-	t_token	*tmp;
+	int	i;
 
-	if (!token_lst || !token)
+	if (!token_lst)
 		return ;
-	tmp = token_lst;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = token;
-	return ;
+	i = 0;
+	while (token_lst)
+	{
+		++i;
+		printf ("Token numero %d\n\tWord: %s\n\tType: %d\n\t Adresse: %p\n", i,
+			token_lst->word, token_lst->type, token_lst);
+		token_lst = token_lst->next;
+	}
 }
 
 /*	================================================================	*/

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/15 16:07:06 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/17 12:40:00 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,92 +14,88 @@
 
 /*	=====================================================	*/
 
-
-// Regrouper le cas des operateurs ensmbles et le cas des cmd dans un uatre pour qu 'il y ait que deux cas 
-
-
-void	lexer(t_token *lst_token, t_malloc *lst_malloc, char *line)
+static void	maj_quote(char c, bool *in_quote, char *quote)
 {
-	while (*line)
+	*quote = c;
+	*in_quote = true;
+}
+
+static char	*extract_word(char **line, char *word)
+{
+	int		i;
+	char	quote;
+	bool	in_quote;
+
+	if (!line)
+		return (NULL);
+	i = 0;
+	in_quote = false;
+	while (*line[0])
 	{
-		
+		if (is_quote(*line[0]) && in_quote == false)
+		{
+			maj_quote (*line[0], &in_quote, &quote);
+			(*line)++;
+		}
+		if ((is_quote(*line[0]) && *line[0] == quote) || is_space (*line[0])
+			|| is_operator (*line[0]))
+			break ;
+		word[i++] = (*line[0]);
+		(*line)++;
 	}
+	word[i] = '\0';
+	return (word);
 }
 
 /*	=====================================================	*/
 
-void	token_pipe(t_token *token_lst)
+void	lexer(t_token **lst_token, t_malloc **lst_malloc, char *line)
+{
+	char	*word;
+	int		i;
+
+	if (!lst_token || !lst_malloc || !line)
+		return ;
+	word = malloc_remix (ft_strlen(line), lst_malloc);
+	i = 0;
+	while (*line)
+	{
+		while (is_space (*line))
+			line++;
+		if (!line)
+			break ;
+		if (is_operator (*line))
+		{
+			token_operator (line, lst_token, lst_malloc);
+			line++;
+		}
+		else
+		{
+			word = extract_word (&line, word);
+			create_token (word, WORD, lst_malloc, lst_token);
+		}
+	}
+}
+/*	=====================================================	*/
+
+void	token_pipe(t_token **token_lst, t_malloc **lst_malloc)
 {
 	t_token	*token_pipe;
 
-	if (!token_lst)
+	if (!token_lst || !(*token_lst) || !lst_malloc || !(*lst_malloc))
 		return ;
-	token_pipe = create_token (token_lst, NULL, PIPE);
-	add_back_token_lst (token_lst, token_pipe);
+	token_pipe = create_token (NULL, PIPE, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
 
-void	token_redir_in(t_token *token_lst)
+void	token_redir_in(t_token **token_lst, t_malloc **lst_malloc)
 {
 	t_token	*token_redir_in;
 
 	if (!token_lst)
 		return ;
-	token_redir_in = create_token (token_lst, NULL, REDIR_IN);
-	add_back_token_lst (token_lst, token_redir_in);
+	token_redir_in = create_token (NULL, REDIR_IN, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
-
-void	token_redir_out(t_token *token_lst)
-{
-	t_token	*token_redir_out;
-
-	if (!token_lst)
-		return ;
-	token_redir_out = create_token (token_lst, NULL, REDIR_OUT);
-	add_back_token_lst (token_lst, token_redir_out);
-}
-
-/*	=====================================================	*/
-
-void	token_redir_herdeoc(t_token *token_lst)
-{
-	t_token	*token_redir_heredoc;
-
-	if (!token_lst)
-		return ;
-	token_redir_heredoc = create_token (token_lst, NULL, HEREDOC);
-	add_back_token_lst (token_lst, token_redir_heredoc);
-}
-
-/*	=====================================================	*/
-
-void	token_operator(char *line, t_token *lst_token, t_malloc *lst_malloc)
-{
-	int	i;
-	int	len_str;
-
-	if (!lst_token)
-		return ;
-	i = 0;
-	len_str = ft_strlen (line);
-
-	if (line == '|')
-		return (token_pipe (lst_token));
-	if ((i + 1) < len_str)
-	{
-		if (line[i] == '<' && line[i + 1] == '<')
-			return (token_heredoc (lst_token));
-		else if (line[i] == '>' && line[i + 1] == '>')
-			return (token_append (lst_token));
-		else if (line[i] == '<')
-			return (token_redir_in (lst_token));
-		else if (line[i] == '>')
-			return (token_redir_out (lst_token));
-	}
-	printf ("minishell> syntax error near unexpected token `newline'");
-	return (clean_token (lst_token), clean_lst_malloc (lst_malloc),
-		exit (2));
-}

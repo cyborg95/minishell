@@ -6,7 +6,7 @@
 #    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/03/14 16:37:41 by wngambi          ###   ########.fr        #
+#    Updated: 2026/03/17 10:49:57 by wngambi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,9 @@ NAME	=	minishell
 HEADER	=	$(HEADER_DIR)/minishell.h
 
 SRC	=	$(SRC_DIR)/lexer.c \
+		$(SRC_DIR)/lexer2.c \
 		$(SRC_DIR)/malloc.c \
+		$(SRC_DIR)/token.c \
 		$(SRC_DIR)/tools.c \
 		main.c
 

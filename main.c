@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/14 18:02:28 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/17 12:28:22 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ int	main(void)
 	while (1)
 	{
 		line = readline ("minishell> ");
-		printf ("%s\n", line);
+		if (!line)
+			break ;
+		lexer (&token_list, &malloc_lst, line);
 	}
+	display_token (token_list);
+	clean_lst_malloc (malloc_lst);
+	clean_token (&token_list);
 	return (0);
 }
 
