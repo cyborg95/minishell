@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:51:44 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/17 14:04:42 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:34:27 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_token	*create_token(char *word, int type,
 {
 	t_token	*token;
 
-	if (!word || !lst_malloc)
+	if (!lst_malloc)
 		return (NULL);
 	token = malloc_remix (sizeof(t_token), lst_malloc);
 	token->next = NULL;

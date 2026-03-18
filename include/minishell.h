@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/17 12:22:17 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/18 17:52:49 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ t_token		*create_token(char *word, int type,
 void		add_back_token_lst(t_token **token_lst, t_token *token);
 void		display_token(t_token *token_lst);
 
-	/*	Token Functions		*/
+	/*	Tools Functions		*/
 
 bool		is_space(char c);
 bool		is_quote(char c);
 bool		is_operator(char c);
 int			ft_strlen(char *str);
-
+char		*ft_strdup(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/17 12:40:00 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:15:37 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,16 @@ static char	*extract_word(char **line, char *word)
 			maj_quote (*line[0], &in_quote, &quote);
 			(*line)++;
 		}
-		if ((is_quote(*line[0]) && *line[0] == quote) || is_space (*line[0])
-			|| is_operator (*line[0]))
+		if ((is_quote(*line[0]) && *line[0] == quote) || (is_space (*line[0]) 
+				&& !in_quote) || is_operator (*line[0]))
+		{
+			(*line)++;
 			break ;
+		}
 		word[i++] = (*line[0]);
 		(*line)++;
 	}
-	word[i] = '\0';
-	return (word);
+	return (word[i] = '\0', word);
 }
 
 /*	=====================================================	*/
@@ -72,7 +74,7 @@ void	lexer(t_token **lst_token, t_malloc **lst_malloc, char *line)
 		else
 		{
 			word = extract_word (&line, word);
-			create_token (word, WORD, lst_malloc, lst_token);
+			create_token (ft_strdup (word), WORD, lst_malloc, lst_token);
 		}
 	}
 }
@@ -82,7 +84,7 @@ void	token_pipe(t_token **token_lst, t_malloc **lst_malloc)
 {
 	t_token	*token_pipe;
 
-	if (!token_lst || !(*token_lst) || !lst_malloc || !(*lst_malloc))
+	if (!token_lst || !lst_malloc)
 		return ;
 	token_pipe = create_token (NULL, PIPE, lst_malloc, token_lst);
 }
