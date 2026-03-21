@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 19:58:37 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 20:17:11 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(void)
 	while (1)
 	{
 		line = readline ("minishell> ");
-		if (!line)
+		if (!line || ft_strcmp(line, EXIT))
 			break ;
 		while (!are_quotes_closed(line))
 			handle_unclosed_quote (&line, &malloc_lst);

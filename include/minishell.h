@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 19:48:07 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 20:17:46 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 /*	======	Macro Used	======	*/
+
+# define EXIT "exit"
 
 /*	======	Library Used	======	*/
 
@@ -128,5 +130,6 @@ bool		is_operator(char c);
 int			ft_strlen(char *str);
 char		*ft_strdup(char *str, t_malloc **lst_malloc);
 char		*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc);
+bool		ft_strcmp(char *s1, char *s2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 18:05:21 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 19:36:19 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 20:15:26 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*ft_strdup(char *str, t_malloc **lst_malloc)
 
 /*	=======================================================================	*/
 
+// Operationnel on revient pas dessus
 char	*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc)
 {
 	char	*tmp;
@@ -79,7 +80,6 @@ char	*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc)
 	return (tmp);
 }
 
-/*	=======================================================================	*/
 /*
 int	main(int ac, char **av)
 {
@@ -93,6 +93,36 @@ int	main(int ac, char **av)
 		printf ("La chaine est NULL !\n");
 	else
 		printf ("%s\n", tmp);
+	return (0);
+}
+*/
+
+/*	=======================================================================	*/
+
+// Operationnel on revient pas dessus
+bool	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i])
+	{
+		if (s1[i] != s2[i])
+			return (false);
+		i++;
+	}
+	if (s1[i] == s2[i])
+		return (true);
+	return (false);
+}
+/*
+int	main(int ac, char **av)
+{
+	(void)ac;
+	if (ft_strcmp (av[1], av[2]))
+		printf ("Les deux strings sont identiques !\n");
+	else
+		printf ("Pas identiques !\n");
 	return (0);
 }
 */
