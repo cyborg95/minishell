@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/17 12:28:22 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 14:09:35 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	main(void)
 		if (!line)
 			break ;
 		lexer (&token_list, &malloc_lst, line);
+		free (line);
 	}
 	display_token (token_list);
 	clean_lst_malloc (malloc_lst);
-	clean_token (&token_list);
 	return (0);
 }
 

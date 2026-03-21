@@ -6,12 +6,14 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/18 17:52:49 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 15:46:38 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+/*	======	Macro Used	======	*/
 
 /*	======	Library Used	======	*/
 
@@ -85,13 +87,12 @@ void		clean_lst_malloc(t_malloc *lst_malloc);
 t_malloc	*create_node_malloc(void *address_malloc);
 void		add_malloc_in_lst(t_malloc **lst_malloc, t_malloc *malloc_node);
 void		*malloc_remix(size_t nb_octets, t_malloc **lst_malloc);
+void		display_lst_malloc(t_malloc *lst_malloc);
 
 	/*	Token Functions		*/
 
-void		clean_token(t_token **token_lst);
 t_token		*create_token(char *word, int type,
 				t_malloc **lst_malloc, t_token **token_lst);
-void		add_back_token_lst(t_token **token_lst, t_token *token);
 void		display_token(t_token *token_lst);
 
 	/*	Tools Functions		*/
@@ -100,6 +101,6 @@ bool		is_space(char c);
 bool		is_quote(char c);
 bool		is_operator(char c);
 int			ft_strlen(char *str);
-char		*ft_strdup(char *str);
+char		*ft_strdup(char *str, t_malloc **lst_malloc);
 
 #endif

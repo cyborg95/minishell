@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:56:13 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/18 17:53:21 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 14:13:16 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*	==========================================	*/
 
+// Operationnel on revient pas dessus
 bool	is_space(char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
@@ -23,6 +24,7 @@ bool	is_space(char c)
 
 /*	==========================================	*/
 
+// Operationnel on revient pas dessus
 bool	is_quote(char c)
 {
 	if (c == '"' || c == '\'')
@@ -32,6 +34,7 @@ bool	is_quote(char c)
 
 /*	==========================================	*/
 
+// Operationnel on revient pas dessus
 bool	is_operator(char c)
 {
 	if (c == '|' || c == '>' || c == '<')
@@ -41,6 +44,7 @@ bool	is_operator(char c)
 
 /*	==========================================	*/
 
+// Operationnel on revient pas dessus
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -55,7 +59,8 @@ int	ft_strlen(char *str)
 
 /*	==========================================	*/
 
-char	*ft_strdup(char *str)
+// Operationnel on revient pas dessus
+char	*ft_strdup(char *str, t_malloc **lst_malloc)
 {
 	char	*word;
 	int		size;
@@ -64,7 +69,7 @@ char	*ft_strdup(char *str)
 	if (!str)
 		return (NULL);
 	size = ft_strlen (str);
-	word = malloc(sizeof(char) * (size + 1));
+	word = malloc_remix (sizeof(char) * (size + 1), lst_malloc);
 	if (!word)
 		return (NULL);
 	i = 0;
@@ -76,3 +81,5 @@ char	*ft_strdup(char *str)
 	word[i] = '\0';
 	return (word);
 }
+
+/*	==========================================	*/

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:28:38 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/19 12:16:37 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 11:49:28 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ void	token_operator(char *line, t_token **lst_token, t_malloc **lst_malloc)
 		else if (*line == '>')
 			return (token_redir_out (lst_token, lst_malloc));
 	}
-	printf ("minishell> syntax error near unexpected token `newline'");
-	return (clean_token (lst_token), clean_lst_malloc (*lst_malloc),
-		exit (2));
+	return ;
 }
 
 /*	=====================================================	*/

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:51:44 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/18 18:34:27 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 14:16:54 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,8 @@ struct s_token
 
 /*	================================================================	*/
 
-void	clean_token(t_token **token_lst)
-{
-	t_token	*tmp;
-
-	if (!token_lst || !(*token_lst))
-		return ;
-	while (*token_lst)
-	{
-		tmp = (*token_lst)->next;
-		free ((*token_lst)->word);
-		(*token_lst)->word = NULL;
-		(*token_lst)->next = NULL;
-		free ((*token_lst));
-		*token_lst = tmp;
-	}
-	(*token_lst) = NULL;
-}
-
-/*	================================================================	*/
-
-void	add_back_token_lst(t_token **token_lst, t_token *token)
+// Operationnel on revient pas dessus
+static void	add_back_token_lst(t_token **token_lst, t_token *token)
 {
 	t_token	*tmp;
 
@@ -65,6 +46,7 @@ void	add_back_token_lst(t_token **token_lst, t_token *token)
 
 /*	================================================================	*/
 
+// Operationnel on revient pas dessus
 t_token	*create_token(char *word, int type,
 	t_malloc **lst_malloc, t_token **token_lst)
 {
@@ -82,6 +64,7 @@ t_token	*create_token(char *word, int type,
 
 /*	================================================================	*/
 
+// Operationnel on revient pas dessus
 void	display_token(t_token *token_lst)
 {
 	int	i;
