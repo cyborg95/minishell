@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 14:09:35 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 19:58:37 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	main(void)
 		line = readline ("minishell> ");
 		if (!line)
 			break ;
+		while (!are_quotes_closed(line))
+			handle_unclosed_quote (&line, &malloc_lst);
 		lexer (&token_list, &malloc_lst, line);
 		free (line);
 	}
@@ -36,3 +38,4 @@ int	main(void)
 }
 
 /*	=====================================================	*/
+

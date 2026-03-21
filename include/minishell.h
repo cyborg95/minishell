@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 15:46:38 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 19:48:07 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include <stdbool.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <readline/readline.h>
 
 /*	======	Enumeration Used	======	*/
@@ -68,9 +69,31 @@ struct s_cmd
 	t_cmd		*next;
 };
 
+typedef struct s_command
+{
+	char	**args;
+	char	*input;
+	char	*output;
+	int		append;
+	int		heredoc;
+
+}	t_command;
+
+typedef struct s_pipeline
+{
+	t_command	*commands;
+	int			nb_commands;
+}	t_pipeline;
+
 /*	======	Fonction Used	======	*/
 
 	/*	Lexing Functions	*/
+
+bool		are_quotes_closed(char *line);
+void		handle_unclosed_quote(char **line, t_malloc **lst_malloc);
+
+
+
 
 void		lexer(t_token **lst_token, t_malloc **lst_malloc, char *line);
 void		token_pipe(t_token **token_lst, t_malloc **lst_malloc);
@@ -99,8 +122,11 @@ void		display_token(t_token *token_lst);
 
 bool		is_space(char c);
 bool		is_quote(char c);
+bool		is_single_quote(char c);
+bool		is_double_quote(char c);
 bool		is_operator(char c);
 int			ft_strlen(char *str);
 char		*ft_strdup(char *str, t_malloc **lst_malloc);
+char		*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc);
 
 #endif

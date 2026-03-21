@@ -6,11 +6,40 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 15:42:16 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/21 19:51:19 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	are_quotes_closed(char *line)
+{
+	bool	squote;
+	bool	dquote;
+
+	squote = false;
+	dquote = false;
+	if (!line && !(*line))
+		return (false);
+	while (*line)
+	{
+		if (is_quote (*line))
+		{
+			if (is_double_quote(*line) && dquote == false)
+				dquote = true;
+			else if (is_double_quote(*line) && dquote == true)
+				dquote = false;
+			else if (is_single_quote(*line) && squote == false)
+				squote = true;
+			else if (is_single_quote(*line) && squote == true)
+				squote = false;
+		}
+		line++;
+	}
+	if (squote == false && dquote == false)
+		return (true);
+	return (false);
+}
 
 /*	=====================================================	*/
 
@@ -29,27 +58,54 @@ static void	maj_quote(char c, bool *s_quote, bool *d_quote)
 		*d_quote = false;
 }
 
-static char	*extract_word(char **line, char *word)
+/*	=====================================================	*/
+
+void	handle_unclosed_quote(char **line, t_malloc **lst_malloc)
+{
+	char	*next_line;
+	char	*tmp;
+
+	if (!line)
+		return ;
+	next_line = readline ("> ");
+	if (!next_line)
+		return ;
+	tmp = ft_strjoin (*line, next_line, lst_malloc);
+	free (next_line);
+	if (*line)
+		free (*line);
+	(*line) = tmp;
+}
+
+/*	=====================================================	*/
+
+static char	*extract_word(char **line, char *word, t_malloc **lst_malloc)
 {
 	int		i;
-	bool	s_quote;
-	bool	d_quote;
+	bool	in_squote;
+	bool	in_dquote;
 
-	s_quote = false;
-	d_quote = false;
+	in_squote = false;
+	in_dquote = false;
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (**line)
+	while (1)
 	{
-		if (is_quote(**line))
-			maj_quote (**line, &s_quote, &d_quote);
-		else if (is_space (**line) && !s_quote && !d_quote)
+		while (**line)
+		{
+			if (is_quote(**line))
+				maj_quote (**line, &in_squote, &in_dquote);
+			else if (is_space (**line) && !in_squote && !in_dquote)
+				break ;
+			else if ((is_operator (**line) && !in_squote && !in_dquote))
+				break ;
+			word[i++] = (**line);
+			(*line)++;
+		}
+		if (!in_dquote && !in_squote)
 			break ;
-		else if ((is_operator (**line) && !s_quote && !d_quote))
-			break ;
-		word[i++] = (**line);
-		(*line)++;
+		handle_unclosed_quote(line,lst_malloc);
 	}
 	return (word[i] = '\0', word);
 }
@@ -59,12 +115,10 @@ static char	*extract_word(char **line, char *word)
 void	lexer(t_token **lst_token, t_malloc **lst_malloc, char *line)
 {
 	char	*word;
-	int		i;
 
 	if (!lst_token || !lst_malloc || !line)
 		return ;
 	word = malloc_remix ((ft_strlen(line) + 1) * sizeof(char), lst_malloc);
-	i = 0;
 	while (*line)
 	{
 		while (is_space (*line))
@@ -78,7 +132,7 @@ void	lexer(t_token **lst_token, t_malloc **lst_malloc, char *line)
 		}
 		else
 		{
-			word = extract_word (&line, word);
+			word = extract_word (&line, word, lst_malloc);
 			create_token (ft_strdup (word, lst_malloc),
 				WORD, lst_malloc, lst_token);
 		}
@@ -88,22 +142,18 @@ void	lexer(t_token **lst_token, t_malloc **lst_malloc, char *line)
 
 void	token_pipe(t_token **token_lst, t_malloc **lst_malloc)
 {
-	t_token	*token_pipe;
-
 	if (!token_lst || !lst_malloc)
 		return ;
-	token_pipe = create_token (NULL, PIPE, lst_malloc, token_lst);
+	create_token (NULL, PIPE, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
 
 void	token_redir_in(t_token **token_lst, t_malloc **lst_malloc)
 {
-	t_token	*token_redir_in;
-
 	if (!token_lst)
 		return ;
-	token_redir_in = create_token (NULL, REDIR_IN, lst_malloc, token_lst);
+	create_token (NULL, REDIR_IN, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
