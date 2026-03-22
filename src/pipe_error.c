@@ -1,0 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_error.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/22 16:12:16 by wngambi           #+#    #+#             */
+/*   Updated: 2026/03/22 18:34:21 by wngambi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+/*	Checker les pipes	
+
+	Si le pipe est au debut == CARRE
+	SI on envoi un pipe seul apres un premier mot valide ==  CARRE
+	Si le pipe est a la fin on doit faire un multiligne	== CARRE
+	Si il y'a deux pipes consecutifs == CARRE
+*/
+
+/*	====================================================	*/
+
+static bool	is_pipe_first(t_token *lst_token)
+{
+	if (!lst_token)
+		return (false);
+	if (lst_token->type == PIPE)
+		return (true);
+	else
+		return (false);
+}
+
+/*	====================================================	*/
+
+static bool	is_pipe_last(t_token *lst_token)
+{
+	if (!lst_token)
+		return (false);
+	while (lst_token->next != NULL)
+		lst_token = lst_token->next;
+	if (lst_token->type == PIPE)
+		return (true);
+	else
+		return (false);
+
+}
+
+/*	====================================================	*/
+
+static bool	consecutive_pipe(t_token *lst_token)
+{
+	if (!lst_token)
+		return (false);
+	while (lst_token)
+	{
+		if (lst_token->type == PIPE)
+		{
+			if (lst_token->next)
+			{
+				if (lst_token->next->type == PIPE)
+					return (true);
+			}
+		}
+		lst_token = lst_token->next;
+	}
+	return (false);
+}
+
+/*	====================================================	*/
+
+bool	check_pipe(t_token *lst_token, const char *prompt,
+	char **line, t_malloc **lst_malloc)
+{
+
+	if (is_pipe_first (lst_token) || consecutive_pipe (lst_token))
+	{
+		printf ("%ssyntax error near unexpected token `|'\n", prompt);
+		return (false);
+	}
+	else if (is_pipe_last (lst_token))
+		handle_multiligne_case (line, lst_malloc);
+	return (true);
+}
+
+
+/*	====================================================	*/

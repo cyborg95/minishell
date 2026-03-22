@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/22 16:02:31 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/22 18:31:33 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	main(void)
 	t_token		*token_list;
 	t_malloc	*malloc_lst;
 
-	token_list = NULL;
 	malloc_lst = NULL;
 	while (1)
 	{
-		line = remix_readline ("minishell> ", &malloc_lst);
+		token_list = NULL;
+		line = remix_readline (PROMPT, &malloc_lst);
 		if (!line)
 			break ;
 		if (ft_strcmp(line, EXIT))
@@ -37,11 +37,12 @@ int	main(void)
 		while (!are_quotes_closed(line) || ends_with_backslash (line))
 			handle_multiligne_case (&line, &malloc_lst);
 		lexer (&token_list, &malloc_lst, &line);
+		check_syntax (&token_list, PROMPT, &line, &malloc_lst);
 	}
-	display_token (token_list);
 	clean_lst_malloc (malloc_lst);
 	return (0);
 }
 
 /*	=====================================================	*/
 
+// display_token (token_list);
