@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 20:17:46 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/22 16:01:01 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,17 @@ typedef struct s_pipeline
 	/*	Lexing Functions	*/
 
 bool		are_quotes_closed(char *line);
-void		handle_unclosed_quote(char **line, t_malloc **lst_malloc);
+void		handle_multiligne_case(char **line, t_malloc **lst_malloc);
 
 
 
 
-void		lexer(t_token **lst_token, t_malloc **lst_malloc, char *line);
+void		lexer(t_token **lst_token, t_malloc **lst_malloc, char **line);
 void		token_pipe(t_token **token_lst, t_malloc **lst_malloc);
 void		token_redir_in(t_token **token_lst, t_malloc **lst_malloc);
 void		token_redir_out(t_token **token_lst, t_malloc **lst_malloc);
 void		token_redir_heredeoc(t_token **token_lst, t_malloc **lst_malloc);
-void		token_operator(char *line, t_token **lst_token,
+void		token_operator(char **line, t_token **lst_token,
 				t_malloc **lst_malloc);
 void		token_append(t_token **token_lst, t_malloc **lst_malloc);
 
@@ -131,5 +131,9 @@ int			ft_strlen(char *str);
 char		*ft_strdup(char *str, t_malloc **lst_malloc);
 char		*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc);
 bool		ft_strcmp(char *s1, char *s2);
+char		*remix_readline(const char	*prompt, t_malloc **lst_malloc);
+bool		is_back_slash(char c);
+bool		ends_with_backslash(char *line);
+
 
 #endif

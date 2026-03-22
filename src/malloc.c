@@ -6,9 +6,11 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:12:13 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 13:38:45 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/22 13:47:19 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 
@@ -32,8 +34,10 @@ void	clean_lst_malloc(t_malloc *lst_malloc)
 	while (lst_malloc != NULL)
 	{
 		next_malloc = lst_malloc->next;
-		free (lst_malloc->adress_malloc);
-		free (lst_malloc);
+		if (lst_malloc->adress_malloc)
+			free (lst_malloc->adress_malloc);
+		if (lst_malloc)
+			free (lst_malloc);
 		lst_malloc = next_malloc;
 	}
 	return ;

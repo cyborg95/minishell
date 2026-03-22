@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 19:51:19 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/22 16:00:41 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,10 @@ bool	are_quotes_closed(char *line)
 	{
 		if (is_quote (*line))
 		{
-			if (is_double_quote(*line) && dquote == false)
-				dquote = true;
-			else if (is_double_quote(*line) && dquote == true)
-				dquote = false;
-			else if (is_single_quote(*line) && squote == false)
-				squote = true;
-			else if (is_single_quote(*line) && squote == true)
-				squote = false;
+			if (is_single_quote (*line) && dquote == false)
+				squote = !squote;
+			else if (is_double_quote(*line) && squote == false)
+				dquote = !dquote;
 		}
 		line++;
 	}
@@ -60,26 +56,33 @@ static void	maj_quote(char c, bool *s_quote, bool *d_quote)
 
 /*	=====================================================	*/
 
-void	handle_unclosed_quote(char **line, t_malloc **lst_malloc)
+void	handle_multiligne_case(char **line, t_malloc **lst_malloc)
 {
 	char	*next_line;
 	char	*tmp;
 
 	if (!line)
 		return ;
-	next_line = readline ("> ");
+	next_line = remix_readline ("> ", lst_malloc);
 	if (!next_line)
 		return ;
 	tmp = ft_strjoin (*line, next_line, lst_malloc);
-	free (next_line);
-	if (*line)
-		free (*line);
 	(*line) = tmp;
 }
 
 /*	=====================================================	*/
 
-static char	*extract_word(char **line, char *word, t_malloc **lst_malloc)
+void	back_slash_case(char **line, char *word)
+{
+	if (!line || !*line)
+		return ;
+	(*line)++;
+	if (**line)
+		*word = **line;
+	(*line)++;
+}
+
+static char	*extract_word(char **line, char *word)
 {
 	int		i;
 	bool	in_squote;
@@ -90,49 +93,43 @@ static char	*extract_word(char **line, char *word, t_malloc **lst_malloc)
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (1)
+	while (**line)
 	{
-		while (**line)
-		{
-			if (is_quote(**line))
-				maj_quote (**line, &in_squote, &in_dquote);
-			else if (is_space (**line) && !in_squote && !in_dquote)
-				break ;
-			else if ((is_operator (**line) && !in_squote && !in_dquote))
-				break ;
-			word[i++] = (**line);
-			(*line)++;
-		}
-		if (!in_dquote && !in_squote)
+		if (is_quote(**line))
+			maj_quote (**line, &in_squote, &in_dquote);
+		else if (is_space (**line) && !in_squote && !in_dquote)
 			break ;
-		handle_unclosed_quote(line,lst_malloc);
+		else if ((!in_squote && !in_dquote) && (is_operator (**line)
+				|| is_space (**line) || (**line == '\0')))
+			break ;
+		else if (**line == '\\' && !in_squote)
+			back_slash_case(line, &word[i++]);
+		word[i++] = (**line);
+		(*line)++;
 	}
 	return (word[i] = '\0', word);
 }
 
 /*	=====================================================	*/
 
-void	lexer(t_token **lst_token, t_malloc **lst_malloc, char *line)
+void	lexer(t_token **lst_token, t_malloc **lst_malloc, char **line)
 {
 	char	*word;
 
 	if (!lst_token || !lst_malloc || !line)
 		return ;
-	word = malloc_remix ((ft_strlen(line) + 1) * sizeof(char), lst_malloc);
-	while (*line)
+	word = malloc_remix ((ft_strlen(*line) + 1) * sizeof(char), lst_malloc);
+	while (**line)
 	{
-		while (is_space (*line))
-			line++;
-		if (!line)
+		while (is_space (**line))
+			(*line)++;
+		if (!*line)
 			break ;
-		if (is_operator (*line))
-		{
+		if (is_operator (**line))
 			token_operator (line, lst_token, lst_malloc);
-			line++;
-		}
 		else
 		{
-			word = extract_word (&line, word, lst_malloc);
+			word = extract_word (line, word);
 			create_token (ft_strdup (word, lst_malloc),
 				WORD, lst_malloc, lst_token);
 		}

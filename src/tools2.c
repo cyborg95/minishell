@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 18:05:21 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 20:15:26 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/22 15:38:14 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ char	*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc)
 	else if (line && !new_line)
 		return (line);
 	if (!line && new_line)
-		line = ft_strdup (line, lst_malloc);
+	{
+		line = ft_strdup (new_line, lst_malloc);
+		return (line);
+	}
 	total_size = ft_strlen (line) + ft_strlen (new_line);
 	tmp = malloc_remix (sizeof(char) * (total_size + 1), lst_malloc);
 	i = -1;
@@ -126,3 +129,20 @@ int	main(int ac, char **av)
 	return (0);
 }
 */
+
+/*	=====================================================	*/
+
+char	*remix_readline(const char	*prompt, t_malloc **lst_malloc)
+{
+	char		*line;
+	t_malloc	*node;
+
+	if (!prompt || ! lst_malloc)
+		return (NULL);
+	line = readline (prompt);
+	node = create_node_malloc (line);
+	add_malloc_in_lst (lst_malloc, node);
+	return (line);
+}
+
+/*	=====================================================	*/

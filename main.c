@@ -6,13 +6,18 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/21 20:17:11 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/22 16:02:31 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+// Gerer le double free == CARRE
+// Paufiner la detection des quotes non fermees == CARRE
+// Coriger les quotes dans extrract word == CARRE
+// Gerer le cas des doubles oeprateurs == CARRE
+// Gerer le cas du backslash == CARRE
+// Gerer le cas du backslah en derneir caractere qui refait un promt == CARRE
 
-/*	=====================================================	*/
+#include "minishell.h"
 
 int	main(void)
 {
@@ -24,13 +29,14 @@ int	main(void)
 	malloc_lst = NULL;
 	while (1)
 	{
-		line = readline ("minishell> ");
-		if (!line || ft_strcmp(line, EXIT))
+		line = remix_readline ("minishell> ", &malloc_lst);
+		if (!line)
 			break ;
-		while (!are_quotes_closed(line))
-			handle_unclosed_quote (&line, &malloc_lst);
-		lexer (&token_list, &malloc_lst, line);
-		free (line);
+		if (ft_strcmp(line, EXIT))
+			break ;
+		while (!are_quotes_closed(line) || ends_with_backslash (line))
+			handle_multiligne_case (&line, &malloc_lst);
+		lexer (&token_list, &malloc_lst, &line);
 	}
 	display_token (token_list);
 	clean_lst_malloc (malloc_lst);

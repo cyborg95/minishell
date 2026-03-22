@@ -6,7 +6,7 @@
 #    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/03/21 18:20:24 by wngambi          ###   ########.fr        #
+#    Updated: 2026/03/22 15:39:04 by wngambi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ SRC	=	$(SRC_DIR)/lexer.c \
 		$(SRC_DIR)/token.c \
 		$(SRC_DIR)/tools.c \
 		$(SRC_DIR)/tools2.c \
+		$(SRC_DIR)/tools3.c \
 		main.c
 
 OBJ	=	$(SRC:.c=.o)
