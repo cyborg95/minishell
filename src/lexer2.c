@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:28:38 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 11:06:38 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/23 12:14:44 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	token_redir_out(t_token **token_lst, t_malloc **lst_malloc)
 {
 	if (!token_lst || !lst_malloc)
 		return ;
-	create_token (NULL, REDIR_OUT, lst_malloc, token_lst);
+	create_token (ft_strdup (">", lst_malloc), REDIR_OUT, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
@@ -27,7 +27,7 @@ void	token_redir_heredoc(t_token **token_lst, t_malloc **lst_malloc)
 {
 	if (!token_lst || !lst_malloc)
 		return ;
-	create_token (NULL, HEREDOC, lst_malloc, token_lst);
+	create_token (ft_strdup ("<<", lst_malloc), HEREDOC, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
@@ -77,7 +77,7 @@ void	token_append(t_token **token_lst, t_malloc **lst_malloc)
 {
 	if (!token_lst || !lst_malloc)
 		return ;
-	create_token (NULL, APPEND, lst_malloc, token_lst);
+	create_token (ft_strdup (">>", lst_malloc), APPEND, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/

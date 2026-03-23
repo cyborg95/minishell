@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 11:11:23 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/23 12:41:58 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ bool		is_redir_in(char c);
 bool		is_redir_out(char c);
 bool		is_here_doc(char **line);
 bool		is_append(char **line);
+bool		is_redir(t_token *lst_token);
 
 
 
@@ -158,7 +159,10 @@ void		check_syntax(t_token **lst_token, const char *prompt,
 bool		check_pipe(t_token *lst_token, const char *prompt,
 				char **line, t_malloc **lst_malloc);
 
+		/*	Redir error	*/
 
-
+bool	consecutive_redir(t_token *lst_token, char **bad_word, t_malloc **lst_malloc);
+bool		last_token_is_redir(t_token *lst_token);
+bool		check_redir(t_token *lst_token, const char *prompt, t_malloc **lst_malloc);
 
 #endif

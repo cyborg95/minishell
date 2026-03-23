@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 16:12:16 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/22 18:34:21 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/23 13:02:50 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 	SI on envoi un pipe seul apres un premier mot valide ==  CARRE
 	Si le pipe est a la fin on doit faire un multiligne	== CARRE
 	Si il y'a deux pipes consecutifs == CARRE
+	SI le pipe n est pas suvi d un token WORD on coupe == EN COURS
+	SI le pipe est a la fin de la ligne il faut que ce qui 
+	suit soit bien integre au token == EN COURS
 */
 
 /*	====================================================	*/

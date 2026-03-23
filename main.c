@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 09:38:15 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/23 12:58:58 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(void)
 		while (!are_quotes_closed(line) || ends_with_backslash (line))
 			handle_multiligne_case (&line, &malloc_lst);
 		lexer (&token_list, &malloc_lst, &line);
-		display_token (token_list);
+		//display_token (token_list);
 		check_syntax (&token_list, PROMPT, &line, &malloc_lst);
 	}
 	clean_lst_malloc (malloc_lst);
