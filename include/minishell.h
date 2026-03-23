@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/22 17:36:36 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/23 11:11:23 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void		token_pipe(t_token **token_lst, t_malloc **lst_malloc);
 void		token_redir_in(t_token **token_lst, t_malloc **lst_malloc);
 void		token_redir_out(t_token **token_lst, t_malloc **lst_malloc);
 void		token_redir_heredeoc(t_token **token_lst, t_malloc **lst_malloc);
+void		handle_redir_case(char **line, t_token **lst_token,
+				t_malloc **lst_malloc);
 void		token_operator(char **line, t_token **lst_token,
 				t_malloc **lst_malloc);
 void		token_append(t_token **token_lst, t_malloc **lst_malloc);
@@ -135,11 +137,20 @@ bool		ft_strcmp(char *s1, char *s2);
 char		*remix_readline(const char	*prompt, t_malloc **lst_malloc);
 bool		is_back_slash(char c);
 bool		ends_with_backslash(char *line);
+bool		is_pipe(char c);
+bool		is_redir_in(char c);
+bool		is_redir_out(char c);
+bool		is_here_doc(char **line);
+bool		is_append(char **line);
+
+
+
 
 	/*	Error Functions		*/
 
 bool		is_empty_list(t_token *lst_token);
-void		check_syntax(t_token **lst_token, const char *prompt, char **line, t_malloc **lst_malloc);
+void		check_syntax(t_token **lst_token, const char *prompt,
+				char **line, t_malloc **lst_malloc);
 
 
 		/*	pipe_error	*/

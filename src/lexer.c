@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/22 16:00:41 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/23 11:09:46 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void	lexer(t_token **lst_token, t_malloc **lst_malloc, char **line)
 			create_token (ft_strdup (word, lst_malloc),
 				WORD, lst_malloc, lst_token);
 		}
+		(*line)++;
 	}
 }
 /*	=====================================================	*/
