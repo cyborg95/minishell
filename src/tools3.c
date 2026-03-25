@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 15:38:21 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 10:05:21 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/25 18:42:35 by w                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 bool	is_back_slash(char c)
 {
 	if (c == '\\')
@@ -25,6 +26,7 @@ bool	is_back_slash(char c)
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 bool	ends_with_backslash(char *line)
 {
 	int	i;
@@ -56,6 +58,7 @@ int	main(int ac, char **av)
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 bool	is_pipe(char c)
 {
 	if (c == '|')
@@ -66,6 +69,7 @@ bool	is_pipe(char c)
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 bool	is_redir_in(char c)
 {
 	if (c == '<')
@@ -75,6 +79,7 @@ bool	is_redir_in(char c)
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 bool	is_redir_out(char c)
 {
 	if (c == '>')

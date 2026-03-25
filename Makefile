@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
+#    By: w <w@student.42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/03/23 11:50:03 by wngambi          ###   ########.fr        #
+#    Updated: 2026/03/25 18:52:30 by w                ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ export ASCII_ART
 # Makefile #
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS	=	-lreadline
 RM		=	rm -rf
 
@@ -61,12 +61,14 @@ HEADER	=	$(HEADER_DIR)/minishell.h
 
 SRC	=	$(SRC_DIR)/lexer.c \
 		$(SRC_DIR)/lexer2.c \
+		$(SRC_DIR)/lexer3.c \
 		$(SRC_DIR)/malloc.c \
 		$(SRC_DIR)/token.c \
 		$(SRC_DIR)/tools.c \
 		$(SRC_DIR)/tools2.c \
 		$(SRC_DIR)/tools3.c \
 		$(SRC_DIR)/tools4.c \
+		$(SRC_DIR)/incomplete_input.c \
 		$(SRC_DIR)/error.c \
 		$(SRC_DIR)/pipe_error.c \
 		$(SRC_DIR)/redir_error.c \

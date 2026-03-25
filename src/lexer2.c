@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:28:38 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 12:14:44 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/25 18:48:08 by w                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 void	token_redir_out(t_token **token_lst, t_malloc **lst_malloc)
 {
 	if (!token_lst || !lst_malloc)
 		return ;
-	create_token (ft_strdup (">", lst_malloc), REDIR_OUT, lst_malloc, token_lst);
+	create_token (ft_strdup (">", lst_malloc),
+		REDIR_OUT, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 void	token_redir_heredoc(t_token **token_lst, t_malloc **lst_malloc)
 {
 	if (!token_lst || !lst_malloc)
@@ -32,6 +35,7 @@ void	token_redir_heredoc(t_token **token_lst, t_malloc **lst_malloc)
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 void	handle_redir_case(char **line, t_token **lst_token,
 	t_malloc **lst_malloc)
 {
@@ -59,6 +63,9 @@ void	handle_redir_case(char **line, t_token **lst_token,
 	}
 }
 
+/*	=====================================================	*/
+
+/*	Carre on revient pas dessus	*/
 void	token_operator(char **line, t_token **lst_token, t_malloc **lst_malloc)
 {
 	if (!lst_token || !lst_malloc)
@@ -73,6 +80,7 @@ void	token_operator(char **line, t_token **lst_token, t_malloc **lst_malloc)
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 void	token_append(t_token **token_lst, t_malloc **lst_malloc)
 {
 	if (!token_lst || !lst_malloc)

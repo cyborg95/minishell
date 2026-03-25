@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 16:12:16 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 13:02:50 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/25 13:09:24 by w                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	is_pipe_first(t_token *lst_token)
 }
 
 /*	====================================================	*/
-
+/*
 static bool	is_pipe_last(t_token *lst_token)
 {
 	if (!lst_token)
@@ -47,24 +47,20 @@ static bool	is_pipe_last(t_token *lst_token)
 		return (true);
 	else
 		return (false);
-
 }
-
+*/
 /*	====================================================	*/
 
-static bool	consecutive_pipe(t_token *lst_token)
+static bool	operator_after_pipe(t_token *lst_token)
 {
 	if (!lst_token)
 		return (false);
-	while (lst_token)
+	while (lst_token->next)
 	{
 		if (lst_token->type == PIPE)
 		{
-			if (lst_token->next)
-			{
-				if (lst_token->next->type == PIPE)
-					return (true);
-			}
+			if (lst_token->next->type != WORD)
+				return (true);
 		}
 		lst_token = lst_token->next;
 	}
@@ -77,13 +73,21 @@ bool	check_pipe(t_token *lst_token, const char *prompt,
 	char **line, t_malloc **lst_malloc)
 {
 
-	if (is_pipe_first (lst_token) || consecutive_pipe (lst_token))
+	(void)line;
+	(void)lst_malloc;
+	if (is_pipe_first (lst_token))
 	{
 		printf ("%ssyntax error near unexpected token `|'\n", prompt);
 		return (false);
 	}
-	else if (is_pipe_last (lst_token))
-		handle_multiligne_case (line, lst_malloc);
+	if (operator_after_pipe (lst_token))
+	{
+		while (lst_token->type != PIPE && lst_token->next->type != WORD)
+			lst_token = lst_token->next;
+		printf ("%ssyntax error near unexpected token `%s'\n",
+			prompt, lst_token->next->word);
+		return (false);
+	}
 	return (true);
 }
 

@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 13:48:16 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/25 18:38:15 by w                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 // Gerer le double free == CARRE
 // Paufiner la detection des quotes non fermees == CARRE
@@ -17,7 +19,11 @@
 // Gerer le cas du backslash == CARRE
 // Gerer le cas du backslah en derneir caractere qui refait un promt == CARRE
 
-#include "minishell.h"
+
+// gerer corectement les cas des multi lignes == CARRE
+// COrrection du pipe seul == CARRE
+
+/*	=====================================================	*/
 
 int	main(void)
 {
@@ -30,14 +36,11 @@ int	main(void)
 	{
 		token_list = NULL;
 		line = remix_readline (PROMPT, &malloc_lst);
-		if (!line)
+		if (!line || ft_strcmp(line, EXIT))
 			break ;
-		if (ft_strcmp(line, EXIT))
-			break ;
-		while (!are_quotes_closed(line) || ends_with_backslash (line))
+		while (is_incomplete_input (line))
 			handle_multiligne_case (&line, &malloc_lst);
 		lexer (&token_list, &malloc_lst, &line);
-		//display_token (token_list);
 		check_syntax (&token_list, PROMPT, &line, &malloc_lst);
 	}
 	clean_lst_malloc (malloc_lst);
@@ -45,4 +48,6 @@ int	main(void)
 }
 
 /*	=====================================================	*/
+
+		//display_token (token_list);
 

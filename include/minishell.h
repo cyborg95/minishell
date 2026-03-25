@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 13:48:42 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/25 18:57:49 by w                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,12 @@ typedef struct s_pipeline
 
 	/*	Lexing Functions	*/
 
-bool		are_quotes_closed(char *line);
 void		handle_multiligne_case(char **line, t_malloc **lst_malloc);
-
-
-
-
+void		back_slash_case(char **line, char *word);
 void		lexer(t_token **lst_token, t_malloc **lst_malloc, char **line);
-void		token_pipe(t_token **token_lst, t_malloc **lst_malloc);
-void		token_redir_in(t_token **token_lst, t_malloc **lst_malloc);
+
+		/*		lexer	2	*/
+
 void		token_redir_out(t_token **token_lst, t_malloc **lst_malloc);
 void		token_redir_heredeoc(t_token **token_lst, t_malloc **lst_malloc);
 void		handle_redir_case(char **line, t_token **lst_token,
@@ -108,6 +105,12 @@ void		handle_redir_case(char **line, t_token **lst_token,
 void		token_operator(char **line, t_token **lst_token,
 				t_malloc **lst_malloc);
 void		token_append(t_token **token_lst, t_malloc **lst_malloc);
+
+		/*		lexer	3	*/
+
+void		token_pipe(t_token **token_lst, t_malloc **lst_malloc);
+void		token_redir_in(t_token **token_lst, t_malloc **lst_malloc);
+bool		are_quotes_closed(char *line);
 
 	/*	Malloc Functions	*/
 
@@ -130,22 +133,28 @@ bool		is_quote(char c);
 bool		is_single_quote(char c);
 bool		is_double_quote(char c);
 bool		is_operator(char c);
+
+		/*		Tools	2	*/
+
 int			ft_strlen(char *str);
 char		*ft_strdup(char *str, t_malloc **lst_malloc);
 char		*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc);
 bool		ft_strcmp(char *s1, char *s2);
 char		*remix_readline(const char	*prompt, t_malloc **lst_malloc);
+
+		/*		Tools	3	*/
+
 bool		is_back_slash(char c);
 bool		ends_with_backslash(char *line);
 bool		is_pipe(char c);
 bool		is_redir_in(char c);
 bool		is_redir_out(char c);
+
+		/*		Tools	4	*/
+
 bool		is_here_doc(char **line);
 bool		is_append(char **line);
 bool		is_redir(t_token *lst_token);
-
-
-
 
 	/*	Error Functions		*/
 
@@ -161,8 +170,15 @@ bool		check_pipe(t_token *lst_token, const char *prompt,
 
 		/*	Redir error	*/
 
-bool	consecutive_redir(t_token *lst_token, char **bad_word, t_malloc **lst_malloc);
+bool		consecutive_redir(t_token *lst_token,
+				char **bad_word, t_malloc **lst_malloc);
 bool		last_token_is_redir(t_token *lst_token);
-bool		check_redir(t_token *lst_token, const char *prompt, t_malloc **lst_malloc);
+bool		check_redir(t_token *lst_token, const char *prompt,
+				t_malloc **lst_malloc);
+
+		/*	Incomplete input	*/
+
+bool		last_char_is_pipe(char *line);
+bool		is_incomplete_input(char *line);
 
 #endif

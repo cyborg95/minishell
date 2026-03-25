@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 18:05:21 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/22 15:38:14 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/03/25 18:43:17 by w                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int	main(int ac, char **av)
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 char	*remix_readline(const char	*prompt, t_malloc **lst_malloc)
 {
 	char		*line;
