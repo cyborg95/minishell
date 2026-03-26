@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:01:19 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/11 16:38:55 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/23 10:32:43 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,13 @@ char	*path_finder(char *cmd, char **envp)
 		vars.i++;
 	}
 	ft_free_tab(vars.paths);
-	return (ft_strdup(cmd));
+	return (NULL);
 }
 
 int	execute_external(t_node *node, t_shell *shell)
 {
+	int	sig;
+
 	if (!node || !node->argv || !node->argv[0])
 		return (1);
 	if (!shell->envp_array)
@@ -82,16 +84,31 @@ int	execute_external(t_node *node, t_shell *shell)
 	node->pid = fork();
 	if (node->pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		apply_redirections(node->redirs, shell);
 		execve(node->path, node->argv, shell->envp_array);
 		perror(node->argv[0]);
 		exit(127);
 	}
 	else
 	{
-		(signal(SIGINT, handle_signal2), signal(SIGQUIT, handle_signal2));
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(node->pid, &node->status, 0);
-		shell->last_status = WEXITSTATUS(node->status);
-		(signal(SIGINT, handle_signal), signal(SIGQUIT, SIG_IGN));
+		if (WIFSIGNALED(node->status))
+		{
+			sig = WTERMSIG(node->status);
+			if (sig == SIGINT)
+				write(1, "\n", 1);
+			else if (sig == SIGQUIT)
+				write(1, "Quit (core dumped)\n", 20);
+			shell->last_status = 128 + sig;
+		}
+		else
+			shell->last_status = WEXITSTATUS(node->status);
+		signal(SIGINT, handle_signal);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	return (free(node->path), shell->last_status);
 }

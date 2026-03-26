@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/14 15:10:40 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/19 17:47:41 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void		handle_signal2(int sig);
 void		expand_tree(t_node *node, t_shell *shell);
 int			is_valid_identifier(char *str);
 int			printable_export(t_shell *shell);
+int			handle_heredoc(t_redir *redir);
 
 extern int	g_signal;
 

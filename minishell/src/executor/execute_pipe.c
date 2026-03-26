@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:05:02 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/11 16:13:34 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/19 18:05:41 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,22 @@ int	has_stdin_redir(t_redir *redirs)
 
 static void	exec_pid_left(t_node *node, t_shell *shell, int fd[2])
 {
-	apply_redirections(node->left->redirs);
 	if (!has_stdout_redir(node->left->redirs))
 		dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
+	apply_redirections(node->left->redirs, shell);
 	execute_node(node->left, shell);
 	exit(shell->last_status);
 }
 
 static void	exec_pid_right(t_node *node, t_shell *shell, int fd[2])
 {
-	apply_redirections(node->right->redirs);
 	if (!has_stdin_redir(node->right->redirs))
 		dup2(fd[0], STDIN_FILENO);
 	close(fd[1]);
 	close(fd[0]);
+	apply_redirections(node->right->redirs, shell);
 	execute_node(node->right, shell);
 	exit(shell->last_status);
 }

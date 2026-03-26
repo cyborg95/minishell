@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:52:31 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/09 12:45:38 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/19 18:25:28 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,71 +16,41 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	apply_redirections2(t_redir *redirs)
-{
-	int	fd;
-
-	fd = open(redirs->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror(redirs->file);
-		exit(1);
-	}
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
-}
-
-void	apply_redirections3(t_redir *redirs)
-{
-	int	fd;
-
-	fd = open(redirs->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd < 0)
-	{
-		perror(redirs->file);
-		exit(1);
-	}
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
-}
-
-void	apply_redirections4(t_redir *redirs)
-{
-	int	fd;
-
-	fd = open(redirs->file, O_RDONLY);
-	if (fd < 0)
-	{
-		perror(redirs->file);
-		exit(1);
-	}
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-}
-
-void	apply_redirections(t_redir *redirs)
+void	apply_redirections(t_redir *redirs, t_shell *shell)
 {
 	int	fd;
 
 	while (redirs)
 	{
 		if (redirs->type == R_IN)
-		{
 			fd = open(redirs->file, O_RDONLY);
-			if (fd < 0)
-			{
-				perror(redirs->file);
-				exit(1);
-			}
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-		}
 		else if (redirs->type == R_OUT)
-			apply_redirections2(redirs);
+			fd = open(redirs->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (redirs->type == R_APPEND)
-			apply_redirections3(redirs);
+			fd = open(redirs->file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		else if (redirs->type == R_HEREDOC)
-			apply_redirections4(redirs);
+		{
+			dup2(redirs->fd, STDIN_FILENO);
+			close(redirs->fd);
+			redirs = redirs->next;
+			continue ;
+		}
+		else
+		{
+			redirs = redirs->next;
+			continue ;
+		}
+		if (fd < 0)
+		{
+			perror(redirs->file);
+			shell->last_status = 1;
+			return ;
+		}
+		if (redirs->type == R_IN)
+			dup2(fd, STDIN_FILENO);
+		else
+			dup2(fd, STDOUT_FILENO);
+		close(fd);
 		redirs = redirs->next;
 	}
 }

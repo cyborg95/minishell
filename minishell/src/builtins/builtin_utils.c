@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:21:55 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/14 15:09:19 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/19 18:07:22 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,57 @@ static int	execute_builtin2(t_node *node, t_shell *shell)
 
 int	execute_builtin(t_node *node, t_shell *shell)
 {
+	int	saved_stdout;
+	int	saved_stdin;
+
 	if (!node || !node->argv || !node->argv[0])
 		return (0);
 	if (ft_strcmp(node->argv[0], "cd") == 0)
 	{
+		saved_stdout = dup(STDOUT_FILENO);
+		saved_stdin = dup(STDIN_FILENO);
+		apply_redirections(node->redirs, shell);
 		shell->last_status = builtin_cd(node->argv, shell);
+		dup2(saved_stdout, STDOUT_FILENO);
+		dup2(saved_stdin, STDIN_FILENO);
+		close(saved_stdout);
+		close(saved_stdin);
 		return (1);
 	}
 	if (ft_strcmp(node->argv[0], "echo") == 0)
 	{
+		saved_stdout = dup(STDOUT_FILENO);
+		saved_stdin = dup(STDIN_FILENO);
+		apply_redirections(node->redirs, shell);
 		shell->last_status = builtin_echo(node->argv);
+		dup2(saved_stdout, STDOUT_FILENO);
+		dup2(saved_stdin, STDIN_FILENO);
+		close(saved_stdout);
+		close(saved_stdin);
 		return (1);
 	}
 	if (ft_strcmp(node->argv[0], "pwd") == 0)
 	{
+		saved_stdout = dup(STDOUT_FILENO);
+		saved_stdin = dup(STDIN_FILENO);
+		apply_redirections(node->redirs, shell);
 		shell->last_status = builtin_pwd();
+		dup2(saved_stdout, STDOUT_FILENO);
+		dup2(saved_stdin, STDIN_FILENO);
+		close(saved_stdout);
+		close(saved_stdin);
 		return (1);
 	}
 	if (ft_strcmp(node->argv[0], "env") == 0)
 	{
+		saved_stdout = dup(STDOUT_FILENO);
+		saved_stdin = dup(STDIN_FILENO);
+		apply_redirections(node->redirs, shell);
 		shell->last_status = builtin_env(shell->env);
+		dup2(saved_stdout, STDOUT_FILENO);
+		dup2(saved_stdin, STDIN_FILENO);
+		close(saved_stdout);
+		close(saved_stdin);
 		return (1);
 	}
 	execute_builtin2(node, shell);

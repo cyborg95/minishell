@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 17:33:35 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/09 12:31:26 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/20 11:09:24 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*expand_var(char *arg, t_shell *shell)
 
 	if (arg[0] != '$')
 		return (ft_strdup(arg));
+	if (ft_strcmp(arg, "$?") == 0)
+		return (ft_itoa(shell->last_status));
 	value = get_env_value(shell->env, arg + 1);
 	if (!value)
 		return (ft_strdup(""));
