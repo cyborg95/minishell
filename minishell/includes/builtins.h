@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:42:10 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/07 17:30:03 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/24 10:48:08 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 int		is_builtin(const char *cmd);
 int		execute_builtin(t_node *node, t_shell *shell);
-
 int		builtin_echo(char **argv);
 int		builtin_cd(char **argv, t_shell *shell);
 int		builtin_pwd(void);

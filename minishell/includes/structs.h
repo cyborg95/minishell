@@ -6,12 +6,15 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:28:44 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/07 18:18:10 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 13:01:50 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+
+typedef struct s_token	t_token;
+typedef struct s_malloc	t_malloc;
 
 typedef enum e_node_type
 {
@@ -29,6 +32,7 @@ typedef enum e_redir_type
 
 typedef struct s_redir
 {
+	int				fd;
 	t_redir_type	type;
 	char			*file;
 	struct s_redir	*next;
@@ -48,8 +52,6 @@ typedef struct s_node
 
 typedef struct s_env
 {
-	int				count;
-	int				i;
 	char			*key;
 	char			*value;
 	struct s_env	*next;
@@ -61,6 +63,8 @@ typedef struct s_shell
 	int				last_status;
 	int				in_pipe;
 	char			**envp_array;
+	int				stdin_backup;
+	int				stdout_backup;
 }					t_shell;
 
 typedef struct s_vars
@@ -71,5 +75,29 @@ typedef struct s_vars
 	char			*path;
 	int				i;
 }					t_vars;
+
+typedef enum e_type
+{
+	WORD,
+	PIPE,
+	REDIR_IN,
+	REDIR_OUT,
+	HEREDOC,
+	APPEND,
+	EXPAND
+}	t_type;
+
+struct s_token
+{
+	char	*word;
+	t_type	type;
+	t_token	*next;
+};
+
+struct s_malloc
+{
+	void		*adress_malloc;
+	t_malloc	*next;
+};
 
 #endif

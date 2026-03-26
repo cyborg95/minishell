@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:00:14 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/07 17:55:00 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 12:59:39 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,28 @@ char	**env_list_to_array(t_env *env)
 {
 	t_env	*tmp;
 	char	**arr;
+	int		count;
+	int		i;
 
-	env->count = 0;
-	env->i = 0;
+	count = 0;
+	i = 0;
 	tmp = env;
 	while (tmp)
 	{
-		env->count++;
+		count++;
 		tmp = tmp->next;
 	}
-	arr = malloc(sizeof(char *) * (env->count + 1));
+	arr = malloc(sizeof(char *) * (count + 1));
 	if (!arr)
 		return (NULL);
 	tmp = env;
 	while (tmp)
 	{
-		arr[env->i] = ft_strjoin(tmp->key, "=");
-		arr[env->i] = ft_strjoin_free(arr[env->i], tmp->value);
+		arr[i] = ft_strjoin(tmp->key, "=");
+		arr[i] = ft_strjoin_free(arr[i], tmp->value);
 		tmp = tmp->next;
-		env->i++;
+		i++;
 	}
-	arr[env->i] = NULL;
+	arr[i] = NULL;
 	return (arr);
 }
