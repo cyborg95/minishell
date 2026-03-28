@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 16:08:12 by otidahoh          #+#    #+#             */
-/*   Updated: 2025/11/14 11:36:27 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:21:13 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_bzero(void *s, size_t n);
 char	*ft_itoa(int n);
 void	*ft_memchr(const void *s, int c, size_t n);
-char	*ft_strdup(const char *s);
+char	*ft_1strdup(const char *s);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_1strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t siz);
 size_t	ft_strlcpy(char *dst, const char *src, size_t siz);
-size_t	ft_strlen(const char *s);
+size_t	ft_1strlen(const char *s);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);

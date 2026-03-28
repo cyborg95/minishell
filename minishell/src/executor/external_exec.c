@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:01:19 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/23 10:32:43 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:27:11 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*my_getenv(char *name, char **env)
 	int	i;
 	int	j;
 
-	j = ft_strlen(name);
+	j = ft_1strlen(name);
 	i = 0;
 	while (env && env[i])
 	{
@@ -47,13 +47,13 @@ char	*path_finder(char *cmd, char **envp)
 
 	vars.path_env = my_getenv("PATH", envp);
 	if (!vars.path_env)
-		return (ft_strdup(cmd));
+		return (ft_1strdup(cmd));
 	vars.paths = ft_split(vars.path_env, ':');
 	vars.i = 0;
 	while (vars.paths && vars.paths[vars.i])
 	{
-		vars.tmp_path = ft_strjoin(vars.paths[vars.i], "/");
-		vars.path = ft_strjoin(vars.tmp_path, cmd);
+		vars.tmp_path = ft_1strjoin(vars.paths[vars.i], "/");
+		vars.path = ft_1strjoin(vars.tmp_path, cmd);
 		free(vars.tmp_path);
 		if (access(vars.path, X_OK) == 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 10:59:21 by otidahoh          #+#    #+#             */
-/*   Updated: 2025/11/12 17:12:32 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:37:05 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	begin = 0;
 	while (*s1 && ft_in(s1[begin], set))
 		begin++;
-	end = ft_strlen(s1);
+	end = ft_1strlen(s1);
 	while (end > begin && ft_in(s1[end - 1], set))
 		end--;
 	trimstr = (char *)malloc(sizeof(char) * (end - begin + 1));

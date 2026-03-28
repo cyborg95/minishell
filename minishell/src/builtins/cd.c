@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:57:50 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/04 15:07:03 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 16:58:39 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	builtin_cd(char **argv, t_shell *shell)
 		return (perror("cd"), 1);
 	if (!argv[1] || argv[1][0] == '\0')
 		path = my_getenv("HOME", shell->envp_array);
-	else if (ft_strcmp(argv[1], "-") == 0)
+	else if (ft_1strcmp(argv[1], "-") == 0)
 		path = my_getenv("OLDPWD", shell->envp_array);
 	else
 		path = argv[1];

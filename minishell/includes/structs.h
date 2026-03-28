@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:28:44 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/26 13:01:50 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 16:02:42 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 typedef struct s_token	t_token;
 typedef struct s_malloc	t_malloc;
+# define PROMPT "minishell$ "
 
 typedef enum e_node_type
 {

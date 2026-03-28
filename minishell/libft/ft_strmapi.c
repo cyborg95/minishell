@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:31:37 by otidahoh          #+#    #+#             */
-/*   Updated: 2025/11/12 15:16:02 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:38:55 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 
 	if (!s || !f)
 		return (NULL);
-	res = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	res = (char *)malloc(sizeof(char) * (ft_1strlen(s) + 1));
 	if (!res)
 		return (NULL);
 	i = 0;

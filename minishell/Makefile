@@ -5,40 +5,97 @@
 #                                                     +:+ +:+         +:+      #
 #    By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/03/04 14:51:58 by otidahoh          #+#    #+#              #
-#    Updated: 2026/03/09 11:43:37 by otidahoh         ###   ########.fr        #
+#    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
+#    Updated: 2026/03/27 10:52:02 by otidahoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
-NAME = minishell
+#	------	Artistique	------	#
 
-SRCS = main.c \
+RED = \033[31m
+GREEN = \033[32m
+CYAN = \033[36m
+RESET = \033[0m
+ORANGE = \033[33m
+PURPLE =  \033[0;35m
+define ASCII_ART
+$(RED) 
+
+
+
+
+████████████████████████████████████████
+█▌░█▄█░▀█▀░█▀█░▀█▀░█▀▀░█░█░█▀▀░█░░░█░░▐█
+█▌░█░█░░█░░█░█░░█░░▀▀█░█▀█░█▀▀░█░░░█░░▐█
+█▌░▀░▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀▐█
+████████████████████████████████████████
+
+
+
+
+
+$(RESET)
+endef
+export ASCII_ART
+
+#	------	Artistique	------	#
+
+
+# Makefile #
+
+CC		=	cc
+CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+LDFLAGS	=	-lreadline
+RM		=	rm -rf
+
+
+# All Directories #
+
+HEADER_DIR = includes
+
+NAME	=	minishell
+HEADER	=	$(HEADER_DIR)/minishell.h
+
+SRC =	main.c \
+	parser_merge.c \
 	src/signals/signals.c \
 	$(wildcard src/builtins/*.c) \
 	$(wildcard src/executor/*.c) \
 	$(wildcard src/env/*.c) \
-	
-OBJS = $(SRCS:.c=.o)
+	$(wildcard src/parser_src/*.c)
+
+OBJ = $(SRC:.c=.o)
+
 LIBFT = libft/libft.a
 
-INCLUDES = includes/*.h
-all: $(NAME)
+#	Compilation Rules	#
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -Llibft -lft -lreadline -o $(NAME)
+all:
+	@echo "$$ASCII_ART"
+	@echo "$(GREEN)Hello $$(whoami) !$(RESET)"
+	@echo "$(GREEN)Compiling Minishell...$(RESET)"
+	@$(MAKE) $(NAME)
+	@echo "$(CYAN)Compilation completed!$(RESET)"
+	
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) -Llibft -lft -o $(NAME) $(LDFLAGS)
 $(LIBFT):
 	make -C libft
 
-%.o: %.c ${INCLUDES}
-	${CC} ${CFLAGS} -c $< -o $@
+%.o: %.c $(HEADER)
+	@echo "$(PURPLE)Compiling $<...$(RESET)"
+	$(CC) $(CFLAGS) -I$(HEADER_DIR) -c $< -o $@
+
 clean:
+	@echo "$(GREEN)Cleaning...$(RESET)"
 	make clean -C libft
-	rm -f $(OBJS)
+	$(RM) $(OBJ)
+	@echo "$(CYAN)Cleaned successfully!$(RESET)"
 
 fclean: clean
 	make fclean -C libft
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

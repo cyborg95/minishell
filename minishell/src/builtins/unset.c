@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:26:34 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/04 15:07:29 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:23:46 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	remove_env(t_shell *shell, char *key)
 	prev = NULL;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, key) == 0)
+		if (ft_1strcmp(tmp->key, key) == 0)
 		{
 			if (prev)
 				prev->next = tmp->next;

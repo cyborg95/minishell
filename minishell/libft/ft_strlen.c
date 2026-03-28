@@ -6,13 +6,13 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:01:50 by otidahoh          #+#    #+#             */
-/*   Updated: 2025/11/12 11:21:49 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:20:07 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_1strlen(const char *s)
 {
 	int	i;
 

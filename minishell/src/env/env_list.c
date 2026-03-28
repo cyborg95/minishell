@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:00:14 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/26 12:59:39 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:30:27 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**env_list_to_array(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		arr[i] = ft_strjoin(tmp->key, "=");
+		arr[i] = ft_1strjoin(tmp->key, "=");
 		arr[i] = ft_strjoin_free(arr[i], tmp->value);
 		tmp = tmp->next;
 		i++;

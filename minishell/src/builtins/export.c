@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:23:12 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/14 15:09:37 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:24:11 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static t_env	*create_env_node(char *key, char *value)
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->key = ft_strdup(key);
+	new->key = ft_1strdup(key);
 	if (!new->key)
 		return (free(new), NULL);
 	if (value)
-		new->value = ft_strdup(value);
+		new->value = ft_1strdup(value);
 	else
 		new->value = NULL;
 	new->next = NULL;
@@ -38,11 +38,11 @@ void	add_or_update_env(t_shell *shell, char *key, char *value)
 	tmp = shell->env;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, key) == 0)
+		if (ft_1strcmp(tmp->key, key) == 0)
 		{
 			free(tmp->value);
 			if (value)
-				tmp->value = ft_strdup(value);
+				tmp->value = ft_1strdup(value);
 			else
 				tmp->value = NULL;
 			return ;

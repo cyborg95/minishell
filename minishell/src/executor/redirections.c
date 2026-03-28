@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:52:31 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/19 18:25:28 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/27 12:28:29 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,4 @@ void	apply_redirections(t_redir *redirs, t_shell *shell)
 		redirs = redirs->next;
 	}
 }
+

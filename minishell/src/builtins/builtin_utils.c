@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:21:55 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/19 18:07:22 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/03/27 11:02:47 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stddef.h>
 #include <stdio.h>
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_1strcmp(const char *s1, const char *s2)
 {
 	size_t	in;
 
@@ -34,36 +34,36 @@ int	is_builtin(const char *cmd)
 {
 	if (!cmd)
 		return (0);
-	if (ft_strcmp(cmd, "cd") == 0)
+	if (ft_1strcmp(cmd, "cd") == 0)
 		return (1);
-	if (ft_strcmp(cmd, "echo") == 0)
+	if (ft_1strcmp(cmd, "echo") == 0)
 		return (1);
-	if (ft_strcmp(cmd, "pwd") == 0)
+	if (ft_1strcmp(cmd, "pwd") == 0)
 		return (1);
-	if (ft_strcmp(cmd, "export") == 0)
+	if (ft_1strcmp(cmd, "export") == 0)
 		return (1);
-	if (ft_strcmp(cmd, "unset") == 0)
+	if (ft_1strcmp(cmd, "unset") == 0)
 		return (1);
-	if (ft_strcmp(cmd, "env") == 0)
+	if (ft_1strcmp(cmd, "env") == 0)
 		return (1);
-	if (ft_strcmp(cmd, "exit") == 0)
+	if (ft_1strcmp(cmd, "exit") == 0)
 		return (1);
 	return (0);
 }
 
 static int	execute_builtin2(t_node *node, t_shell *shell)
 {
-	if (ft_strcmp(node->argv[0], "export") == 0)
+	if (ft_1strcmp(node->argv[0], "export") == 0)
 	{
 		shell->last_status = builtin_export(node->argv, shell);
 		return (1);
 	}
-	if (ft_strcmp(node->argv[0], "unset") == 0)
+	if (ft_1strcmp(node->argv[0], "unset") == 0)
 	{
 		shell->last_status = builtin_unset(node->argv, shell);
 		return (1);
 	}
-	if (ft_strcmp(node->argv[0], "exit") == 0)
+	if (ft_1strcmp(node->argv[0], "exit") == 0)
 	{
 		builtin_exit(node->argv, shell);
 		return (1);
@@ -78,7 +78,7 @@ int	execute_builtin(t_node *node, t_shell *shell)
 
 	if (!node || !node->argv || !node->argv[0])
 		return (0);
-	if (ft_strcmp(node->argv[0], "cd") == 0)
+	if (ft_1strcmp(node->argv[0], "cd") == 0)
 	{
 		saved_stdout = dup(STDOUT_FILENO);
 		saved_stdin = dup(STDIN_FILENO);
@@ -90,7 +90,7 @@ int	execute_builtin(t_node *node, t_shell *shell)
 		close(saved_stdin);
 		return (1);
 	}
-	if (ft_strcmp(node->argv[0], "echo") == 0)
+	if (ft_1strcmp(node->argv[0], "echo") == 0)
 	{
 		saved_stdout = dup(STDOUT_FILENO);
 		saved_stdin = dup(STDIN_FILENO);
@@ -102,7 +102,7 @@ int	execute_builtin(t_node *node, t_shell *shell)
 		close(saved_stdin);
 		return (1);
 	}
-	if (ft_strcmp(node->argv[0], "pwd") == 0)
+	if (ft_1strcmp(node->argv[0], "pwd") == 0)
 	{
 		saved_stdout = dup(STDOUT_FILENO);
 		saved_stdin = dup(STDIN_FILENO);
@@ -114,7 +114,7 @@ int	execute_builtin(t_node *node, t_shell *shell)
 		close(saved_stdin);
 		return (1);
 	}
-	if (ft_strcmp(node->argv[0], "env") == 0)
+	if (ft_1strcmp(node->argv[0], "env") == 0)
 	{
 		saved_stdout = dup(STDOUT_FILENO);
 		saved_stdin = dup(STDIN_FILENO);
