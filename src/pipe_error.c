@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 16:12:16 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 13:02:50 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/01 14:05:24 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static bool	is_pipe_last(t_token *lst_token)
 		return (true);
 	else
 		return (false);
-
 }
 
 /*	====================================================	*/
@@ -73,19 +72,45 @@ static bool	consecutive_pipe(t_token *lst_token)
 
 /*	====================================================	*/
 
+static bool	should_multiligne_pipe(t_token *lst_token)
+{
+	t_token	*last;
+	t_token	*prev;
+
+	if (!lst_token)
+		return (false);
+	last = lst_token;
+	prev = NULL;
+	while (last->next != NULL)
+	{
+		prev = last;
+		last = last->next;
+	}
+	if (is_redir(prev))
+		return (false);
+	else
+		return (true);
+}
+
 bool	check_pipe(t_token *lst_token, const char *prompt,
 	char **line, t_malloc **lst_malloc)
 {
-
 	if (is_pipe_first (lst_token) || consecutive_pipe (lst_token))
 	{
 		printf ("%ssyntax error near unexpected token `|'\n", prompt);
 		return (false);
 	}
 	else if (is_pipe_last (lst_token))
-		handle_multiligne_case (line, lst_malloc);
+	{
+		if (should_multiligne_pipe (lst_token))
+			handle_multiligne_case (line, lst_malloc);
+		else
+		{
+			printf ("%ssyntax error near unexpected token `|'\n", prompt);
+			return (false);
+		}
+	}
 	return (true);
 }
-
 
 /*	====================================================	*/

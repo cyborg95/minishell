@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 10:41:23 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 12:39:46 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/01 14:05:05 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,44 @@ bool	is_redir(t_token *lst_token)
 		else
 			return (false);
 	}
+}
+
+/*	=====================================================	*/
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*p;
+
+	i = 0;
+	p = (unsigned char *)s;
+	while (i < n)
+	{
+		p[i] = 0;
+		i++;
+	}
+}
+
+/*	=====================================================	*/
+
+void	display_args(char **args)
+{
+	int	i;
+
+	if (!args)
+		return ;
+	i = 0;
+	printf ("Liste des arguments:  ");
+	while (args[i])
+	{
+		printf ("[%s]", args[i]);
+		i++;
+		if (args[i] != NULL)
+			printf ("=>");
+		else
+			break ;
+	}
+	printf ("\n");
 }
 
 /*	=====================================================	*/

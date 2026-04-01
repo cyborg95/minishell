@@ -6,11 +6,13 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/23 12:14:09 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/01 14:10:14 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*	=====================================================	*/
 
 bool	are_quotes_closed(char *line)
 {
@@ -108,50 +110,6 @@ static char	*extract_word(char **line, char *word)
 		(*line)++;
 	}
 	return (word[i] = '\0', word);
-}
-
-/*	=====================================================	*/
-
-void	lexer(t_token **lst_token, t_malloc **lst_malloc, char **line)
-{
-	char	*word;
-
-	if (!lst_token || !lst_malloc || !line)
-		return ;
-	word = malloc_remix ((ft_strlen(*line) + 1) * sizeof(char), lst_malloc);
-	while (**line)
-	{
-		while (is_space (**line))
-			(*line)++;
-		if (!*line)
-			break ;
-		if (is_operator (**line))
-			token_operator (line, lst_token, lst_malloc);
-		else
-		{
-			word = extract_word (line, word);
-			create_token (ft_strdup (word, lst_malloc),
-				WORD, lst_malloc, lst_token);
-		}
-		(*line)++;
-	}
-}
-/*	=====================================================	*/
-
-void	token_pipe(t_token **token_lst, t_malloc **lst_malloc)
-{
-	if (!token_lst || !lst_malloc)
-		return ;
-	create_token (ft_strdup ("|", lst_malloc), PIPE, lst_malloc, token_lst);
-}
-
-/*	=====================================================	*/
-
-void	token_redir_in(t_token **token_lst, t_malloc **lst_malloc)
-{
-	if (!token_lst)
-		return ;
-	create_token (ft_strdup ("<", lst_malloc), REDIR_IN, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
