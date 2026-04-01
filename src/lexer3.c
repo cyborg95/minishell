@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer3.c                                           :+:      :+:    :+:   */
+/*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 18:49:04 by w                 #+#    #+#             */
-/*   Updated: 2026/03/25 18:50:33 by w                ###   ########.fr       */
+/*   Created: 2026/03/14 18:28:38 by wngambi           #+#    #+#             */
+/*   Updated: 2026/04/01 14:05:55 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,71 @@
 
 /*	=====================================================	*/
 
-void	token_pipe(t_token **token_lst, t_malloc **lst_malloc)
+void	token_redir_out(t_token **token_lst, t_malloc **lst_malloc)
 {
 	if (!token_lst || !lst_malloc)
 		return ;
-	create_token (ft_strdup ("|", lst_malloc), PIPE, lst_malloc, token_lst);
+	create_token (ft_strdup (">", lst_malloc),
+		REDIR_OUT, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
 
-void	token_redir_in(t_token **token_lst, t_malloc **lst_malloc)
+void	token_redir_heredoc(t_token **token_lst, t_malloc **lst_malloc)
 {
-	if (!token_lst)
+	if (!token_lst || !lst_malloc)
 		return ;
-	create_token (ft_strdup ("<", lst_malloc), REDIR_IN, lst_malloc, token_lst);
+	create_token (ft_strdup ("<<", lst_malloc), HEREDOC, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/
 
-/*	Carre on revient pas dessus	*/
-bool	are_quotes_closed(char *line)
+void	handle_redir_case(char **line, t_token **lst_token,
+	t_malloc **lst_malloc)
 {
-	bool	squote;
-	bool	dquote;
-
-	squote = false;
-	dquote = false;
-	if (!line && !(*line))
-		return (false);
-	while (*line)
+	if (!line || !lst_token || !lst_malloc)
+		return ;
+	else if (is_redir_in (**line))
 	{
-		if (is_quote (*line))
+		if (*(*line + 1) == '\0' || !is_here_doc (line))
+			return (token_redir_in (lst_token, lst_malloc));
+		else
 		{
-			if (is_single_quote (*line) && dquote == false)
-				squote = !squote;
-			else if (is_double_quote(*line) && squote == false)
-				dquote = !dquote;
+			token_redir_heredoc (lst_token, lst_malloc);
+			(*line)++;
 		}
-		line++;
 	}
-	if (squote == false && dquote == false)
-		return (true);
-	return (false);
+	else if (is_redir_out (**line))
+	{
+		if (*(*line + 1) == '\0' || !is_append (line))
+			return (token_redir_out (lst_token, lst_malloc));
+		else
+		{
+			token_append (lst_token, lst_malloc);
+			(*line)++;
+		}
+	}
+}
+
+void	token_operator(char **line, t_token **lst_token, t_malloc **lst_malloc)
+{
+	if (!lst_token || !lst_malloc)
+		return ;
+	else if (is_pipe (**line))
+		token_pipe (lst_token, lst_malloc);
+	else if (is_redir_in (**line) || is_redir_out (**line))
+		handle_redir_case(line, lst_token, lst_malloc);
+	else
+		return ;
+}
+
+/*	=====================================================	*/
+
+void	token_append(t_token **token_lst, t_malloc **lst_malloc)
+{
+	if (!token_lst || !lst_malloc)
+		return ;
+	create_token (ft_strdup (">>", lst_malloc), APPEND, lst_malloc, token_lst);
 }
 
 /*	=====================================================	*/

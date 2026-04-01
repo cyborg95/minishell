@@ -6,7 +6,7 @@
 /*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 16:12:16 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/25 13:09:24 by w                ###   ########.fr       */
+/*   Updated: 2026/04/01 14:05:24 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,45 @@ static bool	operator_after_pipe(t_token *lst_token)
 
 /*	====================================================	*/
 
+static bool	should_multiligne_pipe(t_token *lst_token)
+{
+	t_token	*last;
+	t_token	*prev;
+
+	if (!lst_token)
+		return (false);
+	last = lst_token;
+	prev = NULL;
+	while (last->next != NULL)
+	{
+		prev = last;
+		last = last->next;
+	}
+	if (is_redir(prev))
+		return (false);
+	else
+		return (true);
+}
+
 bool	check_pipe(t_token *lst_token, const char *prompt,
 	char **line, t_malloc **lst_malloc)
 {
-
-	(void)line;
-	(void)lst_malloc;
-	if (is_pipe_first (lst_token))
+	if (is_pipe_first (lst_token) || consecutive_pipe (lst_token))
 	{
 		printf ("%ssyntax error near unexpected token `|'\n", prompt);
 		return (false);
 	}
-	if (operator_after_pipe (lst_token))
+	else if (is_pipe_last (lst_token))
 	{
-		while (lst_token->type != PIPE && lst_token->next->type != WORD)
-			lst_token = lst_token->next;
-		printf ("%ssyntax error near unexpected token `%s'\n",
-			prompt, lst_token->next->word);
-		return (false);
+		if (should_multiligne_pipe (lst_token))
+			handle_multiligne_case (line, lst_malloc);
+		else
+		{
+			printf ("%ssyntax error near unexpected token `|'\n", prompt);
+			return (false);
+		}
 	}
 	return (true);
 }
-
 
 /*	====================================================	*/

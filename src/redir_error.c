@@ -6,23 +6,24 @@
 /*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 09:28:26 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/25 18:45:26 by w                ###   ########.fr       */
+/*   Updated: 2026/04/01 08:23:38 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*	=====================================================	*/
+
 /*
 	Cas ou toute les redir sont a la fin == CARRE
 	Cas des redirectiosn consecutives
-	
-
 
 */
 
-/*	Carre on revient pas dessus	*/
-bool	consecutive_redir(t_token *lst_token, char **bad_word,
-	t_malloc **lst_malloc)
+/*	=====================================================	*/
+
+bool	consecutive_redir(t_token *lst_token,
+	char **bad_word, t_malloc **lst_malloc)
 {
 	t_token	*curent_token;
 	t_token	*next_token;
@@ -66,9 +67,8 @@ bool	last_token_is_redir(t_token *lst_token)
 
 /*	=====================================================	*/
 
-/*	Carre on revient pas dessus	*/
-bool	check_redir(t_token *lst_token, const char *prompt,
-		t_malloc **lst_malloc)
+bool	check_redir(t_token *lst_token,
+	const char *prompt, t_malloc **lst_malloc)
 {
 	char	*bad_word;
 

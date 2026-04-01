@@ -6,19 +6,38 @@
 /*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/25 18:50:51 by w                ###   ########.fr       */
+/*   Updated: 2026/04/01 14:10:14 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*	
 
-Dans le cas des multilignes, si la ligne fini par un backslah 
-alors il n'ya pas d espace qui seprare ce qu suit
+/*	=====================================================	*/
 
-Si la ligne finit par un pipe ou il manque une quote, alors il faudra un espace 
+bool	are_quotes_closed(char *line)
+{
+	bool	squote;
+	bool	dquote;
 
-*/
-#include "minishell.h"
+	squote = false;
+	dquote = false;
+	if (!line && !(*line))
+		return (false);
+	while (*line)
+	{
+		if (is_quote (*line))
+		{
+			if (is_single_quote (*line) && dquote == false)
+				squote = !squote;
+			else if (is_double_quote(*line) && squote == false)
+				dquote = !dquote;
+		}
+		line++;
+	}
+	if (squote == false && dquote == false)
+		return (true);
+	return (false);
+}
 
 /*	=====================================================	*/
 
@@ -115,33 +134,4 @@ static char	*extract_word(char **line, char *word)
 	return (word[i] = '\0', word);
 }
 
-/*	=====================================================	*/
-
-void	lexer(t_token **lst_token, t_malloc **lst_malloc, char **line)
-{
-	char	*word;
-
-	if (!lst_token || !lst_malloc || !line)
-		return ;
-	word = malloc_remix ((ft_strlen(*line) + 1) * sizeof(char), lst_malloc);
-	while (**line)
-	{
-		while (is_space (**line))
-			(*line)++;
-		if (!*line)
-			break ;
-		if (is_operator (**line))
-		{
-			token_operator (line, lst_token, lst_malloc);
-			(*line)++;
-		}
-
-		else
-		{
-			word = extract_word (line, word);
-			create_token (ft_strdup (word, lst_malloc),
-				WORD, lst_malloc, lst_token);
-		}
-	}
-}
 /*	=====================================================	*/

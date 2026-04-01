@@ -5,27 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 13:27:42 by wngambi           #+#    #+#             */
-/*   Updated: 2026/03/25 18:57:49 by w                ###   ########.fr       */
+/*   Created: 2026/04/01 14:23:48 by wngambi           #+#    #+#             */
+/*   Updated: 2026/04/01 14:23:49 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/*	======	Macro Used	======	*/
+/* MACROS */
 
 # define EXIT "exit"
 # define PROMPT "minishell> "
 
-/*	======	Library Used	======	*/
+/* LIBRARIES */
 
 # include <stdbool.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <readline/readline.h>
 
-/*	======	Enumeration Used	======	*/
+/* ENUM */
 
 typedef enum e_type
 {
@@ -38,7 +38,7 @@ typedef enum e_type
 	EXPAND
 }	t_type;
 
-/*	======	Structure Used	======	*/
+/* STRUCT */
 
 typedef struct s_token	t_token;
 typedef struct s_malloc	t_malloc;
@@ -72,31 +72,27 @@ struct s_cmd
 	t_cmd		*next;
 };
 
-typedef struct s_command
-{
-	char	**args;
-	char	*input;
-	char	*output;
-	int		append;
-	int		heredoc;
+/* COMMAND */
 
-}	t_command;
+t_cmd		*create_cmd(t_malloc **lst_malloc, t_token *lst_token);
+void		fill_cmd(t_token **lst_token, t_cmd *cmd, t_malloc **lst_malloc);
+void		add_back_cmd(t_cmd **lst_cmd, t_cmd *cmd, t_malloc **lst_malloc);
+void		display_cmd(t_cmd *cmd_lst);
 
-typedef struct s_pipeline
-{
-	t_command	*commands;
-	int			nb_commands;
-}	t_pipeline;
+/* ERROR */
 
-/*	======	Fonction Used	======	*/
+bool		is_empty_list(t_token *lst_token);
+bool		check_token_lst(t_token **lst_token, const char *prompt,
+				char **line, t_malloc **lst_malloc);
 
-	/*	Lexing Functions	*/
+/* LEXER */
 
 void		handle_multiligne_case(char **line, t_malloc **lst_malloc);
 void		back_slash_case(char **line, char *word);
-void		lexer(t_token **lst_token, t_malloc **lst_malloc, char **line);
 
-		/*		lexer	2	*/
+void		lexer(t_token **lst_token, t_malloc **lst_malloc, char **line);
+void		token_pipe(t_token **token_lst, t_malloc **lst_malloc);
+void		token_redir_in(t_token **token_lst, t_malloc **lst_malloc);
 
 void		token_redir_out(t_token **token_lst, t_malloc **lst_malloc);
 void		token_redir_heredeoc(t_token **token_lst, t_malloc **lst_malloc);
@@ -106,13 +102,7 @@ void		token_operator(char **line, t_token **lst_token,
 				t_malloc **lst_malloc);
 void		token_append(t_token **token_lst, t_malloc **lst_malloc);
 
-		/*		lexer	3	*/
-
-void		token_pipe(t_token **token_lst, t_malloc **lst_malloc);
-void		token_redir_in(t_token **token_lst, t_malloc **lst_malloc);
-bool		are_quotes_closed(char *line);
-
-	/*	Malloc Functions	*/
+/* MALLOC */
 
 void		clean_lst_malloc(t_malloc *lst_malloc);
 t_malloc	*create_node_malloc(void *address_malloc);
@@ -120,13 +110,34 @@ void		add_malloc_in_lst(t_malloc **lst_malloc, t_malloc *malloc_node);
 void		*malloc_remix(size_t nb_octets, t_malloc **lst_malloc);
 void		display_lst_malloc(t_malloc *lst_malloc);
 
-	/*	Token Functions		*/
+/* PIPE ERROR */
+
+bool		check_pipe(t_token *lst_token, const char *prompt,
+				char **line, t_malloc **lst_malloc);
+
+/* REDIR ERROR */
+
+bool		consecutive_redir(t_token *lst_token,
+				char **bad_word, t_malloc **lst_malloc);
+bool		last_token_is_redir(t_token *lst_token);
+bool		check_redir(t_token *lst_token,
+				const char *prompt, t_malloc **lst_malloc);
+
+/* REDIR */
+
+void		handle_redir(t_malloc **lst_malloc, t_token **lst_token,
+				t_cmd *cmd);
+t_redir		*create_redir(t_malloc **lst_malloc, int token_type);
+void		add_back_redir(t_cmd *cmd, t_redir *new_redir);
+void		display_redir(t_cmd *cmd);
+
+/* TOKEN */
 
 t_token		*create_token(char *word, int type,
 				t_malloc **lst_malloc, t_token **token_lst);
 void		display_token(t_token *token_lst);
 
-	/*	Tools Functions		*/
+/* TOOLS */
 
 bool		is_space(char c);
 bool		is_quote(char c);
@@ -140,10 +151,7 @@ int			ft_strlen(char *str);
 char		*ft_strdup(char *str, t_malloc **lst_malloc);
 char		*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc);
 bool		ft_strcmp(char *s1, char *s2);
-char		*remix_readline(const char	*prompt, t_malloc **lst_malloc);
-
-		/*		Tools	3	*/
-
+char		*remix_readline(const char *prompt, t_malloc **lst_malloc);
 bool		is_back_slash(char c);
 bool		ends_with_backslash(char *line);
 bool		is_pipe(char c);
@@ -155,30 +163,7 @@ bool		is_redir_out(char c);
 bool		is_here_doc(char **line);
 bool		is_append(char **line);
 bool		is_redir(t_token *lst_token);
-
-	/*	Error Functions		*/
-
-bool		is_empty_list(t_token *lst_token);
-void		check_syntax(t_token **lst_token, const char *prompt,
-				char **line, t_malloc **lst_malloc);
-
-
-		/*	pipe_error	*/
-
-bool		check_pipe(t_token *lst_token, const char *prompt,
-				char **line, t_malloc **lst_malloc);
-
-		/*	Redir error	*/
-
-bool		consecutive_redir(t_token *lst_token,
-				char **bad_word, t_malloc **lst_malloc);
-bool		last_token_is_redir(t_token *lst_token);
-bool		check_redir(t_token *lst_token, const char *prompt,
-				t_malloc **lst_malloc);
-
-		/*	Incomplete input	*/
-
-bool		last_char_is_pipe(char *line);
-bool		is_incomplete_input(char *line);
+void		ft_bzero(void *s, size_t n);
+void		display_args(char **args);
 
 #endif
