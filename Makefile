@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
+#    By: w <w@student.42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
 #    Updated: 2026/04/01 09:06:13 by wngambi          ###   ########.fr        #
@@ -44,7 +44,7 @@ export ASCII_ART
 # Makefile #
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS	=	-lreadline
 RM		=	rm -rf
 
@@ -63,6 +63,7 @@ SRC	=	$(SRC_DIR)/command.c \
 		$(SRC_DIR)/error.c \
 		$(SRC_DIR)/lexer.c \
 		$(SRC_DIR)/lexer2.c \
+		$(SRC_DIR)/lexer3.c \
 		$(SRC_DIR)/malloc.c \
 		$(SRC_DIR)/pipe_error.c \
 		$(SRC_DIR)/redir_error.c \

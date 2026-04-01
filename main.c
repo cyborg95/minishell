@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
 /*   Updated: 2026/04/01 13:54:15 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 // Gerer le double free == CARRE
 // Paufiner la detection des quotes non fermees == CARRE
@@ -17,7 +19,11 @@
 // Gerer le cas du backslash == CARRE
 // Gerer le cas du backslah en derneir caractere qui refait un promt == CARRE
 
-#include "minishell.h"
+
+// gerer corectement les cas des multi lignes == CARRE
+// COrrection du pipe seul == CARRE
+
+/*	=====================================================	*/
 
 /*	=====================================================	*/
 

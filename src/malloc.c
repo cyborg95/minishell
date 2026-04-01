@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:12:13 by wngambi           #+#    #+#             */
 /*   Updated: 2026/04/01 14:06:13 by wngambi          ###   ########.fr       */
@@ -22,6 +22,8 @@ struct s_malloc
 
 /*	===================================================================	*/
 
+
+/*	Carre on revient pas dessus	*/
 void	clean_lst_malloc(t_malloc *lst_malloc)
 {
 	t_malloc	*next_malloc;
@@ -43,6 +45,7 @@ void	clean_lst_malloc(t_malloc *lst_malloc)
 
 /*	===================================================================	*/
 
+/*	Carre on revient pas dessus	*/
 t_malloc	*create_node_malloc(void *address_malloc)
 {
 	t_malloc	*node;
@@ -57,6 +60,7 @@ t_malloc	*create_node_malloc(void *address_malloc)
 
 /*	===================================================================	*/
 
+/*	Carre on revient pas dessus	*/
 void	add_malloc_in_lst(t_malloc **lst_malloc, t_malloc *malloc_node)
 {
 	t_malloc	*tmp;
@@ -76,6 +80,7 @@ void	add_malloc_in_lst(t_malloc **lst_malloc, t_malloc *malloc_node)
 
 /*	===================================================================	*/
 
+/*	Carre on revient pas dessus	*/
 void	*malloc_remix(size_t nb_octets, t_malloc **lst_malloc)
 {
 	void		*link;
@@ -101,6 +106,7 @@ void	*malloc_remix(size_t nb_octets, t_malloc **lst_malloc)
 
 /*	===================================================================	*/
 
+/*	Carre on revient pas dessus	*/
 void	display_lst_malloc(t_malloc *lst_malloc)
 {
 	int			i;

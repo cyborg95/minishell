@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   tools4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 10:41:23 by wngambi           #+#    #+#             */
 /*   Updated: 2026/04/01 14:05:05 by wngambi          ###   ########.fr       */
@@ -14,6 +14,7 @@
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 bool	is_here_doc(char **line)
 {
 	if (!line)
@@ -30,6 +31,7 @@ bool	is_here_doc(char **line)
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 bool	is_append(char **line)
 {
 	if (!line)
@@ -46,6 +48,7 @@ bool	is_append(char **line)
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 bool	is_redir(t_token *lst_token)
 {
 	if (!lst_token)

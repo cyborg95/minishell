@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   redir_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 09:28:26 by wngambi           #+#    #+#             */
 /*   Updated: 2026/04/01 08:23:38 by wngambi          ###   ########.fr       */
@@ -47,6 +47,7 @@ bool	consecutive_redir(t_token *lst_token,
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 bool	last_token_is_redir(t_token *lst_token)
 {
 	if (!lst_token)
@@ -78,7 +79,8 @@ bool	check_redir(t_token *lst_token,
 	}
 	else if (consecutive_redir (lst_token, &bad_word, lst_malloc))
 	{
-		printf ("%ssyntax error near unexpected token `%s'\n", prompt, bad_word);
+		printf ("%ssyntax error near unexpected token `%s'\n",
+			prompt, bad_word);
 		return (false);
 	}
 	return (true);

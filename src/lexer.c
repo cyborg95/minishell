@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
 /*   Updated: 2026/04/01 14:10:14 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+/*	
 
 /*	=====================================================	*/
 
@@ -41,39 +41,53 @@ bool	are_quotes_closed(char *line)
 
 /*	=====================================================	*/
 
-static void	maj_quote(char c, bool *s_quote, bool *d_quote)
+/*	Carre on revient pas dessus	*/
+static void	maj_quote(char c, bool *in_squote, bool *in_dquote)
 {
-	const char	single_quote = '\'';
-	const char	double_quote = '"';
-
-	if (c == single_quote && *s_quote == false)
-		*s_quote = true;
-	else if (c == single_quote && *s_quote == true)
-		*s_quote = false;
-	else if (c == double_quote && *d_quote == false)
-		*d_quote = true;
-	else if (c == double_quote && *d_quote == true)
-		*d_quote = false;
+	if (is_single_quote(c) && *in_dquote == false)
+	{
+		if (*in_squote == false)
+			*in_squote = true;
+		else
+			*in_squote = false;
+	}
+	else if (is_double_quote (c) && *in_squote == false)
+	{
+		if (*in_dquote == false)
+			*in_dquote = true;
+		else
+			*in_dquote = false;
+	}
 }
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 void	handle_multiligne_case(char **line, t_malloc **lst_malloc)
 {
 	char	*next_line;
 	char	*tmp;
+	char	*tmp2;
 
 	if (!line)
 		return ;
 	next_line = remix_readline ("> ", lst_malloc);
 	if (!next_line)
 		return ;
-	tmp = ft_strjoin (*line, next_line, lst_malloc);
+	if (ends_with_backslash (*line))
+	{
+		(*line)[strlen(*line) - 1] = '\0';
+		tmp2 = ft_strjoin (*line, "", lst_malloc);
+	}
+	else
+		tmp2 = ft_strjoin (*line, " ", lst_malloc);
+	tmp = ft_strjoin (tmp2, next_line, lst_malloc);
 	(*line) = tmp;
 }
 
 /*	=====================================================	*/
 
+/*	Carre on revient pas dessus	*/
 void	back_slash_case(char **line, char *word)
 {
 	if (!line || !*line)
@@ -83,6 +97,8 @@ void	back_slash_case(char **line, char *word)
 		*word = **line;
 	(*line)++;
 }
+
+/*	=====================================================	*/
 
 static char	*extract_word(char **line, char *word)
 {
@@ -97,8 +113,14 @@ static char	*extract_word(char **line, char *word)
 	i = 0;
 	while (**line)
 	{
-		if (is_quote(**line))
-			maj_quote (**line, &in_squote, &in_dquote);
+		if (is_quote(**line) &&
+			((**line == '\'' && !in_dquote)
+				|| (**line == '"' && !in_squote)))
+		{
+			maj_quote(**line, &in_squote, &in_dquote);
+			(*line)++;
+			continue ;
+		}
 		else if (is_space (**line) && !in_squote && !in_dquote)
 			break ;
 		else if ((!in_squote && !in_dquote) && (is_operator (**line)
