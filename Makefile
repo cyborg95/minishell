@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
+#    By: w <w@student.42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
 #    Updated: 2026/04/02 07:20:17 by wngambi          ###   ########.fr        #
@@ -44,7 +44,7 @@ export ASCII_ART
 # Makefile #
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS	=	-lreadline
 RM		=	rm -rf
 

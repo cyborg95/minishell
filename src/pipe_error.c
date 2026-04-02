@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 16:12:16 by wngambi           #+#    #+#             */
 /*   Updated: 2026/04/01 14:05:24 by wngambi          ###   ########.fr       */
@@ -36,7 +36,7 @@ static bool	is_pipe_first(t_token *lst_token)
 }
 
 /*	====================================================	*/
-
+/*
 static bool	is_pipe_last(t_token *lst_token)
 {
 	if (!lst_token)
@@ -48,22 +48,19 @@ static bool	is_pipe_last(t_token *lst_token)
 	else
 		return (false);
 }
-
+*/
 /*	====================================================	*/
 
-static bool	consecutive_pipe(t_token *lst_token)
+static bool	operator_after_pipe(t_token *lst_token)
 {
 	if (!lst_token)
 		return (false);
-	while (lst_token)
+	while (lst_token->next)
 	{
 		if (lst_token->type == PIPE)
 		{
-			if (lst_token->next)
-			{
-				if (lst_token->next->type == PIPE)
-					return (true);
-			}
+			if (lst_token->next->type != WORD)
+				return (true);
 		}
 		lst_token = lst_token->next;
 	}

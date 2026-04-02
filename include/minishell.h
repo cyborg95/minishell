@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:23:48 by wngambi           #+#    #+#             */
 /*   Updated: 2026/04/02 08:33:55 by wngambi          ###   ########.fr       */
@@ -96,7 +96,6 @@ bool		check_token_lst(t_token **lst_token, const char *prompt,
 
 /* LEXER */
 
-bool		are_quotes_closed(char *line);
 void		handle_multiligne_case(char **line, t_malloc **lst_malloc);
 void		back_slash_case(char **line, char *word);
 char		*extract_word(char **line, char *word);
@@ -155,6 +154,9 @@ bool		is_quote(char c);
 bool		is_single_quote(char c);
 bool		is_double_quote(char c);
 bool		is_operator(char c);
+
+		/*		Tools	2	*/
+
 int			ft_strlen(char *str);
 char		*ft_strdup(char *str, t_malloc **lst_malloc);
 char		*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc);
@@ -165,6 +167,9 @@ bool		ends_with_backslash(char *line);
 bool		is_pipe(char c);
 bool		is_redir_in(char c);
 bool		is_redir_out(char c);
+
+		/*		Tools	4	*/
+
 bool		is_here_doc(char **line);
 bool		is_append(char **line);
 bool		is_redir(t_token *lst_token);
