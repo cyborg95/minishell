@@ -6,7 +6,7 @@
 /*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 09:28:26 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/01 08:23:38 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/02 08:32:50 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,39 @@ bool	last_token_is_redir(t_token *lst_token)
 
 /*	=====================================================	*/
 
+static bool	invalid_redir_sequence(t_token *lst_token, const char *prompt)
+{
+	if (!lst_token)
+		return (false);
+	while (lst_token)
+	{
+		if (is_redir (lst_token))
+		{
+			if (!lst_token->next)
+			{
+				printf("%ssyntax error near unexpected token `newline'\n",
+					prompt);
+				return (true);
+			}
+			if (lst_token->next->type != WORD)
+			{
+				printf("%ssyntax error near unexpected token `%s'\n",
+					prompt, lst_token->next->word);
+				return (true);
+			}
+		}
+		lst_token = lst_token->next;
+	}
+	return (false);
+}
+
 bool	check_redir(t_token *lst_token,
 	const char *prompt, t_malloc **lst_malloc)
 {
 	char	*bad_word;
 
+	if (invalid_redir_sequence (lst_token, prompt))
+		return (false);
 	if (last_token_is_redir (lst_token))
 	{
 		printf ("%ssyntax error near unexpected token `newline'\n", prompt);

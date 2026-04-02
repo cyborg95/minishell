@@ -6,7 +6,7 @@
 /*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/01 14:10:14 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/02 06:23:52 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ void	back_slash_case(char **line, char *word)
 	(*line)++;
 }
 
-/*	=====================================================	*/
-
-static char	*extract_word(char **line, char *word)
+char	*extract_word(char **line, char *word)
 {
 	int		i;
 	bool	in_squote;

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 06:31:08 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/01 14:04:50 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/02 08:36:32 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,14 +124,16 @@ void	display_cmd(t_cmd *cmd_lst)
 
 void	display_cmd(t_cmd *cmd_lst)
 {
-	int	cmd_index = 1;
+	t_redir	*r;
+	int		cmd_index;
+	int		i;
 
+	cmd_index = 1;
 	if (!cmd_lst)
 	{
 		printf("No command to display\n");
 		return ;
 	}
-
 	while (cmd_lst)
 	{
 		printf("\n");
@@ -139,12 +141,11 @@ void	display_cmd(t_cmd *cmd_lst)
 		printf("║          COMMAND [%d]                ║\n", cmd_index++);
 		printf("╚══════════════════════════════════════╝\n");
 		printf("  ➤ ARGS:\n");
-
 		if (!cmd_lst->args || !cmd_lst->args[0])
 			printf("     (none)\n");
 		else
 		{
-			int i = 0;
+			i = 0;
 			while (cmd_lst->args[i])
 			{
 				printf("     [%d] -> \"%s\"\n", i, cmd_lst->args[i]);
@@ -152,13 +153,11 @@ void	display_cmd(t_cmd *cmd_lst)
 			}
 		}
 		printf("  ➤ REDIRECTIONS:\n");
-
 		if (!cmd_lst->redir)
 			printf("     (none)\n");
 		else
 		{
-			t_redir *r = cmd_lst->redir;
-
+			r = cmd_lst->redir;
 			while (r)
 			{
 				if (r->type == REDIR_IN)
@@ -171,11 +170,9 @@ void	display_cmd(t_cmd *cmd_lst)
 					printf("     <<   \"%s\"\n", r->file);
 				else
 					printf("     ?    \"%s\" (unknown type)\n", r->file);
-
 				r = r->next;
 			}
 		}
-
 		cmd_lst = cmd_lst->next;
 	}
 	printf("\n");

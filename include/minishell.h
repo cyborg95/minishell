@@ -6,7 +6,7 @@
 /*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:23:48 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/01 14:23:49 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/02 08:33:55 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,15 @@ struct s_cmd
 	t_cmd		*next;
 };
 
+/* PARSING_MINISHELL */
+
+void		init_command_lst(t_token *token_lst,
+				t_malloc **malloc_lst, t_cmd **cmd_lst);
+void		init_token_lst(t_token **token_lst, t_malloc **malloc_lst,
+				char **line);
+bool		read_prompt(char **line, t_malloc **malloc_lst);
+t_cmd		*parse_input(char *line, t_malloc **lst_malloc);
+
 /* COMMAND */
 
 t_cmd		*create_cmd(t_malloc **lst_malloc, t_token *lst_token);
@@ -89,6 +98,7 @@ bool		check_token_lst(t_token **lst_token, const char *prompt,
 
 void		handle_multiligne_case(char **line, t_malloc **lst_malloc);
 void		back_slash_case(char **line, char *word);
+char		*extract_word(char **line, char *word);
 
 void		lexer(t_token **lst_token, t_malloc **lst_malloc, char **line);
 void		token_pipe(t_token **token_lst, t_malloc **lst_malloc);
@@ -165,5 +175,7 @@ bool		is_append(char **line);
 bool		is_redir(t_token *lst_token);
 void		ft_bzero(void *s, size_t n);
 void		display_args(char **args);
+bool		end_with_pipe(char *line);
+bool		is_operator_before(char *line);
 
 #endif
