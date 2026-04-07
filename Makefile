@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: w <w@student.42.fr>                        +#+  +:+       +#+         #
+#    By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/04/02 07:20:17 by wngambi          ###   ########.fr        #
+#    Updated: 2026/04/02 14:03:57 by otidahoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,33 +51,22 @@ RM		=	rm -rf
 
 # All Directories #
 
-HEADER_DIR	=	include
-SRC_DIR		=	src
-
-#	Files	#
+HEADER_DIR = includes
 
 NAME	=	minishell
 HEADER	=	$(HEADER_DIR)/minishell.h
 
-SRC	=	$(SRC_DIR)/command.c \
-		$(SRC_DIR)/error.c \
-		$(SRC_DIR)/lexer.c \
-		$(SRC_DIR)/lexer2.c \
-		$(SRC_DIR)/lexer3.c \
-		$(SRC_DIR)/malloc.c \
-		$(SRC_DIR)/parsing_minishell.c \
-		$(SRC_DIR)/pipe_error.c \
-		$(SRC_DIR)/redir_error.c \
-		$(SRC_DIR)/redir.c \
-		$(SRC_DIR)/token.c \
-		$(SRC_DIR)/tools.c \
-		$(SRC_DIR)/tools2.c \
-		$(SRC_DIR)/tools3.c \
-		$(SRC_DIR)/tools4.c \
-		$(SRC_DIR)/tools5.c \
-		main.c
+SRC =	main.c \
+	merger.c \
+	src/signals/signals.c \
+	$(wildcard src/builtins/*.c) \
+	$(wildcard src/executor/*.c) \
+	$(wildcard src/env/*.c) \
+	$(wildcard src/src_parser/*.c)
 
-OBJ	=	$(SRC:.c=.o)
+OBJ = $(SRC:.c=.o)
+
+LIBFT = libft/libft.a
 
 #	Compilation Rules	#
 
@@ -88,8 +77,10 @@ all:
 	@$(MAKE) $(NAME)
 	@echo "$(CYAN)Compilation completed!$(RESET)"
 	
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) -Llibft -lft -o $(NAME) $(LDFLAGS)
+$(LIBFT):
+	make -C libft
 
 %.o: %.c $(HEADER)
 	@echo "$(PURPLE)Compiling $<...$(RESET)"
@@ -97,10 +88,12 @@ $(NAME): $(OBJ)
 
 clean:
 	@echo "$(GREEN)Cleaning...$(RESET)"
+	make clean -C libft
 	$(RM) $(OBJ)
 	@echo "$(CYAN)Cleaned successfully!$(RESET)"
 
 fclean: clean
+	make fclean -C libft
 	$(RM) $(NAME)
 
 re: fclean all

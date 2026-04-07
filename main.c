@@ -3,52 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: w <w@student.42.fr>                        +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 13:27:07 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/02 07:15:27 by wngambi          ###   ########.fr       */
+/*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
+/*   Updated: 2026/04/03 13:25:34 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "includes/minishell.h"
 
-// Gerer le double free == CARRE
-// Paufiner la detection des quotes non fermees == CARRE
-// Coriger les quotes dans extrract word == CARRE
-// Gerer le cas des doubles oeprateurs == CARRE
-// Gerer le cas du backslash == CARRE
-// Gerer le cas du backslah en derneir caractere qui refait un promt == CARRE
-
-
-// gerer corectement les cas des multi lignes == CARRE
-// COrrection du pipe seul == CARRE
-
-/*	=====================================================	*/
-
-/*	=====================================================	*/
-
-int	main(void)
+void	process_heredocs(t_node *node, t_malloc **lst_malloc)
 {
-	char		*line;
-	t_malloc	*malloc_lst;
-	t_cmd		*cmd_lst;
+	t_redir	*r;
 
-	malloc_lst = NULL;
-	line = NULL;
-	while (1)
+	if (!node)
+		return ;
+	r = node->redirs;
+	while (r)
 	{
-		if (read_prompt (&line, &malloc_lst) == false)
-			continue ;
-		cmd_lst = parse_input (line, &malloc_lst);
-		if (!cmd_lst)
-			continue ;
-		display_cmd (cmd_lst);
-		clean_lst_malloc (malloc_lst);
-		malloc_lst = NULL;
+		if (r->type == R_HEREDOC)
+			r->fd = handle_heredoc(r, lst_malloc);
+		r = r->next;
 	}
-	return (0);
+	process_heredocs(node->left, lst_malloc);
+	process_heredocs(node->right, lst_malloc);
 }
 
-/*	=====================================================	*/
+int	handle_heredoc(t_redir *redir, t_malloc **lst_malloc)
+{
+	int		fd[2];
+	char	*line;
 
-		//display_token (token_list);
+	if (pipe(fd) < 0)
+		return (perror("pipe"), -1);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			break ;
+		if (!line || ft_1strcmp(line, redir->file) == 0)
+		{
+			add_malloc_in_lst(lst_malloc, create_node_malloc(line));
+			break ;
+		}
+		write(fd[1], line, ft_1strlen(line));
+		write(fd[1], "\n", 1);
+		add_malloc_in_lst(lst_malloc, create_node_malloc(line));
+	}
+	close(fd[1]);
+	return (fd[0]);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_shell		shell;
+	char		*line;
+	t_cmd		*cmd_list;
+	t_node		*root;
+	t_malloc	*malloc_lst;
+
+	(void)argc;
+	(void)argv;
+	malloc_lst = NULL;
+	shell.env = init_env(envp);
+	shell.envp_array = env_list_to_array(shell.env);
+	shell.last_status = 0;
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, SIG_IGN);
+	while (1)
+	{
+		if (!read_prompt(&line, &malloc_lst))
+			continue ;
+		add_history(line);
+		cmd_list = parse_input(line, &malloc_lst);
+		//display_cmd (cmd_list);
+		free_remix(line, &malloc_lst);
+		line = NULL;
+		if (!cmd_list)
+		{
+			clean_lst_malloc(malloc_lst);
+			malloc_lst = NULL;
+			continue ;
+		}
+		root = cmd_list_to_ast(cmd_list, &malloc_lst);
+		expand_tree(root, &shell, &malloc_lst);
+		process_heredocs(root, &malloc_lst);
+		execute_node(root, &shell);
+		clean_lst_malloc(malloc_lst);
+		malloc_lst = NULL;
+	}
+	ft_free_tab(shell.envp_array);
+	free_env_list(shell.env);
+	return (rl_clear_history(), shell.last_status);
+}
