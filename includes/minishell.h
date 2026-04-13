@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/03 11:08:10 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 08:13:04 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void			handle_redir_case(char **line, t_token **lst_token,
 void			token_operator(char **line, t_token **lst_token,
 					t_malloc **lst_malloc);
 void			token_append(t_token **token_lst, t_malloc **lst_malloc);
+void			init_value(bool *in_squote, bool *in_dquote, int *i);
 
 /* MALLOC */
 
@@ -99,6 +100,11 @@ void			display_lst_malloc(t_malloc *lst_malloc);
 
 /* PIPE ERROR */
 
+bool			is_pipe_first(t_token *lst_token);
+bool			is_pipe_last(t_token *lst_token);
+bool			operator_after_pipe(t_token *lst_token);
+bool			should_multiligne_pipe(t_token *lst_token);
+bool			consecutive_pipe(t_token *lst_token);
 bool			check_pipe(t_token *lst_token, const char *prompt, char **line,
 					t_malloc **lst_malloc);
 
@@ -154,6 +160,13 @@ void			ft_bzero(void *s, size_t n);
 void			display_args(char **args);
 bool			end_with_pipe(char *line);
 bool			is_operator_before(char *line);
+
+/*		MERGER	*/
+
+t_redir_type	convert_redir_type(int type);
+t_redir			*convert_redirs(t_redir *src, t_malloc **malloc_lst);
+t_node			*cmd_to_node(t_cmd *cmd, t_malloc **malloc_lst);
+t_node			*cmd_list_to_ast(t_cmd *cmd, t_malloc **malloc_lst);
 
 extern int		g_signal;
 

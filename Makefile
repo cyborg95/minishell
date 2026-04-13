@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+         #
+#    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/04/02 14:03:57 by otidahoh         ###   ########.fr        #
+#    Updated: 2026/04/13 08:14:33 by wngambi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,12 +57,12 @@ NAME	=	minishell
 HEADER	=	$(HEADER_DIR)/minishell.h
 
 SRC =	main.c \
-	merger.c \
 	src/signals/signals.c \
 	$(wildcard src/builtins/*.c) \
 	$(wildcard src/executor/*.c) \
 	$(wildcard src/env/*.c) \
-	$(wildcard src/src_parser/*.c)
+	$(wildcard src/src_parser/*.c) \
+	$(wildcard src/merger/*.c)
 
 OBJ = $(SRC:.c=.o)
 

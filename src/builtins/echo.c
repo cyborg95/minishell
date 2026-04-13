@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:03:20 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/02 17:28:58 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 08:00:50 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	is_valid_flag(char *arg)
 
 int	builtin_echo(char **argv)
 {
-	int i;
-	int j;
-	int nl;
-	int interpret;
+	int	i;
+	int	j;
+	int	nl;
+	int	interpret;
 
 	i = 1;
 	nl = 1;

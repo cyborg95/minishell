@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:12:13 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/02 14:12:49 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 07:50:06 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ struct s_malloc
 */
 
 /*	===================================================================	*/
-
 
 /*	Carre on revient pas dessus	*/
 void	clean_lst_malloc(t_malloc *lst_malloc)

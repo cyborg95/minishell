@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/13 06:48:16 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/13 08:03:13 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,21 +96,20 @@ void	back_slash_case(char **line, char *word)
 	(*line)++;
 }
 
+/*	=====================================================	*/
+
 char	*extract_word(char **line, char *word)
 {
 	int		i;
 	bool	in_squote;
 	bool	in_dquote;
 
-	in_squote = false;
-	in_dquote = false;
 	if (!line)
 		return (NULL);
-	i = 0;
+	init_value (&in_squote, &in_dquote, &i);
 	while (**line)
 	{
-		if (is_quote(**line) &&
-			((**line == '\'' && !in_dquote)
+		if (is_quote(**line) && ((**line == '\'' && !in_dquote)
 				|| (**line == '"' && !in_squote)))
 		{
 			maj_quote(**line, &in_squote, &in_dquote);
@@ -122,8 +121,6 @@ char	*extract_word(char **line, char *word)
 		else if ((!in_squote && !in_dquote) && (is_operator (**line)
 				|| is_space (**line) || (**line == '\0')))
 			break ;
-		else if (**line == '\\' && !in_squote)
-			back_slash_case(line, &word[i++]);
 		word[i++] = (**line);
 		(*line)++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 16:12:16 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/02 14:31:09 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 08:06:13 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 /*	====================================================	*/
 
-static bool	is_pipe_first(t_token *lst_token)
+bool	is_pipe_first(t_token *lst_token)
 {
 	if (!lst_token)
 		return (false);
@@ -37,7 +37,7 @@ static bool	is_pipe_first(t_token *lst_token)
 
 /*	====================================================	*/
 
-static bool	is_pipe_last(t_token *lst_token)
+bool	is_pipe_last(t_token *lst_token)
 {
 	if (!lst_token)
 		return (false);
@@ -51,7 +51,7 @@ static bool	is_pipe_last(t_token *lst_token)
 
 /*	====================================================	*/
 
-static bool	operator_after_pipe(t_token *lst_token)
+bool	operator_after_pipe(t_token *lst_token)
 {
 	if (!lst_token)
 		return (false);
@@ -69,7 +69,7 @@ static bool	operator_after_pipe(t_token *lst_token)
 
 /*	====================================================	*/
 
-static bool	should_multiligne_pipe(t_token *lst_token)
+bool	should_multiligne_pipe(t_token *lst_token)
 {
 	t_token	*last;
 	t_token	*prev;
@@ -100,27 +100,6 @@ bool	consecutive_pipe(t_token *lst_token)
 		lst_token = lst_token->next;
 	}
 	return (false);
-}
-
-bool	check_pipe(t_token *lst_token, const char *prompt,
-	char **line, t_malloc **lst_malloc)
-{
-	if (is_pipe_first (lst_token) || operator_after_pipe (lst_token))
-	{
-		printf ("%ssyntax error near unexpected token `|'\n", prompt);
-		return (false);
-	}
-	else if (is_pipe_last (lst_token))
-	{
-		if (should_multiligne_pipe (lst_token))
-			handle_multiligne_case (line, lst_malloc);
-		else
-		{
-			printf ("%ssyntax error near unexpected token `|'\n", prompt);
-			return (false);
-		}
-	}
-	return (true);
 }
 
 /*	====================================================	*/

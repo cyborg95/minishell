@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:09:34 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/02 14:12:42 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 08:03:28 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ void	token_redir_in(t_token **token_lst, t_malloc **lst_malloc)
 	if (!token_lst)
 		return ;
 	create_token (ft_strdup ("<", lst_malloc), REDIR_IN, lst_malloc, token_lst);
+}
+
+/*	=====================================================	*/
+
+void	init_value(bool *in_squote, bool *in_dquote, int *i)
+{
+	if (!in_squote || !in_dquote || !i)
+		return ;
+	(*in_squote) = false;
+	(*in_dquote) = false;
+	(*i) = 0;
 }
 
 /*	=====================================================	*/
