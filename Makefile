@@ -6,7 +6,7 @@
 #    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/04/13 08:27:34 by wngambi          ###   ########.fr        #
+#    Updated: 2026/04/13 08:39:08 by wngambi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,7 @@ SRC =	$(SRC_DIR)/builtins/builtin_utils.c \
 		$(SRC_DIR)/src_parser/tools3.c \
 		$(SRC_DIR)/src_parser/tools4.c \
 		$(SRC_DIR)/src_parser/tools5.c \
+		$(SRC_DIR)/here_doc_process/here_doc_process.c \
 		main.c 
 
 OBJ = $(SRC:.c=.o)

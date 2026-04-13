@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/13 08:13:04 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/13 08:40:31 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,11 @@ t_redir_type	convert_redir_type(int type);
 t_redir			*convert_redirs(t_redir *src, t_malloc **malloc_lst);
 t_node			*cmd_to_node(t_cmd *cmd, t_malloc **malloc_lst);
 t_node			*cmd_list_to_ast(t_cmd *cmd, t_malloc **malloc_lst);
+
+/*		HERE_DOC_PROCESS	*/
+
+void			process_heredocs(t_node *node, t_malloc **lst_malloc);
+int				handle_heredoc(t_redir *redir, t_malloc **lst_malloc);
 
 extern int		g_signal;
 
