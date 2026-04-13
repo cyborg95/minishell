@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:01:19 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/02 13:54:05 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:16:00 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ char	*path_finder(char *cmd, char **envp)
 {
 	t_vars	vars;
 
+	if (ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, X_OK) == 0)
+			return (ft_1strdup(cmd));
+		return (NULL);
+	}
 	vars.path_env = my_getenv("PATH", envp);
 	if (!vars.path_env)
 		return (ft_1strdup(cmd));
