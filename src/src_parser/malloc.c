@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:12:13 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/13 07:50:06 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/13 10:17:58 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	clean_lst_malloc(t_malloc *lst_malloc)
 			free (lst_malloc);
 		lst_malloc = next_malloc;
 	}
+	lst_malloc = NULL;
 	return ;
 }
 

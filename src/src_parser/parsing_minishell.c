@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 07:10:12 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/02 17:46:28 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:05:01 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ bool	read_prompt(char **line, t_malloc **malloc_lst)
 {
 	*line = remix_readline (PROMPT, malloc_lst);
 	if (!line || !malloc_lst)
+		return (false);
+	if (is_only_space (*line))
 		return (false);
 	else if (ft_1strcmp(*line, EXIT) == 0)
 	{

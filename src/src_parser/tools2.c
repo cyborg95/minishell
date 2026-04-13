@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 18:05:21 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/02 14:13:12 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:18:56 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char	*remix_readline(const char	*prompt, t_malloc **lst_malloc)
 	char		*line;
 	t_malloc	*node;
 
-	if (!prompt || ! lst_malloc)
+	if (!prompt || !lst_malloc)
 		return (NULL);
 	line = readline (prompt);
 	node = create_node_malloc (line);

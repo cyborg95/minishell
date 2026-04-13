@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 07:02:29 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/02 14:13:23 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:05:16 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,28 @@ bool	is_operator_before(char *line)
 		return (true);
 	else
 		return (false);
+}
+
+/*	================================================	*/
+
+bool	is_only_space(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (false);
+	else
+	{
+		i = 0;
+		while (str[i])
+		{
+			if (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+				i++;
+			else
+				return (false);
+		}
+	}
+	return (true);
 }
 
 /*	================================================	*/

@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:28:44 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/02 13:52:01 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 08:55:13 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-
-typedef struct s_token	t_token;
-typedef struct s_malloc	t_malloc;
-typedef struct s_cmd	t_cmd;
 # define EXIT "exit"
 # define PROMPT "minishell> "
+
+/*	================	EXECUTION STRUCT	================	*/
 
 typedef enum e_node_type
 {
@@ -78,6 +76,12 @@ typedef struct s_vars
 	char			*path;
 	int				i;
 }					t_vars;
+
+/*	================	PARSING STRUCT	================	*/
+
+typedef struct s_token	t_token;
+typedef struct s_malloc	t_malloc;
+typedef struct s_cmd	t_cmd;
 
 typedef enum e_type
 {

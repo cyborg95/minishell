@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/13 08:40:31 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/13 11:02:49 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,13 @@ bool			is_append(char **line);
 bool			is_redir(t_token *lst_token);
 void			ft_bzero(void *s, size_t n);
 void			display_args(char **args);
+
+/*		Tools	5	*/
+
 bool			end_with_pipe(char *line);
 bool			is_operator_before(char *line);
+bool			is_only_space(char *str);
+
 
 /*		MERGER	*/
 
@@ -172,6 +177,18 @@ t_node			*cmd_list_to_ast(t_cmd *cmd, t_malloc **malloc_lst);
 
 void			process_heredocs(t_node *node, t_malloc **lst_malloc);
 int				handle_heredoc(t_redir *redir, t_malloc **lst_malloc);
+
+/*		HERE_DOC_PROCESS	*/
+
+void			bypass_ac_av(int *argc, char **argv);
+void			init_shell_maloc_lst(t_malloc **malloc_lst,
+					t_shell *shell, char **envp);
+void			gestionnaire_signaux(void);
+void			clean_and_new_lstmalloc(t_malloc *lst_malloc);
+void			clean_shell(t_shell *shell);
+void			clean_history_malloc_shell(t_shell *shell,
+					t_malloc *lst_malloc);
+void			clean_line(char *line, t_malloc *malloc_lst);
 
 extern int		g_signal;
 
