@@ -1,0 +1,24 @@
+{
+   ignore_libreadline_leaks
+   Memcheck:Leak
+   ...
+   obj:*/libreadline.so.*
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:bind_arrow_keys
+   fun:readline_initialize_everything
+   fun:rl_initialize
+   fun:readline
+   fun:minishell_loop
+   fun:main
+}
