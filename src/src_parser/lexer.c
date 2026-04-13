@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/07 12:18:27 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/13 06:48:16 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	handle_multiligne_case(char **line, t_malloc **lst_malloc)
 		tmp2 = ft_strjoin(*line, "", lst_malloc);
 	}
 	else
-		tmp2 = ft_strjoin(*line, " ", lst_malloc);
+		tmp2 = ft_strjoin(*line, "\n", lst_malloc);
 	tmp = ft_strjoin(tmp2, next_line, lst_malloc);
 	(*line) = tmp;
 }
