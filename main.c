@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 07:40:19 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 12:20:56 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 		expand_tree(root, &shell, &malloc_lst);
 		process_heredocs(root, &malloc_lst);
 		execute_node(root, &shell);
+		close_heredocs(root);
 		clean_lst_malloc (&malloc_lst);
 	}
 	clean_history_malloc_shell (&shell, malloc_lst);

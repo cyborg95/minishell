@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 07:42:23 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 12:23:33 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,6 @@ bool			end_with_pipe(char *line);
 bool			is_operator_before(char *line);
 bool			is_only_space(char *str);
 
-
 /*		MERGER	*/
 
 t_redir_type	convert_redir_type(int type);
@@ -177,12 +176,13 @@ t_node			*cmd_list_to_ast(t_cmd *cmd, t_malloc **malloc_lst);
 
 void			process_heredocs(t_node *node, t_malloc **lst_malloc);
 int				handle_heredoc(t_redir *redir, t_malloc **lst_malloc);
+void			close_heredocs(t_node *node);
 
 /*		HERE_DOC_PROCESS	*/
 
 void			bypass_ac_av(int *argc, char **argv);
-void			init_shell_maloc_lst(t_malloc **malloc_lst,
-					t_shell *shell, char **envp);
+void			init_shell_maloc_lst(t_malloc **malloc_lst, t_shell *shell,
+					char **envp);
 void			gestionnaire_signaux(void);
 void			clean_and_new_lstmalloc(t_malloc *lst_malloc);
 void			clean_shell(t_shell *shell);
