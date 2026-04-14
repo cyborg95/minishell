@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/13 08:03:13 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 07:59:20 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ bool	are_quotes_closed(char *line)
 /*	=====================================================	*/
 
 /*	Carre on revient pas dessus	*/
+/*
 static void	maj_quote(char c, bool *in_squote, bool *in_dquote)
 {
 	if (is_single_quote(c) && *in_dquote == false)
@@ -57,6 +58,7 @@ static void	maj_quote(char c, bool *in_squote, bool *in_dquote)
 			*in_dquote = false;
 	}
 }
+*/
 
 /*	=====================================================	*/
 
@@ -104,25 +106,40 @@ char	*extract_word(char **line, char *word)
 	bool	in_squote;
 	bool	in_dquote;
 
-	if (!line)
+	if (!line || !*line)
 		return (NULL);
-	init_value (&in_squote, &in_dquote, &i);
+
+	init_value(&in_squote, &in_dquote, &i);
+
 	while (**line)
 	{
-		if (is_quote(**line) && ((**line == '\'' && !in_dquote)
-				|| (**line == '"' && !in_squote)))
+		// quotes = juste du contexte
+		if (**line == '\'' && !in_dquote)
 		{
-			maj_quote(**line, &in_squote, &in_dquote);
+			in_squote = !in_squote;
+			word[i++] = **line;
 			(*line)++;
 			continue ;
 		}
-		else if (is_space (**line) && !in_squote && !in_dquote)
-			break ;
-		else if ((!in_squote && !in_dquote) && (is_operator (**line)
-				|| is_space (**line) || (**line == '\0')))
-			break ;
-		word[i++] = (**line);
+		if (**line == '"' && !in_squote)
+		{
+			in_dquote = !in_dquote;
+			word[i++] = **line;
+			(*line)++;
+			continue ;
+		}
+
+		// fin de WORD uniquement par espace ou opérateur
+		if (!in_squote && !in_dquote)
+		{
+			if (is_space(**line) || is_operator(**line))
+				break ;
+		}
+
+		word[i++] = **line;
 		(*line)++;
 	}
-	return (word[i] = '\0', word);
+
+	word[i] = '\0';
+	return (word);
 }
