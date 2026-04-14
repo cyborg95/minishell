@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 12:57:27 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/14 19:40:16 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <errno.h>
 
 t_env			*init_env(char **envp);
 char			**env_list_to_array(t_env *env);
@@ -35,7 +36,7 @@ int	is_quoted(char *s);
 void			free_env_list(t_env *env);
 int				ft_1strcmp(const char *s1, const char *s2);
 void			add_or_update_env(t_shell *shell, char *key, char *value);
-char			*my_getenv(char *name, char **env);
+char			*my_getenv(char *name, t_env *env);
 void			handle_signal(int sig);
 char			*expand_var(char *arg, t_shell *shell, t_malloc **malloc_lst);
 void			expand_tree(t_node *node, t_shell *shell,

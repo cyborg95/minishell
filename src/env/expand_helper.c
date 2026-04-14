@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:23:03 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 13:28:15 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/14 19:12:36 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,71 +81,63 @@ char	*expand_var(char *arg, t_shell *shell, t_malloc **malloc_lst)
 	char	*old;
 	char	*value;
 	char	*var;
+	int		in_single_quote;
+	int		in_double_quote;
 
+	in_single_quote = 0;
+	in_double_quote = 0;
 	i = 0;
 	result = ft_strdup("", malloc_lst);
-
 	while (arg[i])
 	{
-		// literal quote handling is already done by lexer → ignore quotes here
-		if (arg[i] == '"' || arg[i] == '\'')
+		if (arg[i] == '\'' && !in_double_quote)
 		{
+			in_single_quote = !in_single_quote;
 			i++;
 			continue ;
 		}
-		if (arg[i] == '\x01')
+		else if (arg[i] == '"' && !in_single_quote)
 		{
-			tmp = ft_strdup("$", malloc_lst);
+			in_double_quote = !in_double_quote;
 			i++;
+			continue ;
 		}
-		// VARIABLE EXPANSION
-		else if (arg[i] == '$')
+		else if (arg[i] == '$' && !in_single_quote)
 		{
 			i++;
-
-			// end of string → literal $
-			if (!arg[i])
-				tmp = ft_strdup("$", malloc_lst);
-
-			// $?
+			if (arg[i + 1] == '"' || arg[i + 1] == '\'')
+			{
+				tmp = ft_strdup("", malloc_lst);
+				i++;
+			}
 			else if (arg[i] == '?')
 			{
 				tmp = ft_itoa_remix(shell->last_status, malloc_lst);
 				i++;
 			}
-
-			// invalid variable ($ + non alpha)
-			else if (!ft_isalpha(arg[i]) && arg[i] != '_')
-			{
-				tmp = ft_strdup("", malloc_lst);
-			}
-
-			// valid variable
-			else
+			else if (ft_isalpha(arg[i]) || arg[i] == '_')
 			{
 				var = extract_var(arg, &i, malloc_lst);
 				value = get_env_value(shell->env, var);
-
 				if (value)
 					tmp = ft_strdup(value, malloc_lst);
 				else
 					tmp = ft_strdup("", malloc_lst);
 			}
+			else
+			{
+				tmp = ft_strdup("$", malloc_lst);
+			}
 		}
-
-		// normal character
 		else
 		{
 			tmp = ft_substr_remix(arg, i, 1, malloc_lst);
 			i++;
 		}
-
 		old = result;
 		result = ft_strjoin(result, tmp, malloc_lst);
-
 		free_remix(old, malloc_lst);
 		free_remix(tmp, malloc_lst);
 	}
-
 	return (result);
 }

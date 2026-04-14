@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:01:19 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/13 11:16:00 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/14 19:52:49 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,29 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-char	*my_getenv(char *name, char **env)
+char	*my_getenv(char *name, t_env *env)
 {
-	int	i;
 	int	j;
 
 	j = ft_1strlen(name);
-	i = 0;
-	while (env && env[i])
+	while (env)
 	{
-		if (ft_strncmp(env[i], name, j) == 0 && env[i][j] == '=')
-			return (env[i] + j + 1);
-		i++;
+		if (ft_strncmp(env->key, name, j) == 0 && env->key[j] == '\0')
+			return (env->value);
+		env = env->next;
 	}
 	return (NULL);
 }
 
-char	*path_finder(char *cmd, char **envp)
+char	*path_finder(char *cmd, t_env *env)
 {
 	t_vars	vars;
 
 	if (ft_strchr(cmd, '/'))
-	{
-		if (access(cmd, X_OK) == 0)
-			return (ft_1strdup(cmd));
-		return (NULL);
-	}
-	vars.path_env = my_getenv("PATH", envp);
-	if (!vars.path_env)
 		return (ft_1strdup(cmd));
+	vars.path_env = my_getenv("PATH", env);
+	if (!vars.path_env)
+		return (NULL);
 	vars.paths = ft_split(vars.path_env, ':');
 	vars.i = 0;
 	while (vars.paths && vars.paths[vars.i])
@@ -81,11 +75,19 @@ int	execute_external(t_node *node, t_shell *shell)
 		return (1);
 	if (!shell->envp_array)
 		shell->envp_array = env_list_to_array(shell->env);
-	node->path = path_finder(node->argv[0], shell->envp_array);
+	node->path = path_finder(node->argv[0], shell->env);
 	if (!node->path)
 	{
-		printf("minishell: %s: command not found\n", node->argv[0]);
-		return (shell->last_status = 127, 127);
+		if (ft_strchr(node->argv[0], '/'))
+		{
+			printf("minishell: %s: No such file or directory\n", node->argv[0]);
+			return (shell->last_status = 127, 127);
+		}
+		else
+		{
+			printf("minishell: %s: command not found\n", node->argv[0]);
+			return (shell->last_status = 127, 127);
+		}
 	}
 	node->pid = fork();
 	if (node->pid == 0)
@@ -94,8 +96,21 @@ int	execute_external(t_node *node, t_shell *shell)
 		signal(SIGQUIT, SIG_DFL);
 		apply_redirections(node->redirs, shell);
 		execve(node->path, node->argv, shell->envp_array);
-		perror(node->argv[0]);
-		exit(127);
+		if (errno == ENOENT)
+		{
+			perror(node->argv[0]);
+			exit(127);
+		}
+		else if (errno == EACCES)
+		{
+			perror(node->argv[0]);
+			exit(126);
+		}
+		else
+		{
+			perror(node->argv[0]);
+			exit(1);
+		}
 	}
 	else
 	{

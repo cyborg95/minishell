@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/14 11:28:55 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/14 18:47:52 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,14 +135,7 @@ char	*extract_word(char **line, char *word)
 			if (is_space(**line) || is_operator(**line))
 				break ;
 		}
-		if (in_dquote && **line == '$')
-		{
-			word[i++] = '\x01';
-			(*line)++;
-			continue ;
-		}
-		else
-			word[i++] = **line;
+		word[i++] = **line;
 		(*line)++;
 	}
 

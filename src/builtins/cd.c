@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:57:50 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/02 13:55:21 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/14 19:43:46 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	builtin_cd(char **argv, t_shell *shell)
 	if (!getcwd(oldpwd, sizeof(oldpwd)))
 		return (perror("cd"), 1);
 	if (!argv[1] || argv[1][0] == '\0')
-		path = my_getenv("HOME", shell->envp_array);
+		path = my_getenv("HOME", shell->env);
 	else if (ft_1strcmp(argv[1], "-") == 0)
-		path = my_getenv("OLDPWD", shell->envp_array);
+		path = my_getenv("OLDPWD", shell->env);
 	else
 		path = argv[1];
 	if (!path || chdir(path) == -1)
@@ -32,8 +32,8 @@ int	builtin_cd(char **argv, t_shell *shell)
 		return (perror("cd"), 1);
 	add_or_update_env(shell, "OLDPWD", oldpwd);
 	add_or_update_env(shell, "PWD", newpwd);
-	ft_free_tab(shell->envp_array);
-	shell->envp_array = env_list_to_array(shell->env);
+	//ft_free_tab(shell->envp_array);
+	//shell->envp_array = env_list_to_array(shell->env);
 	shell->last_status = 0;
 	return (0);
 }
