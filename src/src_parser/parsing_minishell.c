@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 07:10:12 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/13 11:55:29 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 07:43:44 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	read_prompt(char **line, t_malloc **malloc_lst)
 		return (false);
 	else if (ft_1strcmp(*line, EXIT) == 0)
 	{
-		clean_lst_malloc (*malloc_lst);
+		clean_lst_malloc (malloc_lst);
 		(*malloc_lst) = NULL;
 		printf("exit\n");
 		exit (0);

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/13 11:02:49 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 07:42:23 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void			init_value(bool *in_squote, bool *in_dquote, int *i);
 
 /* MALLOC */
 
-void			clean_lst_malloc(t_malloc *lst_malloc);
+void			clean_lst_malloc(t_malloc **lst_malloc);
 t_malloc		*create_node_malloc(void *address_malloc);
 void			add_malloc_in_lst(t_malloc **lst_malloc, t_malloc *malloc_node);
 void			*malloc_remix(size_t nb_octets, t_malloc **lst_malloc);

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 10:06:47 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/13 10:14:22 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 07:44:19 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	gestionnaire_signaux(void)
 
 void	clean_and_new_lstmalloc(t_malloc *lst_malloc)
 {
-	clean_lst_malloc(lst_malloc);
+	clean_lst_malloc(&lst_malloc);
 	lst_malloc = NULL;
 }
 

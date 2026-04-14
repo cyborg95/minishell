@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:12:13 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/13 10:17:58 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 07:43:28 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,23 @@ struct s_malloc
 /*	===================================================================	*/
 
 /*	Carre on revient pas dessus	*/
-void	clean_lst_malloc(t_malloc *lst_malloc)
+void	clean_lst_malloc(t_malloc **lst_malloc)
 {
-	t_malloc	*next_malloc;
+	t_malloc	*tmp;
+	t_malloc	*next;
 
-	next_malloc = NULL;
-	if (!lst_malloc)
+	if (!lst_malloc || !*lst_malloc)
 		return ;
-	while (lst_malloc != NULL)
+	tmp = *lst_malloc;
+	while (tmp)
 	{
-		next_malloc = lst_malloc->next;
-		if (lst_malloc->adress_malloc)
-			free (lst_malloc->adress_malloc);
-		if (lst_malloc)
-			free (lst_malloc);
-		lst_malloc = next_malloc;
+		next = tmp->next;
+		if (tmp->adress_malloc)
+			free(tmp->adress_malloc);
+		free(tmp);
+		tmp = next;
 	}
-	lst_malloc = NULL;
-	return ;
+	*lst_malloc = NULL;
 }
 
 /*	===================================================================	*/
@@ -90,14 +89,14 @@ void	*malloc_remix(size_t nb_octets, t_malloc **lst_malloc)
 	if (!link)
 	{
 		perror ("Malloc: ");
-		clean_lst_malloc (*lst_malloc);
+		clean_lst_malloc (lst_malloc);
 		exit (1);
 	}
 	malloc_node = create_node_malloc (link);
 	if (!malloc_node)
 	{
 		perror ("Create_node_malloc: ");
-		clean_lst_malloc (*lst_malloc);
+		clean_lst_malloc (lst_malloc);
 		exit (1);
 	}
 	add_malloc_in_lst (lst_malloc, malloc_node);
