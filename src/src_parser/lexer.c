@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/14 07:59:20 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 11:28:55 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,14 @@ char	*extract_word(char **line, char *word)
 			if (is_space(**line) || is_operator(**line))
 				break ;
 		}
-
-		word[i++] = **line;
+		if (in_dquote && **line == '$')
+		{
+			word[i++] = '\x01';
+			(*line)++;
+			continue ;
+		}
+		else
+			word[i++] = **line;
 		(*line)++;
 	}
 

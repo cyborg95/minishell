@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:23:03 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 08:03:14 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 11:30:39 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,11 @@ char	*expand_var(char *arg, t_shell *shell, t_malloc **malloc_lst)
 			i++;
 			continue ;
 		}
-
+		if (arg[i] == '\x01')
+		{
+			tmp = ft_strdup("$", malloc_lst);
+			i++;
+		}
 		// VARIABLE EXPANSION
 		else if (arg[i] == '$')
 		{
@@ -113,7 +117,7 @@ char	*expand_var(char *arg, t_shell *shell, t_malloc **malloc_lst)
 			// invalid variable ($ + non alpha)
 			else if (!ft_isalpha(arg[i]) && arg[i] != '_')
 			{
-				tmp = ft_strdup("$", malloc_lst);
+				tmp = ft_strdup("", malloc_lst);
 			}
 
 			// valid variable
