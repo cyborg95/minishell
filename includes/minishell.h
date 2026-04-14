@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 12:23:33 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/14 12:57:27 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 t_env			*init_env(char **envp);
 char			**env_list_to_array(t_env *env);
 void			ft_free_tab(char **tab);
+char	*remove_quotes(char *s, t_malloc **lst);
+int	is_quoted(char *s);
 void			free_env_list(t_env *env);
 int				ft_1strcmp(const char *s1, const char *s2);
 void			add_or_update_env(t_shell *shell, char *key, char *value);
@@ -40,7 +42,6 @@ void			expand_tree(t_node *node, t_shell *shell,
 					t_malloc **malloc_lst);
 int				is_valid_identifier(char *str);
 int				printable_export(t_shell *shell);
-int				handle_heredoc(t_redir *redir, t_malloc **lst_malloc);
 char			*ft_itoa_remix(int n, t_malloc **malloc_lst);
 void			free_remix(void *ptr, t_malloc **malloc_lst);
 char			*get_env_value(t_env *env, char *key);
@@ -174,8 +175,8 @@ t_node			*cmd_list_to_ast(t_cmd *cmd, t_malloc **malloc_lst);
 
 /*		HERE_DOC_PROCESS	*/
 
-void			process_heredocs(t_node *node, t_malloc **lst_malloc);
-int				handle_heredoc(t_redir *redir, t_malloc **lst_malloc);
+void			process_heredocs(t_node *node, t_shell *shell, t_malloc **lst_malloc);
+int				handle_heredoc(t_redir *redir, t_shell *shell, t_malloc **lst_malloc);
 void			close_heredocs(t_node *node);
 
 /*		HERE_DOC_PROCESS	*/

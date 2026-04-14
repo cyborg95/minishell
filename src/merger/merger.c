@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merger.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 13:47:29 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/13 08:14:52 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/14 12:57:42 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,18 @@ t_redir	*convert_redirs(t_redir *src, t_malloc **malloc_lst)
 	{
 		new = malloc_remix(sizeof(t_redir), malloc_lst);
 		new->type = convert_redir_type(src->type);
-		new->file = ft_strdup(src->file, malloc_lst);
+		if (new->type == R_HEREDOC)
+		{
+			if (is_quoted(src->file))
+				new->expand = 0;
+			else
+				new->expand = 1;
+			new->file = remove_quotes(src->file, malloc_lst);
+		}
+		else
+		{
+			new->file = ft_strdup(src->file, malloc_lst);
+		}
 		new->fd = -1;
 		new->next = NULL;
 		if (!new_head)
