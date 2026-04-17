@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:09:34 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/17 06:44:32 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/17 07:05:30 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	token_pipe(t_token **token_lst, t_malloc **lst_malloc)
 	if (!token_lst || !lst_malloc)
 		return ;
 	create_token (ft_strdup ("|", lst_malloc), PIPE, lst_malloc, token_lst);
-}.0
+}
 
 /*	=====================================================	*/
 
