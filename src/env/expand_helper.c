@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:23:03 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 19:12:36 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/17 06:14:32 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	free_remix(void *ptr, t_malloc **malloc_lst)
 {
 	if (!ptr)
 		return ;
-	free(ptr);
 	*malloc_lst = remove_from_list(*malloc_lst, ptr);
+	free(ptr);
 }
 
 char	*extract_var(char *arg, int *i, t_malloc **malloc_lst)

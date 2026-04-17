@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 07:29:36 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/02 14:13:02 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/17 06:18:36 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ void	display_redir(t_cmd *cmd)
 	}
 	while (cmd->redir)
 	{
-		if (cmd->redir->type == REDIR_IN)
+		if ((int)cmd->redir->type == (int)REDIR_IN)
 			printf ("Type de redirection: [REDIR_IN],	");
-		else if (cmd->redir->type == REDIR_OUT)
+		else if ((int)cmd->redir->type == (int)REDIR_OUT)
 			printf ("Type de redirection: [REDIR_OUT],	");
-		else if (cmd->redir->type == HEREDOC)
+		else if ((int)cmd->redir->type == (int)HEREDOC)
 			printf ("Type de redirection: [HERE_DOC],	");
-		else if (cmd->redir->type == APPEND)
+		else if ((int)cmd->redir->type == (int)APPEND)
 			printf ("Type de redirection: [APPEND],		");
 		printf ("file='%s'\n", cmd->redir->file);
 		cmd->redir = cmd->redir->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 06:31:08 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/03 11:12:39 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/17 06:17:43 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,13 @@ void	display_cmd(t_cmd *cmd_lst)
 			r = cmd_lst->redir;
 			while (r)
 			{
-				if (r->type == REDIR_IN)
+				if ((int)r->type == (int)REDIR_IN)
 					printf("     <    \"%s\"\n", r->file);
-				else if (r->type == REDIR_OUT)
+				else if ((int)r->type == (int)REDIR_OUT)
 					printf("     >    \"%s\"\n", r->file);
-				else if (r->type == APPEND)
+				else if ((int)r->type == (int)APPEND)
 					printf("     >>   \"%s\"\n", r->file);
-				else if (r->type == HEREDOC)
+				else if ((int)r->type == (int)HEREDOC)
 					printf("     <<   \"%s\"\n", r->file);
 				else
 					printf("     ?    \"%s\" (unknown type)\n", r->file);
