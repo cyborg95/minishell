@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 07:10:12 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/17 07:22:20 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/17 07:54:38 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_token_lst(t_token **token_lst, t_malloc **malloc_lst, char **line)
 
 bool	read_prompt(char **line, t_malloc **malloc_lst)
 {
-	*line = remix_readline (PROMPT, malloc_lst);
+	*line = remix_readline (PROMPT);
 	if (!line || !malloc_lst)
 		return (false);
 	if (is_only_space (*line))
@@ -97,11 +97,9 @@ t_cmd	*parse_input(char *line, t_malloc **lst_malloc)
 	init_token_lst (&token_list, lst_malloc, &line);
 	if (!check_token_lst (&token_list, PROMPT, &line, lst_malloc))
 		return (NULL);
+	clean_line (line);
 	init_command_lst (token_list, lst_malloc, &cmd_lst);
-	display_token (token_list);
 	free_token_lst (&token_list, lst_malloc);
-	//if (token_list)
-	//	display_token (token_list);
 	return (cmd_lst);
 }
 

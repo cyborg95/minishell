@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 18:05:21 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/13 10:18:56 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/17 07:49:32 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,16 +133,13 @@ int	main(int ac, char **av)
 /*	=====================================================	*/
 
 /*	Carre on revient pas dessus	*/
-char	*remix_readline(const char	*prompt, t_malloc **lst_malloc)
+char	*remix_readline(const char	*prompt)
 {
 	char		*line;
-	t_malloc	*node;
 
-	if (!prompt || !lst_malloc)
+	if (!prompt)
 		return (NULL);
 	line = readline (prompt);
-	node = create_node_malloc (line);
-	add_malloc_in_lst (lst_malloc, node);
 	return (line);
 }
 

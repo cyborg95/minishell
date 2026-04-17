@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:09:34 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/17 07:05:30 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/17 08:07:27 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	lexer(t_token **lst_token, t_malloc **lst_malloc, char **line)
 
 	if (!lst_token || !lst_malloc || !line)
 		return ;
-	word = malloc_remix ((ft_strlen(*line) + 1) * sizeof(char), lst_malloc);
+	word = malloc ((ft_strlen(*line) + 1) * sizeof(char));
 	while (**line)
 	{
 		while (is_space (**line))
@@ -39,6 +39,7 @@ void	lexer(t_token **lst_token, t_malloc **lst_malloc, char **line)
 				WORD, lst_malloc, lst_token);
 		}
 	}
+	free (word);
 }
 
 /*	=====================================================	*/

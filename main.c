@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 12:44:32 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/17 07:35:48 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		close_heredocs(root);
 		clean_lst_malloc (&malloc_lst);
 	}
-	clean_history_malloc_shell (&shell, malloc_lst);
+	clean_history_malloc_shell (&shell, &malloc_lst);
 	return (shell.last_status);
 }
 //display_cmd (cmd_list);

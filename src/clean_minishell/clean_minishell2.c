@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 10:07:38 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/13 10:08:13 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/17 07:54:43 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 /*	====================================================	*/
 
 
-void	clean_history_malloc_shell(t_shell *shell, t_malloc *lst_malloc)
+void	clean_history_malloc_shell(t_shell *shell, t_malloc **lst_malloc)
 {
-	clean_and_new_lstmalloc(lst_malloc);
+	clean_lst_malloc (lst_malloc);
+	(*lst_malloc) = NULL;
 	clean_shell(shell);
 	rl_clear_history();
 }
 
 /*	====================================================	*/
 
-void	clean_line(char *line, t_malloc *malloc_lst)
+void	clean_line(char *line)
 {
-	free_remix(line, &malloc_lst);
-	line = NULL;
+	if (!line)
+		return ;
+	else
+		free (line);
 }
 /*	====================================================	*/
