@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/17 07:48:55 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 09:02:50 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	handle_multiligne_case(char **line, t_malloc **lst_malloc)
 
 	if (!line)
 		return ;
-	next_line = remix_readline("> ");
+	next_line = remix_readline("> ", lst_malloc);
 	if (!next_line)
 		return ;
 	if (ends_with_backslash(*line))

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/17 07:54:50 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 09:02:40 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int				ft_strlen(char *str);
 char			*ft_strdup(char *str, t_malloc **lst_malloc);
 char			*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc);
 bool			ft_strcmp(char *s1, char *s2);
-char			*remix_readline(const char *prompt);
+char			*remix_readline(const char *prompt, t_malloc **lst_malloc);
 bool			is_back_slash(char c);
 bool			ends_with_backslash(char *line);
 bool			is_pipe(char c);
