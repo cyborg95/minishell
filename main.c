@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 12:00:15 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 12:36:47 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int argc, char **argv, char **envp)
 
 	bypass_ac_av (&argc, argv);
 	gestionnaire_signaux ();
-	init_shell_maloc_lst (&malloc_lst, &shell, envp);
 
 	/* Ma liste de malloc doit contneur uniquement:
 		- Line
@@ -31,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		- Token
 		- Expand
 	*/
+	init_shell_maloc_lst (&malloc_lst, &shell, envp);
 	while (1)
 	{
 		if (!read_prompt(&line, &malloc_lst))
@@ -46,14 +46,18 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		root = cmd_list_to_ast(cmd_list);
+
 		/*	STOP LIST MALLOC */
+		
 		expand_tree(root, &shell);
 		process_heredocs(root, &shell, &malloc_lst);
 		execute_node(root, &shell);
+
 		/*	Nettoyage 	*/
+		
+		clean_lst_malloc (&malloc_lst);
 		close_heredocs(root);
 		clean_node (root);
-		clean_lst_malloc (&malloc_lst);
 	}
 	clean_history_malloc_shell (&shell, &malloc_lst);
 	return (shell.last_status);

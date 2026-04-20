@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 10:06:47 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/17 07:34:36 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 12:33:37 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ void	gestionnaire_signaux(void)
 
 void	clean_shell(t_shell *shell)
 {
-	ft_free_tab(shell->envp_array);
-	free_env_list(shell->env);
+	 if (!shell)
+        return;
+
+    free_env_list(shell->env);
+    if (shell->envp_array)
+        ft_free_tab(shell->envp_array);
 }
 
 /*	====================================================	*/

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:00:14 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 11:56:32 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 12:11:40 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*ft_strjoin_free(char *s1, const char *s2)
 char	**env_list_to_array(t_env *env)
 {
 	t_env	*tmp;
+	char	*tmp1;
+	char	*tmp2;
 	char	**arr;
 	int		count;
 	int		i;
@@ -59,8 +61,17 @@ char	**env_list_to_array(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		arr[i] = ft_1strjoin(tmp->key, "=");
-		arr[i] = ft_strjoin_free(arr[i], tmp->value);
+		tmp1 = strjoin(tmp->key, "=");
+		if (!tmp1)
+			return (NULL);
+
+		tmp2 = strjoin(tmp1, tmp->value);
+		free(tmp1);
+
+		if (!tmp2)
+			return (NULL);
+
+		arr[i] = tmp2;
 		tmp = tmp->next;
 		i++;
 	}
