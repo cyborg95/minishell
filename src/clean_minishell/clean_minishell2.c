@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_minishell2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 10:07:38 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 11:16:41 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 18:44:07 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	clean_node(t_node *node)
 		free_redir(node->redirs);
 
 	// path (résultat exec)
-	if (node->path)
-		free(node->path);
+	/*if (node->path)
+		free(node->path);*/
 
 	// node lui-même
 	free(node);

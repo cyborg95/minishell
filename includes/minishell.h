@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 11:59:33 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 18:44:25 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void			close_heredocs(t_node *node);
 
 /*		CLEAN MINISHELL	*/
 
-void			bypass_ac_av(int *argc, char **argv);
+void			bypass_ac_av(int *argc, char **argv, t_shell *shell);
 void			init_shell_maloc_lst(t_malloc **malloc_lst, t_shell *shell,
 					char **envp);
 void			gestionnaire_signaux(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_process.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 08:37:46 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 11:59:59 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 18:45:11 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	handle_heredoc(t_redir *redir, t_shell *shell, t_malloc **lst_malloc)
 {
 	int		fd[2];
 	char	*line;
-	char	*tmp;
+	//char	*tmp;
 
 	if (pipe(fd) < 0)
 		return (perror("pipe"), -1);
@@ -101,9 +101,9 @@ int	handle_heredoc(t_redir *redir, t_shell *shell, t_malloc **lst_malloc)
 			break ;
 		if (redir->expand)
 		{
-			tmp = expand_var(line, shell);
-			free(line);
-			line = tmp;
+			/*tmp = line;*/
+    		line = expand_var(line, shell);
+    		/*free(tmp);*/
 		}
 		write(fd[1], line, ft_1strlen(line));
 		write(fd[1], "\n", 1);

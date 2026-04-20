@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:23:03 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 11:56:18 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 18:49:43 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char	*expand_var(char *arg, t_shell *shell)
 			i++;
 		}
 		old = result;
-		result = strjoin(result, tmp);
+		result = ft_1strjoin(result, tmp);
 		free (old);
 		free (tmp);
 	}

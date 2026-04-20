@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merger.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 13:47:29 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 11:31:22 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 16:53:00 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_redir	*convert_redirs(t_redir *src)
 		}
 		else
 		{
-			new->file = strdup(src->file);
+			new->file = ft_1strdup(src->file);
 		}
 		new->fd = -1;
 		new->next = NULL;
@@ -84,7 +84,7 @@ t_node	*cmd_to_node(t_cmd *cmd)
 	i = 0;
 	while (cmd->args && cmd->args[i])
 	{
-		node->argv[i] = strdup(cmd->args[i]);
+		node->argv[i] = ft_1strdup(cmd->args[i]);
 		i++;
 	}
 	node->argv[i] = NULL;

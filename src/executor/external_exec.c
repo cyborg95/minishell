@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:01:19 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 19:52:49 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/20 16:25:23 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,6 @@ int	execute_external(t_node *node, t_shell *shell)
 		signal(SIGINT, handle_signal);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	return (free(node->path), shell->last_status);
+	free(node->path);
+	return (shell->last_status);
 }

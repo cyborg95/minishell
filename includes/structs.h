@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:28:44 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 09:30:11 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 15:37:26 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_shell
 {
 	t_env			*env;
 	int				last_status;
+	int				should_exit;
 	int				in_pipe;
 	char			**envp_array;
 	int				stdin_backup;

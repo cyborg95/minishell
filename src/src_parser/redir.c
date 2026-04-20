@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 07:29:36 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/17 06:18:36 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 17:25:54 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	handle_redir(t_malloc **lst_malloc, t_token **lst_token, t_cmd *cmd)
 		return ;
 	redir = create_redir (lst_malloc, (*lst_token)->type);
 	(*lst_token) = (*lst_token)->next;
-	redir->file = (*lst_token)->word;
+	redir->file = ft_1strdup((*lst_token)->word);
 	add_back_redir (cmd, redir);
 	*lst_token = (*lst_token)->next;
 }

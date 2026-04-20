@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:28:14 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/03/07 16:38:39 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/20 15:37:59 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	builtin_exit(char **argv, t_shell *shell)
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(argv[1], 2);
 			ft_putstr_fd(": numeric argument required\n", 2);
-			_exit(2);
+			shell->should_exit = 1;
+			shell->last_status = 2;
+			return ;
 		}
 		if (argv[2])
 		{
@@ -53,5 +55,6 @@ void	builtin_exit(char **argv, t_shell *shell)
 		}
 		status = ft_atoi(argv[1]);
 	}
-	_exit(status % 256);
+	shell->should_exit = 1;
+	shell->last_status = status % 256;
 }
