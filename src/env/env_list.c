@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:00:14 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/02 16:05:50 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:56:32 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	**env_list_to_array(t_env *env)
 	return (arr);
 }
 
-char	*ft_itoa_remix(int n, t_malloc **malloc_lst)
+char	*ft_itoa_remix(int n)
 {
 	long	nb;
 	int		len;
@@ -81,7 +81,7 @@ char	*ft_itoa_remix(int n, t_malloc **malloc_lst)
 		n /= 10;
 		len++;
 	}
-	str = malloc_remix(sizeof(char) * (len + 1), malloc_lst);
+	str = malloc (sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
 	str[len] = '\0';

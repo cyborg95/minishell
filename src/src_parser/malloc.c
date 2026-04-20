@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:12:13 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/17 07:55:47 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 11:24:47 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	clean_lst_malloc(t_malloc **lst_malloc)
 		next = tmp->next;
 		if (tmp->adress_malloc)
 			free(tmp->adress_malloc);
-		printf("FREE MALLOC NODE: %p\n", tmp);
 		free(tmp);
 		tmp = next;
 	}

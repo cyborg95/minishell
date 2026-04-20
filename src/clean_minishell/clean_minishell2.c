@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 10:07:38 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/17 07:54:43 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 11:16:41 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,42 @@ void	clean_line(char *line)
 		free (line);
 }
 /*	====================================================	*/
+
+static void	free_redir(t_redir *redir)
+{
+	t_redir	*tmp;
+
+	while (redir)
+	{
+		tmp = redir->next;
+		if (redir->file)
+			free(redir->file);
+		free(redir);
+		redir = tmp;
+	}
+}
+
+void	clean_node(t_node *node)
+{
+	if (!node)
+		return;
+
+	// gauche / droite (AST récursif)
+	clean_node(node->left);
+	clean_node(node->right);
+
+	// argv
+	if (node->argv)
+		ft_free_tab(node->argv);
+
+	// redirections
+	if (node->redirs)
+		free_redir(node->redirs);
+
+	// path (résultat exec)
+	if (node->path)
+		free(node->path);
+
+	// node lui-même
+	free(node);
+}

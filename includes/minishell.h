@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 09:02:40 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 11:59:33 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,25 @@
 t_env			*init_env(char **envp);
 char			**env_list_to_array(t_env *env);
 void			ft_free_tab(char **tab);
-char	*remove_quotes(char *s, t_malloc **lst);
+char			*remove_quotes(char *s);
 int	is_quoted(char *s);
 void			free_env_list(t_env *env);
 int				ft_1strcmp(const char *s1, const char *s2);
 void			add_or_update_env(t_shell *shell, char *key, char *value);
 char			*my_getenv(char *name, t_env *env);
 void			handle_signal(int sig);
-char			*expand_var(char *arg, t_shell *shell, t_malloc **malloc_lst);
-void			expand_tree(t_node *node, t_shell *shell,
-					t_malloc **malloc_lst);
+char			*expand_var(char *arg, t_shell *shell);
+void			expand_tree(t_node *node, t_shell *shell);
 int				is_valid_identifier(char *str);
 int				printable_export(t_shell *shell);
-char			*ft_itoa_remix(int n, t_malloc **malloc_lst);
+char			*ft_itoa_remix(int n);
 void			free_remix(void *ptr, t_malloc **malloc_lst);
 char			*get_env_value(t_env *env, char *key);
 
 t_redir_type	convert_redir_type(int type);
-t_redir			*convert_redirs(t_redir *src, t_malloc **malloc_lst);
-t_node			*cmd_to_node(t_cmd *cmd, t_malloc **malloc_lst);
-t_node			*cmd_list_to_ast(t_cmd *cmd, t_malloc **malloc_lst);
+t_redir			*convert_redirs(t_redir *src);
+t_node			*cmd_to_node(t_cmd *cmd);
+t_node			*cmd_list_to_ast(t_cmd *cmd);
 
 /* PARSING_MINISHELL */
 
@@ -166,13 +165,14 @@ void			display_args(char **args);
 bool			end_with_pipe(char *line);
 bool			is_operator_before(char *line);
 bool			is_only_space(char *str);
+char			*strjoin(char *s1, char *s2);
 
 /*		MERGER	*/
 
 t_redir_type	convert_redir_type(int type);
-t_redir			*convert_redirs(t_redir *src, t_malloc **malloc_lst);
-t_node			*cmd_to_node(t_cmd *cmd, t_malloc **malloc_lst);
-t_node			*cmd_list_to_ast(t_cmd *cmd, t_malloc **malloc_lst);
+t_redir			*convert_redirs(t_redir *src);
+t_node			*cmd_to_node(t_cmd *cmd);
+t_node			*cmd_list_to_ast(t_cmd *cmd);
 
 /*		HERE_DOC_PROCESS	*/
 
@@ -180,7 +180,7 @@ void			process_heredocs(t_node *node, t_shell *shell, t_malloc **lst_malloc);
 int				handle_heredoc(t_redir *redir, t_shell *shell, t_malloc **lst_malloc);
 void			close_heredocs(t_node *node);
 
-/*		HERE_DOC_PROCESS	*/
+/*		CLEAN MINISHELL	*/
 
 void			bypass_ac_av(int *argc, char **argv);
 void			init_shell_maloc_lst(t_malloc **malloc_lst, t_shell *shell,
@@ -190,6 +190,8 @@ void			clean_shell(t_shell *shell);
 void			clean_history_malloc_shell(t_shell *shell,
 					t_malloc **lst_malloc);
 void			clean_line(char *line);
+void			free_cmd_list(t_cmd *cmd);
+void			clean_node(t_node *node);
 
 extern int		g_signal;
 

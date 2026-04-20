@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 07:10:12 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 09:04:26 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/20 10:46:09 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,18 @@ void	init_token_lst(t_token **token_lst, t_malloc **malloc_lst, char **line)
 
 /*	=====================================================	*/
 
-bool	read_prompt(char **line, t_malloc **malloc_lst)
+bool	read_prompt(char **line, t_malloc **lst_malloc)
 {
-	*line = remix_readline (PROMPT, malloc_lst);
-	if (!line || !malloc_lst)
+	if (!lst_malloc)
+		return (false);
+	*line = remix_readline ("minishell> ", lst_malloc);
+	if (!line)
 		return (false);
 	if (is_only_space (*line))
 		return (false);
-	else if (ft_1strcmp(*line, EXIT) == 0)
-	{
-		clean_lst_malloc (malloc_lst);
-		(*malloc_lst) = NULL;
-		printf("exit\n");
-		exit (0);
-	}
 	while (!are_quotes_closed(*line) || ends_with_backslash (*line)
 		|| (end_with_pipe(*line) && !is_operator_before (*line)))
-		handle_multiligne_case (line, malloc_lst);
+		handle_multiligne_case (line, lst_malloc);
 	return (true);
 }
 

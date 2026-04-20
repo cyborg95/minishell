@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_process.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 08:37:46 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/14 13:32:51 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:59:59 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_quoted(char *s)
 	return (0);
 }
 
-char	*remove_quotes(char *s, t_malloc **lst)
+char	*remove_quotes(char *s)  
 {
 	int		i;
 	int		j;
@@ -34,7 +34,7 @@ char	*remove_quotes(char *s, t_malloc **lst)
 
 	i = 0;
 	j = 0;
-	new = malloc_remix(ft_strlen(s) + 1, lst);
+	new = malloc (ft_strlen(s) + 1);
 	if (!new)
 		return (NULL);
 	while (s[i])
@@ -94,20 +94,19 @@ int	handle_heredoc(t_redir *redir, t_shell *shell, t_malloc **lst_malloc)
 		return (perror("pipe"), -1);
 	while (1)
 	{
-		line = readline("> ");
+		line = remix_readline("> ", lst_malloc);
 		if (!line)
 			break ;
 		if (ft_1strcmp(line, redir->file) == 0)
 			break ;
 		if (redir->expand)
 		{
-			tmp = expand_var(line, shell, lst_malloc);
+			tmp = expand_var(line, shell);
 			free(line);
 			line = tmp;
 		}
 		write(fd[1], line, ft_1strlen(line));
 		write(fd[1], "\n", 1);
-		free(line);
 	}
 	close(fd[1]);
 	return (fd[0]);
