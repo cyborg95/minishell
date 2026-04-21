@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:52:31 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 17:41:23 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/21 18:24:38 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	apply_redirections(t_redir *redirs, t_shell *shell)
+int	apply_redirections(t_redir *redirs, t_shell *shell)
 {
 	int	fd;
 
@@ -42,9 +42,9 @@ void	apply_redirections(t_redir *redirs, t_shell *shell)
 		}
 		if (fd < 0)
 		{
-			perror(redirs->file);
+			printf("minishell: %s: No such file or directory\n", redirs->file);
 			shell->last_status = 1;
-			return ;
+			return (-1);
 		}
 		if (redirs->type == R_IN)
 			dup2(fd, STDIN_FILENO);
@@ -53,20 +53,5 @@ void	apply_redirections(t_redir *redirs, t_shell *shell)
 		close(fd);
 		redirs = redirs->next;
 	}
-}
-
-void free_redir(t_redir *redir)
-{
-	t_redir *tmp;
-
-	while (redir)
-	{
-		tmp = redir->next;
-
-		if (redir->file)
-			free(redir->file);
-
-		free(redir);
-		redir = tmp;
-	}
+	return (0);
 }

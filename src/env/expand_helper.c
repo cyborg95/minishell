@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:23:03 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 18:49:43 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/21 18:35:18 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char	*expand_var(char *arg, t_shell *shell)
 					tmp = strdup(value);
 				else
 					tmp = strdup("");
+				free(var);
 			}
 			else
 			{
