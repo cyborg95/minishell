@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/21 09:03:28 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/21 11:02:33 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (!read_prompt(&line, &malloc_lst))
 		{
+			if (!line)
+			{
+				write(1, "exit\n", 5);
+				break ;
+			}
 			clean_lst_malloc (&malloc_lst);
 			continue ;
 		}
@@ -48,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		/*	STOP LIST MALLOC */
 		expand_tree(root, &shell);
 		process_heredocs(root, &shell, &malloc_lst);
-		execute_node(root, &shell);
+		execute_node(root, &shell, &malloc_lst);
 		/*	Nettoyage 	*/
 		close_heredocs(root);
 		clean_node (root);

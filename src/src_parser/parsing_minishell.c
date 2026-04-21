@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 07:10:12 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 10:46:09 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/21 11:02:33 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	init_token_lst(t_token **token_lst, t_malloc **malloc_lst, char **line)
 
 bool	read_prompt(char **line, t_malloc **lst_malloc)
 {
-	if (!lst_malloc)
+	if (!line || !lst_malloc)
 		return (false);
 	*line = remix_readline ("minishell> ", lst_malloc);
-	if (!line)
+	if (!(*line))
 		return (false);
 	if (is_only_space (*line))
 		return (false);

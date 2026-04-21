@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:01:19 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/21 09:03:09 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/21 11:02:33 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*path_finder(char *cmd, t_env *env)
 	return (NULL);
 }
 
-int	execute_external(t_node *node, t_shell *shell)
+int	execute_external(t_node *node, t_shell *shell, t_malloc **malloc_lst)
 {
 	int	sig;
 
@@ -81,15 +81,11 @@ int	execute_external(t_node *node, t_shell *shell)
 		if (ft_strchr(node->argv[0], '/'))
 		{
 			printf("minishell: %s: No such file or directory\n", node->argv[0]);
-			clean_node (node);
-			clean_shell (shell);
 			return (shell->last_status = 127, 127);
 		}
 		else
 		{
 			printf("minishell: %s: command not found\n", node->argv[0]);
-			clean_node (node);
-			clean_shell (shell);
 			return (shell->last_status = 127, 127);
 		}
 	}
@@ -103,6 +99,8 @@ int	execute_external(t_node *node, t_shell *shell)
 		if (errno == ENOENT)
 		{
 			perror(node->argv[0]);
+			if (malloc_lst)
+				clean_lst_malloc(malloc_lst);
 			clean_node (node);
 			clean_shell (shell);
 			exit(127);
@@ -110,6 +108,8 @@ int	execute_external(t_node *node, t_shell *shell)
 		else if (errno == EACCES)
 		{
 			perror(node->argv[0]);
+			if (malloc_lst)
+				clean_lst_malloc(malloc_lst);
 			clean_node (node);
 			clean_shell (shell);
 			exit(126);
@@ -117,6 +117,8 @@ int	execute_external(t_node *node, t_shell *shell)
 		else
 		{
 			perror(node->argv[0]);
+			if (malloc_lst)
+				clean_lst_malloc(malloc_lst);
 			clean_node (node);
 			clean_shell (shell);
 			exit(1);
@@ -141,7 +143,5 @@ int	execute_external(t_node *node, t_shell *shell)
 		signal(SIGINT, handle_signal);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	clean_node (node);
-	clean_shell (shell);
 	return (shell->last_status);
 }

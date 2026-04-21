@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 13:47:29 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/21 08:37:22 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/21 11:02:33 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ t_node	*cmd_list_to_ast(t_cmd *cmd)
 	if (!node)
 		return (NULL);
 	node->type = NODE_PIPE;
+	node->pid = 0;
+	node->status = 0;
+	node->path = NULL;
 	node->left = cmd_to_node(cmd);
 	node->right = cmd_list_to_ast(cmd->next);
 	node->argv = NULL;
