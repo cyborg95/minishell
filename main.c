@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 18:45:05 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/21 09:03:28 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,9 @@ int	main(int argc, char **argv, char **envp)
 	t_node		*root;
 	t_malloc	*malloc_lst;
 
+
 	bypass_ac_av (&argc, argv, &shell);
 	gestionnaire_signaux ();
-
-	/* Ma liste de malloc doit contneur uniquement:
-		- Line
-		- Liste de commande
-		- AST
-		- Token
-		- Expand
-	*/
 	init_shell_maloc_lst (&malloc_lst, &shell, envp);
 	while (1)
 	{
@@ -46,13 +39,16 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		root = cmd_list_to_ast(cmd_list);
+		if (!root)
+		{
+			clean_lst_malloc (&malloc_lst);
+			continue ;
+		}
 
 		/*	STOP LIST MALLOC */
-
 		expand_tree(root, &shell);
 		process_heredocs(root, &shell, &malloc_lst);
 		execute_node(root, &shell);
-
 		/*	Nettoyage 	*/
 		close_heredocs(root);
 		clean_node (root);

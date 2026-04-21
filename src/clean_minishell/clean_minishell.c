@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 10:06:47 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 16:08:28 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/21 08:58:45 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ void	gestionnaire_signaux(void)
 void	clean_shell(t_shell *shell)
 {
 	 if (!shell)
-        return;
-
-    free_env_list(shell->env);
-    if (shell->envp_array)
-        ft_free_tab(shell->envp_array);
+		return ;
+	free_env_list(shell->env);
+	if (shell->envp_array)
+		ft_free_tab(shell->envp_array);
 }
 
 /*	====================================================	*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merger.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 13:47:29 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 16:53:00 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/21 08:37:22 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_redir	*convert_redirs(t_redir *src)
 	while (src)
 	{
 		new = malloc (sizeof(t_redir));
+		if (!new)
+			return (NULL);
 		new->type = convert_redir_type(src->type);
 		if (new->type == R_HEREDOC)
 		{
@@ -76,11 +78,9 @@ t_node	*cmd_to_node(t_cmd *cmd)
 	i = 0;
 	while (cmd->args && cmd->args[i])
 		i++;
-
 	node->argv = malloc(sizeof(char *) * (i + 1));
 	if (!node->argv)
 		return (NULL);
-
 	i = 0;
 	while (cmd->args && cmd->args[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_minishell2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 10:07:38 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 18:44:07 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/21 08:50:13 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static void	free_redir(t_redir *redir)
 {
 	t_redir	*tmp;
 
+	if (!redir)
+		return ;
 	while (redir)
 	{
 		tmp = redir->next;
@@ -51,24 +53,15 @@ static void	free_redir(t_redir *redir)
 void	clean_node(t_node *node)
 {
 	if (!node)
-		return;
+		return ;
 
-	// gauche / droite (AST récursif)
 	clean_node(node->left);
 	clean_node(node->right);
-
-	// argv
 	if (node->argv)
 		ft_free_tab(node->argv);
-
-	// redirections
 	if (node->redirs)
 		free_redir(node->redirs);
-
-	// path (résultat exec)
-	/*if (node->path)
-		free(node->path);*/
-
-	// node lui-même
+	if (node->path)
+		free (node->path);
 	free(node);
 }
