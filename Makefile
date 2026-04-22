@@ -6,7 +6,7 @@
 #    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/04/13 10:09:30 by wngambi          ###   ########.fr        #
+#    Updated: 2026/04/22 12:42:52 by wngambi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,7 @@ SRC =	$(SRC_DIR)/builtins/builtin_utils.c \
 		$(SRC_DIR)/src_parser/lexer.c \
 		$(SRC_DIR)/src_parser/lexer2.c \
 		$(SRC_DIR)/src_parser/lexer3.c \
+		$(SRC_DIR)/src_parser/lexer4.c \
 		$(SRC_DIR)/src_parser/malloc.c \
 		$(SRC_DIR)/src_parser/parsing_minishell.c \
 		$(SRC_DIR)/src_parser/pipe_error.c \

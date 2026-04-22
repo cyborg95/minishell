@@ -6,154 +6,84 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/22 12:21:06 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 12:41:49 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	are_quotes_closed(char *line)
+
+typedef struct s_word_state
 {
-	bool	squote;
-	bool	dquote;
-
-	squote = false;
-	dquote = false;
-	if (!line || !(*line))
-		return (false);
-	while (*line)
-	{
-		if (is_quote(*line))
-		{
-			if (is_single_quote(*line) && dquote == false)
-				squote = !squote;
-			else if (is_double_quote(*line) && squote == false)
-				dquote = !dquote;
-		}
-		line++;
-	}
-	if (squote == false && dquote == false)
-		return (true);
-	return (false);
-}
-
-/*	=====================================================	*/
-
-/*	Carre on revient pas dessus	*/
-/*
-static void	maj_quote(char c, bool *in_squote, bool *in_dquote)
-{
-	if (is_single_quote(c) && *in_dquote == false)
-	{
-		if (*in_squote == false)
-			*in_squote = true;
-		else
-			*in_squote = false;
-	}
-	else if (is_double_quote(c) && *in_squote == false)
-	{
-		if (*in_dquote == false)
-			*in_dquote = true;
-		else
-			*in_dquote = false;
-	}
-}
-*/
-
-/*	=====================================================	*/
-
-/*	Carre on revient pas dessus	*/
-void	handle_multiligne_case(char **line, t_malloc **lst_malloc)
-{
-	char	*next_line;
-	char	*tmp;
-	char	*tmp2;
-
-	if (!line)
-		return ;
-	next_line = remix_readline("> ", lst_malloc);
-	if (!next_line)
-		return ;
-	if (ends_with_backslash(*line))
-	{
-		(*line)[strlen(*line) - 1] = '\0';
-		tmp2 = ft_strjoin(*line, "", lst_malloc);
-	}
-	else
-		tmp2 = ft_strjoin(*line, "\n", lst_malloc);
-	tmp = ft_strjoin(tmp2, next_line, lst_malloc);
-	(*line) = tmp;
-}
-
-/*	=====================================================	*/
-
-/*	Carre on revient pas dessus	*/
-void	back_slash_case(char **line, char *word)
-{
-	if (!line || !*line)
-		return ;
-	(*line)++;
-	if (**line)
-		*word = **line;
-	(*line)++;
-}
-
-/*	=====================================================	*/
-
-/*
-static void	single_quote_case(char **word, char **line, bool **in_squote, bool **in_dquote)
-{
-	if (!word || !line || !in_squote || !in_dquote)
-		return ;
-	(*in_squote) = !(*in_squote);
-	
-		
-}
-*/
-
-char	*extract_word(char **line, char *word)
-{
+	char	**line;
+	char	*word;
 	int		i;
 	bool	in_squote;
 	bool	in_dquote;
+}t_word_state;
+
+static void	init_word_state(t_word_state *state, char **line, char *word)
+{
+	state->line = line;
+	state->word = word;
+	state->i = 0;
+	state->in_squote = false;
+	state->in_dquote = false;
+}
+
+static bool	single_quote_case(t_word_state *state)
+{
+	if (**state->line == '\'' && !state->in_dquote)
+	{
+		state->in_squote = !state->in_squote;
+		state->word[(state->i)++] = **state->line;
+		(*state->line)++;
+		return (true);
+	}
+	return (false);
+}
+
+static bool	double_quote_case(t_word_state *state)
+{
+	if (**state->line == '"' && !state->in_squote)
+	{
+		state->in_dquote = !state->in_dquote;
+		state->word[(state->i)++] = **state->line;
+		(*state->line)++;
+		return (true);
+	}
+	return (false);
+}
+
+static bool	no_quote_case(t_word_state *state)
+{
+	if (!state->in_squote && !state->in_dquote)
+	{
+		if (is_space(**state->line) || is_operator(**state->line))
+			return (true);
+	}
+	return (false);
+}
+
+
+char	*extract_word(char **line, char *word)
+{
+	t_word_state	state;
 
 	if (!line || !*line)
 		return (NULL);
-	init_value(&in_squote, &in_dquote, &i);
+	init_word_state(&state, line, word);
 	while (**line)
 	{
-		if (**line == '\'' && !in_dquote)
-		{
-			in_squote = !in_squote;
-			word[i++] = **line;
-			(*line)++;
+		if (single_quote_case(&state))
 			continue ;
-		}
-		if (**line == '"' && !in_squote)
-		{
-			in_dquote = !in_dquote;
-			word[i++] = **line;
-			(*line)++;
+		if (double_quote_case(&state))
 			continue ;
-		}
-		if (!in_squote && !in_dquote)
-		{
-			if (is_space(**line) || is_operator(**line))
-				break ;
-		}
-		word[i++] = **line;
+		if (no_quote_case(&state))
+			break ;
+		word[state.i++] = **line;
 		(*line)++;
 	}
-	word[i] = '\0';
+	word[state.i] = '\0';
 	return (word);
 }
-
-/*
-		if (**line == '\'' && !in_dquote)
-		{
-			in_squote = !in_squote;
-			word[i++] = **line;
-			(*line)++;
-			continue ;
-		}
-*/	
