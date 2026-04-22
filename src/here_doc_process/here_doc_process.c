@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_process.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 08:37:46 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/21 18:43:37 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:47:54 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_quoted(char *s)
 	return (0);
 }
 
-char	*remove_quotes(char *s)  
+char	*remove_quotes(char *s)
 {
 	int		i;
 	int		j;
@@ -88,7 +88,6 @@ int	handle_heredoc(t_redir *redir, t_shell *shell, t_malloc **lst_malloc)
 {
 	int		fd[2];
 	char	*line;
-	//char	*tmp;
 
 	if (pipe(fd) < 0)
 		return (perror("pipe"), -1);
@@ -100,11 +99,7 @@ int	handle_heredoc(t_redir *redir, t_shell *shell, t_malloc **lst_malloc)
 		if (ft_1strcmp(line, redir->file) == 0)
 			break ;
 		if (redir->expand)
-		{
-			/*tmp = line;*/
-    		line = expand_var(line, shell);
-    		/*free(tmp);*/
-		}
+			line = expand_var(line, shell);
 		write(fd[1], line, ft_1strlen(line));
 		write(fd[1], "\n", 1);
 	}

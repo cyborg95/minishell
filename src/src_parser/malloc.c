@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:12:13 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 18:12:08 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:39:39 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	add_malloc_in_lst(t_malloc **lst_malloc, t_malloc *malloc_node)
 			tmp = tmp->next;
 		tmp->next = malloc_node;
 	}
-
 }
 
 /*	===================================================================	*/

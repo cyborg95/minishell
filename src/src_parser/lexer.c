@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 09:02:50 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 11:39:20 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,17 @@ void	back_slash_case(char **line, char *word)
 
 /*	=====================================================	*/
 
+/*
+static void	single_quote_case(char **word, char **line, bool **in_squote, bool **in_dquote)
+{
+	if (!word || !line || !in_squote || !in_dquote)
+		return ;
+	(*in_squote) = !(*in_squote);
+	
+		
+}
+*/
+
 char	*extract_word(char **line, char *word)
 {
 	int		i;
@@ -108,12 +119,9 @@ char	*extract_word(char **line, char *word)
 
 	if (!line || !*line)
 		return (NULL);
-
 	init_value(&in_squote, &in_dquote, &i);
-
 	while (**line)
 	{
-		// quotes = juste du contexte
 		if (**line == '\'' && !in_dquote)
 		{
 			in_squote = !in_squote;
@@ -128,8 +136,6 @@ char	*extract_word(char **line, char *word)
 			(*line)++;
 			continue ;
 		}
-
-		// fin de WORD uniquement par espace ou opérateur
 		if (!in_squote && !in_dquote)
 		{
 			if (is_space(**line) || is_operator(**line))
@@ -138,7 +144,18 @@ char	*extract_word(char **line, char *word)
 		word[i++] = **line;
 		(*line)++;
 	}
-
 	word[i] = '\0';
 	return (word);
 }
+
+/*
+		if (**line == '\'' && !in_dquote)
+		{
+			in_squote = !in_squote;
+			word[i++] = **line;
+			(*line)++;
+			continue ;
+		}
+*/	
+
+

@@ -6,14 +6,13 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 10:07:38 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/21 08:50:13 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 10:46:30 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*	====================================================	*/
-
 
 void	clean_history_malloc_shell(t_shell *shell, t_malloc **lst_malloc)
 {
@@ -54,7 +53,6 @@ void	clean_node(t_node *node)
 {
 	if (!node)
 		return ;
-
 	clean_node(node->left);
 	clean_node(node->right);
 	if (node->argv)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 18:44:25 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:42:52 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_env			*init_env(char **envp);
 char			**env_list_to_array(t_env *env);
 void			ft_free_tab(char **tab);
 char			*remove_quotes(char *s);
-int	is_quoted(char *s);
+int				is_quoted(char *s);
 void			free_env_list(t_env *env);
 int				ft_1strcmp(const char *s1, const char *s2);
 void			add_or_update_env(t_shell *shell, char *key, char *value);
@@ -176,8 +176,10 @@ t_node			*cmd_list_to_ast(t_cmd *cmd);
 
 /*		HERE_DOC_PROCESS	*/
 
-void			process_heredocs(t_node *node, t_shell *shell, t_malloc **lst_malloc);
-int				handle_heredoc(t_redir *redir, t_shell *shell, t_malloc **lst_malloc);
+void			process_heredocs(t_node *node, t_shell *shell,
+					t_malloc **lst_malloc);
+int				handle_heredoc(t_redir *redir, t_shell *shell,
+					t_malloc **lst_malloc);
 void			close_heredocs(t_node *node);
 
 /*		CLEAN MINISHELL	*/

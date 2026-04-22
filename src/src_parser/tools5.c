@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 07:02:29 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 11:59:23 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 11:04:44 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ bool	is_only_space(char *str)
 char	*strjoin(char *s1, char *s2)
 {
 	char	*res;
-	size_t	i;
-	size_t	j;
-	size_t	len1;
-	size_t	len2;
+	int		i;
+	int		j;
+	int		total_size;
 
 	if (!s1 && !s2)
 		return (NULL);
@@ -89,28 +88,16 @@ char	*strjoin(char *s1, char *s2)
 		return (strdup(s2));
 	if (!s2)
 		return (strdup(s1));
-
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-
-	res = malloc(len1 + len2 + 1);
+	total_size = (ft_strlen (s1) + ft_strlen (s2));
+	res = malloc(total_size + 1);
 	if (!res)
 		return (NULL);
-
-	i = 0;
-	j = 0;
-
-	while (i < len1)
-	{
+	i = -1;
+	j = -1;
+	while (++i < ft_strlen (s1))
 		res[i] = s1[i];
-		i++;
-	}
-	while (j < len2)
-	{
+	while (++j < ft_strlen(s2))
 		res[i + j] = s2[j];
-		j++;
-	}
-
 	res[i + j] = '\0';
 	return (res);
 }

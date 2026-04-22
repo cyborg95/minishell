@@ -6,11 +6,13 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 13:47:29 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/21 11:02:33 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 11:03:28 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*	==============================================	*/
 
 t_redir_type	convert_redir_type(int type)
 {
@@ -25,11 +27,34 @@ t_redir_type	convert_redir_type(int type)
 	return (R_IN);
 }
 
+/*	==============================================	*/
+
+static void	heredoc_case(t_redir **new, t_redir *src)
+{
+	if (!new || !src)
+		return ;
+	if (is_quoted(src->file))
+		(*new)->expand = 0;
+	else
+		(*new)->expand = 1;
+	(*new)->file = remove_quotes(src->file);
+}
+
+static void	new_head_not_empty(t_redir **new, t_redir **new_head)
+{
+	t_redir	*tmp;
+
+	tmp = (*new_head);
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = (*new);
+	
+}
+
 t_redir	*convert_redirs(t_redir *src)
 {
-	t_redir	*new_head;
 	t_redir	*new;
-	t_redir	*tmp;
+	t_redir	*new_head;
 
 	new_head = NULL;
 	while (src)
@@ -39,32 +64,21 @@ t_redir	*convert_redirs(t_redir *src)
 			return (NULL);
 		new->type = convert_redir_type(src->type);
 		if (new->type == R_HEREDOC)
-		{
-			if (is_quoted(src->file))
-				new->expand = 0;
-			else
-				new->expand = 1;
-			new->file = remove_quotes(src->file);
-		}
+			heredoc_case (&new, src);
 		else
-		{
 			new->file = ft_1strdup(src->file);
-		}
 		new->fd = -1;
 		new->next = NULL;
 		if (!new_head)
 			new_head = new;
 		else
-		{
-			tmp = new_head;
-			while (tmp->next)
-				tmp = tmp->next;
-			tmp->next = new;
-		}
+			new_head_not_empty (&new, &new_head);
 		src = src->next;
 	}
 	return (new_head);
 }
+
+/*	==============================================	*/
 
 t_node	*cmd_to_node(t_cmd *cmd)
 {
@@ -74,6 +88,7 @@ t_node	*cmd_to_node(t_cmd *cmd)
 	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
+	ft_bzero (node, sizeof(t_node));
 	node->type = NODE_CMD;
 	i = 0;
 	while (cmd->args && cmd->args[i])
@@ -87,15 +102,13 @@ t_node	*cmd_to_node(t_cmd *cmd)
 		node->argv[i] = ft_1strdup(cmd->args[i]);
 		i++;
 	}
-	node->argv[i] = NULL;
 	node->redirs = convert_redirs(cmd->redir);
-	node->left = NULL;
-	node->right = NULL;
-	node->path = NULL;
 	node->pid = 0;
 	node->status = 0;
 	return (node);
 }
+
+/*	==============================================	*/
 
 t_node	*cmd_list_to_ast(t_cmd *cmd)
 {

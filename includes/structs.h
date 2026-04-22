@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:28:44 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/20 15:37:26 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:45:07 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef enum e_redir_type
 typedef struct s_redir
 {
 	int				fd;
-	int     			expand;
+	int				expand;
 	t_redir_type	type;
 	char			*file;
 	struct s_redir	*next;
@@ -117,6 +117,3 @@ struct s_cmd
 };
 
 #endif
-
-
-
