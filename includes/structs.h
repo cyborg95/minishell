@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:28:44 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/22 10:45:07 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 12:48:49 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCTS_H
 # define EXIT "exit"
 # define PROMPT "minishell> "
+# include "minishell.h"
 
 /*	================	EXECUTION STRUCT	================	*/
 
@@ -115,5 +116,14 @@ struct s_cmd
 	t_redir		*redir;
 	t_cmd		*next;
 };
+
+typedef struct s_word_state
+{
+	char	**line;
+	char	*word;
+	int		i;
+	bool	in_squote;
+	bool	in_dquote;
+}	t_word_state;
 
 #endif

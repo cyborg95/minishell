@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:42:30 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/22 12:42:31 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 12:49:26 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ bool	are_quotes_closed(char *line)
 		return (true);
 	return (false);
 }
-
 
 /*	Carre on revient pas dessus	*/
 void	handle_multiligne_case(char **line, t_malloc **lst_malloc)

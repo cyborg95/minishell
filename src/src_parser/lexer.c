@@ -6,21 +6,11 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/22 12:41:49 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 12:49:12 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-
-typedef struct s_word_state
-{
-	char	**line;
-	char	*word;
-	int		i;
-	bool	in_squote;
-	bool	in_dquote;
-}t_word_state;
 
 static void	init_word_state(t_word_state *state, char **line, char *word)
 {
@@ -64,7 +54,6 @@ static bool	no_quote_case(t_word_state *state)
 	}
 	return (false);
 }
-
 
 char	*extract_word(char **line, char *word)
 {
