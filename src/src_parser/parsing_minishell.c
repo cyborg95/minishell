@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 07:10:12 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/22 10:39:53 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 11:59:13 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	read_prompt(char **line, t_malloc **lst_malloc)
 	if (!line || !lst_malloc)
 		return (false);
 	*line = remix_readline ("minishell> ", lst_malloc);
-	if (!(*line))
+	if (!(*line) || !line)
 		return (false);
 	if (is_only_space (*line))
 		return (false);

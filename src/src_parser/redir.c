@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 07:29:36 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/21 11:02:33 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 12:23:48 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ void	handle_redir(t_malloc **lst_malloc, t_token **lst_token, t_cmd *cmd)
 
 	if (!lst_malloc || !lst_token)
 		return ;
+	if (!*lst_token || !(*lst_token)->next)
+		return ;
 	redir = create_redir (lst_malloc, (*lst_token)->type);
 	if (!redir)
 		return ;
 	(*lst_token) = (*lst_token)->next;
+	if (!(*lst_token)->word)
+		return ;
 	redir->file = ft_strdup((*lst_token)->word, lst_malloc);
 	add_back_redir (cmd, redir);
 	*lst_token = (*lst_token)->next;
@@ -46,15 +50,18 @@ t_redir	*create_redir(t_malloc **lst_malloc, int token_type)
 
 void	add_back_redir(t_cmd *cmd, t_redir *new_redir)
 {
+	t_redir	*tmp;
+
 	if (!cmd || !new_redir)
 		return ;
 	if (cmd->redir == NULL)
 		cmd->redir = new_redir;
 	else
 	{
-		while (cmd->redir->next != NULL)
-			cmd->redir = cmd->redir->next;
-		cmd->redir->next = new_redir;
+		tmp = cmd->redir;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new_redir;
 	}
 }
 

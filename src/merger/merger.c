@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 13:47:29 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/22 11:03:28 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 12:23:56 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	new_head_not_empty(t_redir **new, t_redir **new_head)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = (*new);
-	
 }
 
 t_redir	*convert_redirs(t_redir *src)
@@ -96,12 +95,14 @@ t_node	*cmd_to_node(t_cmd *cmd)
 	node->argv = malloc(sizeof(char *) * (i + 1));
 	if (!node->argv)
 		return (NULL);
+	ft_bzero(node->argv, sizeof(char *) * (i + 1));
 	i = 0;
 	while (cmd->args && cmd->args[i])
 	{
 		node->argv[i] = ft_1strdup(cmd->args[i]);
 		i++;
 	}
+	node->argv[i] = NULL;
 	node->redirs = convert_redirs(cmd->redir);
 	node->pid = 0;
 	node->status = 0;

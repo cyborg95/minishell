@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   external_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:01:19 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/21 17:42:07 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/22 12:12:05 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_free_tab(char **tab)
 {
 	size_t	i;
 
+	if (!tab)
+		return ;
 	i = 0;
 	while (tab[i])
 	{
@@ -49,6 +51,8 @@ char	*path_finder(char *cmd, t_env *env)
 	if (!vars.path_env)
 		return (NULL);
 	vars.paths = ft_split(vars.path_env, ':');
+	if (!vars.paths)
+		return (NULL);
 	vars.i = 0;
 	while (vars.paths && vars.paths[vars.i])
 	{

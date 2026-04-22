@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:36:28 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/21 19:03:55 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/22 12:19:39 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ int	execute_command(t_node *node, t_shell *shell, t_malloc **malloc_lst)
 
 	if (!node)
 		return (shell->last_status);
-
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
-	// ✅ minimal fix
 	if (node->redirs)
 	{
 		if (apply_redirections(node->redirs, shell) == -1)
@@ -34,7 +32,6 @@ int	execute_command(t_node *node, t_shell *shell, t_malloc **malloc_lst)
 			return (1);
 		}
 	}
-
 	if (!node->argv || !node->argv[0])
 	{
 		dup2(saved_stdin, STDIN_FILENO);

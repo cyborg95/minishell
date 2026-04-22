@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/22 11:39:20 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 12:21:06 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	are_quotes_closed(char *line)
 
 	squote = false;
 	dquote = false;
-	if (!line && !(*line))
+	if (!line || !(*line))
 		return (false);
 	while (*line)
 	{
@@ -157,5 +157,3 @@ char	*extract_word(char **line, char *word)
 			continue ;
 		}
 */	
-
-
