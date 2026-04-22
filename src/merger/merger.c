@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merger.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 13:47:29 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/22 12:23:56 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 20:04:39 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,16 @@ t_redir	*convert_redirs(t_redir *src)
 
 /*	==============================================	*/
 
+static int	count_args(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd->args && cmd->args[i])
+		i++;
+	return (i);
+}
+
 t_node	*cmd_to_node(t_cmd *cmd)
 {
 	t_node	*node;
@@ -89,9 +99,7 @@ t_node	*cmd_to_node(t_cmd *cmd)
 		return (NULL);
 	ft_bzero (node, sizeof(t_node));
 	node->type = NODE_CMD;
-	i = 0;
-	while (cmd->args && cmd->args[i])
-		i++;
+	i = count_args(cmd);
 	node->argv = malloc(sizeof(char *) * (i + 1));
 	if (!node->argv)
 		return (NULL);

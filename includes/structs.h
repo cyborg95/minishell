@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:28:44 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/22 12:48:49 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 20:13:50 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define EXIT "exit"
 # define PROMPT "minishell> "
 # include "minishell.h"
+#include <stdbool.h>
 
 /*	================	EXECUTION STRUCT	================	*/
 

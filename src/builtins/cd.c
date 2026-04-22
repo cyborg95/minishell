@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:57:50 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/14 19:43:46 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/22 19:07:13 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	builtin_cd(char **argv, t_shell *shell)
 		return (perror("cd"), 1);
 	add_or_update_env(shell, "OLDPWD", oldpwd);
 	add_or_update_env(shell, "PWD", newpwd);
-	//ft_free_tab(shell->envp_array);
-	//shell->envp_array = env_list_to_array(shell->env);
 	shell->last_status = 0;
 	return (0);
 }

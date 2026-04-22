@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:00:14 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/22 12:18:23 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/22 20:13:36 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,48 @@ char	*ft_strjoin_free(char *s1, const char *s2)
 	return (new_str);
 }
 
-char	**env_list_to_array(t_env *env)
+static int	env_size(t_env *env)
 {
-	t_env	*tmp;
-	char	*tmp1;
-	char	*tmp2;
-	char	**arr;
-	int		count;
-	int		i;
+	int	count;
 
 	count = 0;
-	i = 0;
-	tmp = env;
-	while (tmp)
+	while (env)
 	{
 		count++;
-		tmp = tmp->next;
+		env = env->next;
 	}
+	return (count);
+}
+static char	*env_to_str(t_env *env)
+{
+	char	*tmp1;
+	char	*tmp2;
+
+	tmp1 = strjoin(env->key, "=");
+	if (!tmp1)
+		return (NULL);
+	tmp2 = strjoin(tmp1, env->value);
+	free(tmp1);
+	return (tmp2);
+}
+
+char	**env_list_to_array(t_env *env)
+{
+	char	**arr;
+	int		i;
+	int		count;
+
+	count = env_size(env);
 	arr = malloc(sizeof(char *) * (count + 1));
 	if (!arr)
 		return (NULL);
-	tmp = env;
-	while (tmp)
+	i = 0;
+	while (env)
 	{
-		tmp1 = strjoin(tmp->key, "=");
-		if (!tmp1)
+		arr[i] = env_to_str(env);
+		if (!arr[i])
 			return (NULL);
-		tmp2 = strjoin(tmp1, tmp->value);
-		free(tmp1);
-		if (!tmp2)
-			return (NULL);
-		arr[i] = tmp2;
-		tmp = tmp->next;
+		env = env->next;
 		i++;
 	}
 	arr[i] = NULL;
