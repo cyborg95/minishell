@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:28:44 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/23 18:04:15 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:31:27 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,4 @@ typedef struct s_exec_ctx
     char    **argv;
     t_shell *shell;
 } t_exec_ctx;
-
-typedef struct s_expand
-{
-    int     i;
-    char    *result;
-    char    *tmp;
-    char    *old;
-    int     in_sq;
-    int     in_dq;
-}   t_expand;
 #endif

@@ -6,24 +6,11 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:00:14 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/23 17:17:49 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/23 17:11:15 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	env_size(t_env *env)
-{
-	int	count;
-
-	count = 0;
-	while (env)
-	{
-		count++;
-		env = env->next;
-	}
-	return (count);
-}
 
 static char	*env_to_str(t_env *env)
 {

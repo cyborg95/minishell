@@ -6,7 +6,7 @@
 #    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/04/22 12:42:52 by wngambi          ###   ########.fr        #
+#    Updated: 2026/04/23 18:41:07 by otidahoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC_DIR =	src
 
 
 SRC =	$(SRC_DIR)/builtins/builtin_utils.c \
+	$(SRC_DIR)/builtins/builtin_ustils2.c \
 		$(SRC_DIR)/builtins/cd.c \
 		$(SRC_DIR)/builtins/echo.c \
 		$(SRC_DIR)/builtins/env.c \
@@ -72,13 +73,16 @@ SRC =	$(SRC_DIR)/builtins/builtin_utils.c \
 		$(SRC_DIR)/env/env_list.c \
 		$(SRC_DIR)/env/env_utils.c \
 		$(SRC_DIR)/env/expand_helper.c \
+		$(SRC_DIR)/env/expand_helper2.c \
 		$(SRC_DIR)/executor/execute_command.c \
 		$(SRC_DIR)/executor/execute_node.c \
 		$(SRC_DIR)/executor/execute_pipe.c \
 		$(SRC_DIR)/executor/executor.c \
 		$(SRC_DIR)/executor/external_exec.c \
+		$(SRC_DIR)/executor/external_exec2.c \
 		$(SRC_DIR)/executor/redirections.c \
 		$(SRC_DIR)/merger/merger.c \
+		$(SRC_DIR)/merger/merger2.c \
 		$(SRC_DIR)/signals/signals.c \
 		$(SRC_DIR)/src_parser/command.c \
 		$(SRC_DIR)/src_parser/error.c \

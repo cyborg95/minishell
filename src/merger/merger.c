@@ -6,28 +6,11 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 13:47:29 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/22 20:04:39 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/23 17:26:14 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*	==============================================	*/
-
-t_redir_type	convert_redir_type(int type)
-{
-	if (type == REDIR_IN)
-		return (R_IN);
-	if (type == REDIR_OUT)
-		return (R_OUT);
-	if (type == APPEND)
-		return (R_APPEND);
-	if (type == HEREDOC)
-		return (R_HEREDOC);
-	return (R_IN);
-}
-
-/*	==============================================	*/
 
 static void	heredoc_case(t_redir **new, t_redir *src)
 {
@@ -114,29 +97,5 @@ t_node	*cmd_to_node(t_cmd *cmd)
 	node->redirs = convert_redirs(cmd->redir);
 	node->pid = 0;
 	node->status = 0;
-	return (node);
-}
-
-/*	==============================================	*/
-
-t_node	*cmd_list_to_ast(t_cmd *cmd)
-{
-	t_node	*node;
-
-	if (!cmd)
-		return (NULL);
-	if (!cmd->next)
-		return (cmd_to_node(cmd));
-	node = malloc (sizeof(t_node));
-	if (!node)
-		return (NULL);
-	node->type = NODE_PIPE;
-	node->pid = 0;
-	node->status = 0;
-	node->path = NULL;
-	node->left = cmd_to_node(cmd);
-	node->right = cmd_list_to_ast(cmd->next);
-	node->argv = NULL;
-	node->redirs = NULL;
 	return (node);
 }

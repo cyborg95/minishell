@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:03:20 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/13 08:00:50 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/23 16:58:31 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,37 @@ int	is_valid_flag(char *arg)
 	return (1);
 }
 
-int	builtin_echo(char **argv)
+static int	parse_flags(char **argv, int *interpret, int *nl)
 {
 	int	i;
 	int	j;
-	int	nl;
-	int	interpret;
 
 	i = 1;
-	nl = 1;
-	interpret = 0;
+	*nl = 1;
+	*interpret = 0;
 	while (argv[i] && is_valid_flag(argv[i]))
 	{
 		j = 1;
 		while (argv[i][j])
 		{
 			if (argv[i][j] == 'n')
-				nl = 0;
+				*nl = 0;
 			else if (argv[i][j] == 'e')
-				interpret = 1;
+				*interpret = 1;
 			j++;
 		}
 		i++;
 	}
+	return (i);
+}
+
+int	builtin_echo(char **argv)
+{
+	int	i;
+	int	nl;
+	int	interpret;
+
+	i = parse_flags(argv, &interpret, &nl);
 	while (argv[i])
 	{
 		if (interpret)
