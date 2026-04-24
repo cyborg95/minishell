@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/24 10:46:04 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:26:22 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
 
 int				exec_with_redir(t_node *node, t_shell *shell,
 					int (*builtin)(void *), void *arg);

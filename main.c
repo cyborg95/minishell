@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/24 13:46:29 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/24 17:47:07 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	run_interactive(t_shell *shell, t_malloc **malloc_lst)
 			printf("exit\n");
 			break ;
 		}
+		if (is_only_space(line))
+			continue ;
 		add_history(line);
 		cmd_list = parse_input(line, malloc_lst);
 		if (!cmd_list)
@@ -45,7 +47,6 @@ void	run_interactive(t_shell *shell, t_malloc **malloc_lst)
 		execute_pipeline(root, shell, malloc_lst);
 		if (shell->should_exit)
 			break ;
-		clean_lst_malloc(malloc_lst);
 	}
 }
 
@@ -77,6 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!shell.is_interactive)
 		return (run_cmd_mode(&shell, &malloc_lst));
 	run_interactive(&shell, &malloc_lst);
+	clean_lst_malloc(&malloc_lst);
 	clean_history_malloc_shell(&shell, &malloc_lst);
 	return (shell.last_status);
 }

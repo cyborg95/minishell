@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 07:10:12 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/22 11:59:13 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/24 19:38:13 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ bool	read_prompt(char **line, t_malloc **lst_malloc)
 	if (!line || !lst_malloc)
 		return (false);
 	*line = remix_readline ("minishell> ", lst_malloc);
-	if (!(*line) || !line)
-		return (false);
+	if (*line == NULL)
+        return (false);
 	if (is_only_space (*line))
-		return (false);
-	while (!are_quotes_closed(*line) || ends_with_backslash (*line)
-		|| (end_with_pipe(*line) && !is_operator_before (*line)))
+		return (true);
+	while (!are_quotes_closed(*line) || ends_with_backslash (*line))
 		handle_multiligne_case (line, lst_malloc);
 	return (true);
 }

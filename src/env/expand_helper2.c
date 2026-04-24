@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_helper2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:04:31 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/23 18:20:10 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/24 19:27:10 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,73 @@ char	*expand_var(char *arg, t_shell *shell)
 	}
 	return (e.result);
 }
+
+/*char	*expand_var(char *arg, t_shell *shell)
+{
+	int		i;
+	char	*result;
+	char	*tmp;
+	char	*old;
+	char	*value;
+	char	*var;
+	int		in_single_quote;
+	int		in_double_quote;
+
+	in_single_quote = 0;
+	in_double_quote = 0;
+	i = 0;
+	result = strdup("");
+	while (arg[i])
+	{
+		if (arg[i] == '\'' && !in_double_quote)
+		{
+			in_single_quote = !in_single_quote;
+			i++;
+			continue ;
+		}
+		else if (arg[i] == '"' && !in_single_quote)
+		{
+			in_double_quote = !in_double_quote;
+			i++;
+			continue ;
+		}
+		else if (arg[i] == '$' && !in_single_quote)
+		{
+			i++;
+			if (arg[i + 1] == '"' || arg[i + 1] == '\'')
+			{
+				tmp = strdup("");
+				i++;
+			}
+			else if (arg[i] == '?')
+			{
+				tmp = ft_itoa_remix(shell->last_status);
+				i++;
+			}
+			else if (ft_isalpha(arg[i]) || arg[i] == '_')
+			{
+				var = extract_var(arg, &i);
+				value = get_env_value(shell->env, var);
+				if (value)
+					tmp = strdup(value);
+				else
+					tmp = strdup("");
+				free(var);
+			}
+			else
+			{
+				tmp = strdup("$");
+			}
+		}
+		else
+		{
+			tmp = ft_substr_remix(arg, i, 1);
+			i++;
+		}
+		old = result;
+		result = ft_1strjoin(result, tmp);
+		free (old);
+		free (tmp);
+	}
+	return (result);
+}*/

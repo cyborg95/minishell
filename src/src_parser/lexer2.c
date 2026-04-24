@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:09:34 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/20 10:12:00 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/24 17:37:09 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	lexer(t_token **lst_token, t_malloc **lst_malloc, char **line)
 	{
 		while (is_space (**line))
 			(*line)++;
-		if (!*line)
+		if (**line == '\0')
 			break ;
 		if (is_operator (**line))
 		{
