@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/22 12:50:21 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/24 11:20:12 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ int	main(int argc, char **argv, char **envp)
 	t_node		*root;
 	t_malloc	*malloc_lst;
 
-	bypass_ac_av (&argc, argv, &shell);
-	gestionnaire_signaux ();
-	init_shell_maloc_lst (&malloc_lst, &shell, envp);
+	bypass_ac_av(&argc, argv, &shell);
+	gestionnaire_signaux();
+	init_shell_maloc_lst(&malloc_lst, &shell, envp);
 	while (1)
 	{
-		clean_lst_malloc (&malloc_lst);
+		clean_lst_malloc(&malloc_lst);
 		if (!read_prompt(&line, &malloc_lst))
-			continue ;
+		{
+			printf("exit\n");
+			break ;
+		}
 		add_history(line);
 		cmd_list = parse_input(line, &malloc_lst);
 		if (!cmd_list)
@@ -39,11 +42,11 @@ int	main(int argc, char **argv, char **envp)
 		process_heredocs(root, &shell, &malloc_lst);
 		execute_node(root, &shell, &malloc_lst);
 		close_heredocs(root);
-		clean_node (root);
+		clean_node(root);
 		if (shell.should_exit)
 			break ;
-		clean_lst_malloc (&malloc_lst);
+		clean_lst_malloc(&malloc_lst);
 	}
-	clean_history_malloc_shell (&shell, &malloc_lst);
+	clean_history_malloc_shell(&shell, &malloc_lst);
 	return (shell.last_status);
 }

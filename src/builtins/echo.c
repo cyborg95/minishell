@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:03:20 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/23 16:58:31 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/24 12:36:37 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,23 @@ void	print_with_escapes(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '\\')
+		if (s[i] == '\\' && s[i + 1])
 		{
 			i++;
 			if (s[i] == 'n')
 				write(1, "\n", 1);
-			else if (s[i] == 't')
-				write(1, "\t", 1);
 			else if (s[i] == '\\')
 				write(1, "\\", 1);
 			else
+			{
+				write(1, "\\", 1);
 				write(1, &s[i], 1);
+			}
 		}
 		else
+		{
 			write(1, &s[i], 1);
+		}
 		i++;
 	}
 }

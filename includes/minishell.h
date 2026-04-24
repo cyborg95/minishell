@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/23 18:49:29 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/24 10:46:04 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "builtins.h"
 # include "executor.h"
 # include "structs.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -26,9 +27,9 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <errno.h>
 
-int 				exec_with_redir(t_node *node, t_shell *shell, int (*builtin)(void *), void *arg);
+int				exec_with_redir(t_node *node, t_shell *shell,
+					int (*builtin)(void *), void *arg);
 int				cd_wrapper(void *data);
 int				echo_wrapper(void *data);
 int				pwd_wrapper(void *data);
@@ -62,9 +63,9 @@ t_node			*cmd_list_to_ast(t_cmd *cmd);
 /* PARSING_MINISHELL */
 
 void			init_command_lst(t_token *token_lst, t_malloc **malloc_lst,
-		t_cmd **cmd_lst);
+					t_cmd **cmd_lst);
 void			init_token_lst(t_token **token_lst, t_malloc **malloc_lst,
-		char **line);
+					char **line);
 bool			read_prompt(char **line, t_malloc **malloc_lst);
 t_cmd			*parse_input(char *line, t_malloc **lst_malloc);
 
@@ -72,15 +73,15 @@ t_cmd			*parse_input(char *line, t_malloc **lst_malloc);
 
 t_cmd			*create_cmd(t_malloc **lst_malloc, t_token *lst_token);
 void			fill_cmd(t_token **lst_token, t_cmd *cmd,
-		t_malloc **lst_malloc);
+					t_malloc **lst_malloc);
 void			add_back_cmd(t_cmd **lst_cmd, t_cmd *cmd,
-		t_malloc **lst_malloc);
+					t_malloc **lst_malloc);
 void			display_cmd(t_cmd *cmd_lst);
 
 /* ERROR */
 bool			is_empty_list(t_token *lst_token);
 bool			check_token_lst(t_token **lst_token, const char *prompt,
-		char **line, t_malloc **lst_malloc);
+					char **line, t_malloc **lst_malloc);
 /* LEXER */
 
 void			handle_multiligne_case(char **line, t_malloc **lst_malloc);
@@ -93,9 +94,9 @@ void			token_redir_in(t_token **token_lst, t_malloc **lst_malloc);
 bool			are_quotes_closed(char *line);
 void			token_redir_out(t_token **token_lst, t_malloc **lst_malloc);
 void			handle_redir_case(char **line, t_token **lst_token,
-				t_malloc **lst_malloc);
+					t_malloc **lst_malloc);
 void			token_operator(char **line, t_token **lst_token,
-				t_malloc **lst_malloc);
+					t_malloc **lst_malloc);
 void			token_append(t_token **token_lst, t_malloc **lst_malloc);
 void			init_value(bool *in_squote, bool *in_dquote, int *i);
 
@@ -115,20 +116,20 @@ bool			operator_after_pipe(t_token *lst_token);
 bool			should_multiligne_pipe(t_token *lst_token);
 bool			consecutive_pipe(t_token *lst_token);
 bool			check_pipe(t_token *lst_token, const char *prompt, char **line,
-				t_malloc **lst_malloc);
+					t_malloc **lst_malloc);
 
 /* REDIR ERROR */
 
 bool			consecutive_redir(t_token *lst_token, char **bad_word,
-				t_malloc **lst_malloc);
+					t_malloc **lst_malloc);
 bool			last_token_is_redir(t_token *lst_token);
 bool			check_redir(t_token *lst_token, const char *prompt,
-				t_malloc **lst_malloc);
+					t_malloc **lst_malloc);
 
 /* REDIR */
 
 void			handle_redir(t_malloc **lst_malloc, t_token **lst_token,
-				t_cmd *cmd);
+					t_cmd *cmd);
 t_redir			*create_redir(t_malloc **lst_malloc, int token_type);
 void			add_back_redir(t_cmd *cmd, t_redir *new_redir);
 void			display_redir(t_cmd *cmd);
@@ -136,7 +137,7 @@ void			display_redir(t_cmd *cmd);
 /* TOKEN */
 
 t_token			*create_token(char *word, int type, t_malloc **lst_malloc,
-				t_token **token_lst);
+					t_token **token_lst);
 void			display_token(t_token *token_lst);
 
 /* TOOLS */
@@ -185,7 +186,7 @@ t_node			*cmd_list_to_ast(t_cmd *cmd);
 /*		HERE_DOC_PROCESS	*/
 
 void			process_heredocs(t_node *node, t_shell *shell,
-				t_malloc **lst_malloc);
+					t_malloc **lst_malloc);
 int				handle_heredoc(t_redir *redir, t_shell *shell,
 					t_malloc **lst_malloc);
 void			close_heredocs(t_node *node);
@@ -194,11 +195,11 @@ void			close_heredocs(t_node *node);
 
 void			bypass_ac_av(int *argc, char **argv, t_shell *shell);
 void			init_shell_maloc_lst(t_malloc **malloc_lst, t_shell *shell,
-				char **envp);
+					char **envp);
 void			gestionnaire_signaux(void);
 void			clean_shell(t_shell *shell);
 void			clean_history_malloc_shell(t_shell *shell,
-				t_malloc **lst_malloc);
+					t_malloc **lst_malloc);
 void			clean_line(char *line);
 void			free_cmd_list(t_cmd *cmd);
 void			clean_node(t_node *node);

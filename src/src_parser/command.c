@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 06:31:08 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/17 06:17:43 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/24 12:10:38 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,61 +98,3 @@ void	add_back_cmd(t_cmd **lst_cmd, t_cmd *cmd, t_malloc **lst_malloc)
 		tmp->next = cmd;
 	}
 }
-
-void	display_cmd(t_cmd *cmd_lst)
-{
-	t_redir	*r;
-	int		cmd_index;
-	int		i;
-
-	cmd_index = 1;
-	if (!cmd_lst)
-	{
-		printf("No command to display\n");
-		return ;
-	}
-	while (cmd_lst)
-	{
-		printf("\n");
-		printf("╔══════════════════════════════════════╗\n");
-		printf("║          COMMAND [%d]                ║\n", cmd_index++);
-		printf("╚══════════════════════════════════════╝\n");
-		printf("  ➤ ARGS:\n");
-		if (!cmd_lst->args || !cmd_lst->args[0])
-			printf("     (none)\n");
-		else
-		{
-			i = 0;
-			while (cmd_lst->args[i])
-			{
-				printf("     [%d] -> \"%s\"\n", i, cmd_lst->args[i]);
-				i++;
-			}
-		}
-		printf("  ➤ REDIRECTIONS:\n");
-		if (!cmd_lst->redir)
-			printf("     (none)\n");
-		else
-		{
-			r = cmd_lst->redir;
-			while (r)
-			{
-				if ((int)r->type == (int)REDIR_IN)
-					printf("     <    \"%s\"\n", r->file);
-				else if ((int)r->type == (int)REDIR_OUT)
-					printf("     >    \"%s\"\n", r->file);
-				else if ((int)r->type == (int)APPEND)
-					printf("     >>   \"%s\"\n", r->file);
-				else if ((int)r->type == (int)HEREDOC)
-					printf("     <<   \"%s\"\n", r->file);
-				else
-					printf("     ?    \"%s\" (unknown type)\n", r->file);
-				r = r->next;
-			}
-		}
-		cmd_lst = cmd_lst->next;
-	}
-	printf("\n");
-}
-
-/*	=========================================================	*/
