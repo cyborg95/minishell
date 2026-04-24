@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:28:44 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/24 10:46:32 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/24 13:15:29 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct s_shell
 	char				**envp_array;
 	int					stdin_backup;
 	int					stdout_backup;
+	char				*cmd_from_args;
+	int					is_interactive;
 }						t_shell;
 
 typedef struct s_vars

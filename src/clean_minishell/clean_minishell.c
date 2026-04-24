@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 10:06:47 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/22 10:46:06 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/24 13:15:42 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@
 
 void	bypass_ac_av(int *argc, char **argv, t_shell *shell)
 {
-	(void)argc;
-	(void)argv;
 	shell->should_exit = 0;
 	shell->last_status = 0;
+	shell->cmd_from_args = NULL;
+	shell->is_interactive = 1;
+	if (*argc >= 3 && argv[1] && strcmp(argv[1], "-c") == 0)
+	{
+		shell->is_interactive = 0;
+		shell->cmd_from_args = argv[2];
+	}
 }
 
 /*	====================================================	*/
