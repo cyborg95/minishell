@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/25 13:42:31 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/25 15:31:52 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ int	main(int argc, char **argv, char **envp)
 	gestionnaire_signaux();
 	bypass_ac_av(&argc, argv, &shell);
 	run_interactive(&shell, &malloc_lst);
+	if (g_signal == SIGINT)
+	{
+		shell.last_status = 130;
+		g_signal = 0;
+	}
 	clean_lst_malloc(&malloc_lst);
 	clean_history_malloc_shell(&shell, &malloc_lst);
 	return (shell.last_status);

@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:04:31 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/24 19:27:10 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/25 16:32:37 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static char	*handle_dollar(char *arg, t_expand *e, t_shell *shell)
 		var = extract_var(arg, &e->i);
 		value = get_env_value(shell->env, var);
 		if (value)
-			e->tmp = strdup(value);
+			e->tmp = ft_1strdup(value);
 		else
-			e->tmp = strdup("");
+			e->tmp = ft_1strdup("");
 		free(var);
 	}
 	else
-		e->tmp = strdup("$");
+		e->tmp = ft_1strdup("$");
 	return (e->tmp);
 }
 
