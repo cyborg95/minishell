@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 18:05:21 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/25 11:09:46 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/25 11:30:48 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,38 +138,3 @@ bool	ft_strcmp(char *s1, char *s2)
 		return (true);
 	return (false);
 }
-/*
-int	main(int ac, char **av)
-{
-	(void)ac;
-	if (ft_strcmp (av[1], av[2]))
-		printf ("Les deux strings sont identiques !\n");
-	else
-		printf ("Pas identiques !\n");
-	return (0);
-}
-*/
-
-/*	=====================================================	*/
-
-/*	Carre on revient pas dessus	*/
-char	*remix_readline(const char	*prompt, t_malloc **lst_malloc)
-{
-	char		*line;
-	t_malloc	*malloc_node;
-
-	if (!prompt)
-		return (NULL);
-	line = readline (prompt);
-	if (!line)
-		return (NULL);
-	if (!lst_malloc)
-		return (line);
-	malloc_node = create_node_malloc (line);
-	if (!malloc_node)
-		return (line);
-	add_malloc_in_lst (lst_malloc, malloc_node);
-	return (line);
-}
-
-/*	=====================================================	*/

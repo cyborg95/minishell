@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/25 11:09:46 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/25 11:33:51 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
-
 
 int				exec_with_redir(t_node *node, t_shell *shell,
 					int (*builtin)(void *), void *arg);
@@ -67,7 +66,15 @@ void			init_command_lst(t_token *token_lst, t_malloc **malloc_lst,
 					t_cmd **cmd_lst);
 void			init_token_lst(t_token **token_lst, t_malloc **malloc_lst,
 					char **line);
+bool			is_dquote(char c);
+bool			word_in_dquote(char *word);
+bool			backslash_before_last_dquote(char *word);
+int				count_word_willy(char *word);
+char			*get_last_word(char *s, t_malloc **lst_malloc);
+bool			last_word_in_dquote_and_backslash_before_last_dquote(char *word,
+					t_malloc **lst_malloc);
 bool			read_prompt(char **line, t_malloc **malloc_lst);
+void			free_token_lst(t_token **token_lst, t_malloc **lst_malloc);
 t_cmd			*parse_input(char *line, t_malloc **lst_malloc);
 
 /* COMMAND */
@@ -100,6 +107,11 @@ void			token_operator(char **line, t_token **lst_token,
 					t_malloc **lst_malloc);
 void			token_append(t_token **token_lst, t_malloc **lst_malloc);
 void			init_value(bool *in_squote, bool *in_dquote, int *i);
+void			init_word_state(t_word_state *state, char **line, char *word);
+bool			single_quote_case(t_word_state *state);
+bool			double_quote_case(t_word_state *state);
+bool			no_quote_case(t_word_state *state);
+bool			backslash_case(t_word_state *state);
 
 /* MALLOC */
 
@@ -156,7 +168,6 @@ char			*ft_strdup(char *str, t_malloc **lst_malloc);
 char			*ft_strndup(char *str, int n, t_malloc **lst_malloc);
 char			*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc);
 bool			ft_strcmp(char *s1, char *s2);
-char			*remix_readline(const char *prompt, t_malloc **lst_malloc);
 bool			is_back_slash(char c);
 bool			ends_with_backslash(char *line);
 bool			is_pipe(char c);
@@ -177,6 +188,10 @@ bool			end_with_pipe(char *line);
 bool			is_operator_before(char *line);
 bool			is_only_space(char *str);
 char			*strjoin(char *s1, char *s2);
+
+/*		Tools	6	*/
+
+char			*remix_readline(const char *prompt, t_malloc **lst_malloc);
 
 /*		MERGER	*/
 

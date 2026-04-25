@@ -6,7 +6,7 @@
 #    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/04/23 18:41:07 by otidahoh         ###   ########.fr        #
+#    Updated: 2026/04/25 11:33:51 by wngambi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,11 +88,14 @@ SRC =	$(SRC_DIR)/builtins/builtin_utils.c \
 		$(SRC_DIR)/src_parser/error.c \
 		$(SRC_DIR)/src_parser/incomplete_input.c \
 		$(SRC_DIR)/src_parser/lexer.c \
+		$(SRC_DIR)/src_parser/lexerbis.c \
 		$(SRC_DIR)/src_parser/lexer2.c \
 		$(SRC_DIR)/src_parser/lexer3.c \
 		$(SRC_DIR)/src_parser/lexer4.c \
 		$(SRC_DIR)/src_parser/malloc.c \
 		$(SRC_DIR)/src_parser/parsing_minishell.c \
+		$(SRC_DIR)/src_parser/parsing_minishell2.c \
+		$(SRC_DIR)/src_parser/parsing_minishell3.c \
 		$(SRC_DIR)/src_parser/pipe_error.c \
 		$(SRC_DIR)/src_parser/pipe_error2.c \
 		$(SRC_DIR)/src_parser/redir_error.c \
@@ -103,6 +106,7 @@ SRC =	$(SRC_DIR)/builtins/builtin_utils.c \
 		$(SRC_DIR)/src_parser/tools3.c \
 		$(SRC_DIR)/src_parser/tools4.c \
 		$(SRC_DIR)/src_parser/tools5.c \
+		$(SRC_DIR)/src_parser/tools6.c \
 		$(SRC_DIR)/here_doc_process/here_doc_process.c \
 		$(SRC_DIR)/clean_minishell/clean_minishell.c \
 		$(SRC_DIR)/clean_minishell/clean_minishell2.c \
