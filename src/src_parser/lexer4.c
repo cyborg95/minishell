@@ -3,34 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   lexer4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:42:30 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/24 19:02:11 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/25 10:25:58 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static bool	is_escaped_double_quote(char *line, int i)
+{
+	int	backslash_count;
+
+	backslash_count = 0;
+	i--;
+	while (i >= 0 && line[i] == '\\')
+	{
+		backslash_count++;
+		i--;
+	}
+	return ((backslash_count % 2) == 1);
+}
+
 bool	are_quotes_closed(char *line)
 {
 	bool	squote;
 	bool	dquote;
+	int		i;
 
 	squote = false;
 	dquote = false;
 	if (!line || !(*line))
 		return (false);
-	while (*line)
+	i = 0;
+	while (line[i])
 	{
-		if (is_quote(*line))
+		if (is_quote(line[i]))
 		{
-			if (is_single_quote(*line) && dquote == false)
+			if (is_single_quote(line[i]) && dquote == false)
 				squote = !squote;
-			else if (is_double_quote(*line) && squote == false)
+			else if (is_double_quote(line[i]) && squote == false
+				&& !is_escaped_double_quote(line, i))
 				dquote = !dquote;
 		}
-		line++;
+		i++;
 	}
 	if (squote == false && dquote == false)
 		return (true);

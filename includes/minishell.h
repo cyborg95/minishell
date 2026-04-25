@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/24 18:26:22 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/25 11:09:46 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ bool			is_operator(char c);
 
 int				ft_strlen(char *str);
 char			*ft_strdup(char *str, t_malloc **lst_malloc);
+char			*ft_strndup(char *str, int n, t_malloc **lst_malloc);
 char			*ft_strjoin(char *line, char *new_line, t_malloc **lst_malloc);
 bool			ft_strcmp(char *s1, char *s2);
 char			*remix_readline(const char *prompt, t_malloc **lst_malloc);

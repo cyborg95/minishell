@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:01:58 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/22 12:49:12 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/25 11:06:22 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ static bool	no_quote_case(t_word_state *state)
 	return (false);
 }
 
+static bool	backslash_case(t_word_state *state)
+{
+	if (**state->line != '\\' || state->in_dquote)
+		return (false);
+	if (*(*state->line + 1) == '\0')
+		return (false);
+	(*state->line)++;
+	state->word[(state->i)++] = **state->line;
+	(*state->line)++;
+	return (true);
+}
+
 char	*extract_word(char **line, char *word)
 {
 	t_word_state	state;
@@ -67,6 +79,8 @@ char	*extract_word(char **line, char *word)
 		if (single_quote_case(&state))
 			continue ;
 		if (double_quote_case(&state))
+			continue ;
+		if (backslash_case(&state))
 			continue ;
 		if (no_quote_case(&state))
 			break ;

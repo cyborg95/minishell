@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 18:05:21 by wngambi           #+#    #+#             */
-/*   Updated: 2026/04/22 12:12:05 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/25 11:09:46 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@ char	*ft_strdup(char *str, t_malloc **lst_malloc)
 		return (NULL);
 	i = 0;
 	while (str[i])
+	{
+		word[i] = str[i];
+		i++;
+	}
+	word[i] = '\0';
+	return (word);
+}
+
+char	*ft_strndup(char *str, int n, t_malloc **lst_malloc)
+{
+	char	*word;
+	int		i;
+
+	if (!str || n < 0)
+		return (NULL);
+	word = malloc_remix (sizeof(char) * (n + 1), lst_malloc);
+	if (!word)
+		return (NULL);
+	i = 0;
+	while (i < n && str[i])
 	{
 		word[i] = str[i];
 		i++;
