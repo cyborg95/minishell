@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:52:31 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/22 19:35:42 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/25 13:49:32 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@ static void	apply_fd(int fd, t_redir *r)
 
 static void	hd_heredoc(t_redir *r)
 {
-	dup2(r->fd, STDIN_FILENO);
-	close(r->fd);
+	if (r->fd >= 0)
+	{
+		dup2(r->fd, STDIN_FILENO);
+		close(r->fd);
+		r->fd = -1;
+	}
 }
 
 int	apply_redirections(t_redir *redirs, t_shell *shell)

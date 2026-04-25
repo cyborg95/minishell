@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:21:55 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/23 16:46:32 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/25 13:04:15 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	execute_builtin2(t_node *node, t_shell *shell)
 	if (ft_1strcmp(node->argv[0], "exit") == 0)
 	{
 		builtin_exit(node->argv, shell);
-		return (1);
+		return (shell->last_status);
 	}
 	return (0);
 }
@@ -109,5 +109,5 @@ int	execute_builtin(t_node *node, t_shell *shell)
 			(node, shell, env_wrapper, shell->env);
 	else
 		return (execute_builtin2(node, shell));
-	return (1);
+	return (shell->last_status);
 }
