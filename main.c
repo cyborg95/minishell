@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/26 10:42:15 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/26 11:11:04 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static void	process_command(char *line, t_shell *shell, t_malloc **malloc_lst)
 void	run_interactive(t_shell *shell, t_malloc **malloc_lst)
 {
 	char	*line;
-	t_cmd	*cmd_list;
-	t_node	*root;
 
 	while (1)
 	{
