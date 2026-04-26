@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/25 14:54:30 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/26 10:11:04 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int				cd_wrapper(void *data);
 int				echo_wrapper(void *data);
 int				pwd_wrapper(void *data);
 int				env_wrapper(void *data);
+int				export_wrapper(void *data);
+int				unset_wrapper(void *data);
+int				exit_wrapper(void *data);
 t_env			*init_env(char **envp);
 char			*path_finder(char *cmd, t_env *env);
 char			**env_list_to_array(t_env *env);
