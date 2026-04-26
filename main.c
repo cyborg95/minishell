@@ -6,7 +6,7 @@
 /*   By: otidahoh <otidahoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:54:47 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/25 15:31:52 by otidahoh         ###   ########.fr       */
+/*   Updated: 2026/04/26 10:42:15 by otidahoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,23 @@ void	execute_pipeline(t_node *root, t_shell *shell, t_malloc **malloc_lst)
 	execute_node(root, shell, malloc_lst);
 	close_heredocs(root);
 	clean_node(root);
+}
+
+static void	process_command(char *line, t_shell *shell, t_malloc **malloc_lst)
+{
+	t_cmd	*cmd_list;
+	t_node	*root;
+
+	if (is_only_space(line))
+		return ;
+	add_history(line);
+	cmd_list = parse_input(line, malloc_lst);
+	if (!cmd_list)
+		return ;
+	root = cmd_list_to_ast(cmd_list);
+	if (!root)
+		return ;
+	execute_pipeline(root, shell, malloc_lst);
 }
 
 void	run_interactive(t_shell *shell, t_malloc **malloc_lst)
@@ -35,16 +52,12 @@ void	run_interactive(t_shell *shell, t_malloc **malloc_lst)
 			printf("exit\n");
 			break ;
 		}
-		if (is_only_space(line))
-			continue ;
-		add_history(line);
-		cmd_list = parse_input(line, malloc_lst);
-		if (!cmd_list)
-			continue ;
-		root = cmd_list_to_ast(cmd_list);
-		if (!root)
-			continue ;
-		execute_pipeline(root, shell, malloc_lst);
+		if (g_signal == SIGINT)
+		{
+			shell->last_status = 130;
+			g_signal = 0;
+		}
+		process_command(line, shell, malloc_lst);
 		if (shell->should_exit)
 			break ;
 	}
