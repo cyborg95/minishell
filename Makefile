@@ -6,7 +6,7 @@
 #    By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 14:18:21 by wngambi           #+#    #+#              #
-#    Updated: 2026/04/25 11:33:51 by wngambi          ###   ########.fr        #
+#    Updated: 2026/04/26 10:35:54 by wngambi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC_DIR =	src
 
 
 SRC =	$(SRC_DIR)/builtins/builtin_utils.c \
+	$(SRC_DIR)/builtins/builtin_exec_utils.c \
 	$(SRC_DIR)/builtins/builtin_ustils2.c \
 		$(SRC_DIR)/builtins/cd.c \
 		$(SRC_DIR)/builtins/echo.c \
@@ -69,6 +70,7 @@ SRC =	$(SRC_DIR)/builtins/builtin_utils.c \
 		$(SRC_DIR)/builtins/pwd.c \
 		$(SRC_DIR)/builtins/unset.c \
 		$(SRC_DIR)/builtins/utils.c \
+		$(SRC_DIR)/builtins/builtin_utils3.c \
 		$(SRC_DIR)/env/env_init.c \
 		$(SRC_DIR)/env/env_list.c \
 		$(SRC_DIR)/env/env_utils.c \

@@ -6,7 +6,7 @@
 /*   By: wngambi <wngambi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:15 by otidahoh          #+#    #+#             */
-/*   Updated: 2026/04/26 10:11:04 by wngambi          ###   ########.fr       */
+/*   Updated: 2026/04/26 10:31:49 by wngambi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <unistd.h>
 
 int				exec_with_redir(t_node *node, t_shell *shell,
+					int (*builtin)(void *), void *arg);
+int				run_builtin_cmd(t_node *node, t_shell *shell,
 					int (*builtin)(void *), void *arg);
 int				cd_wrapper(void *data);
 int				echo_wrapper(void *data);
